@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 7
+Release: 8
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -23,7 +23,7 @@ Patch6: vsftpd-1.2.1-conffile.patch
 Patch7: vsftpd-2.0.1-build_ssl.patch
 Patch8: vsftpd-2.0.1-server_args.patch
 Patch9: vsftpd-2.0.1-dir.patch
-Patch10: vsftpd-2.0.1-pam.patch
+Patch10: vsftpd-2.0.1-use_localtime.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -59,6 +59,7 @@ cp %{SOURCE1} .
 %patch7 -p1 -b .build_ssl
 %patch8 -p1 -b .server_args
 %patch9 -p1 -b .dir
+%patch10 -p1 -b .use_localtime
 
 %build
 %ifarch s390x
@@ -117,6 +118,9 @@ fi
 /var/ftp
 
 %changelog
+* Mon Jan 10 2005 Radek Vokal <rvokal@redhat.com> 2.0.1-8
+- use localtime also in logs (#143687)
+
 * Tue Dec 14 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-7
 - fixing directory in vsftpd.pam file (#142805)
 

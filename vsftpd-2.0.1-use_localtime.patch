@@ -1,0 +1,55 @@
+--- vsftpd-2.0.1/sysutil.c.use_localtime	2005-01-10 10:05:06.000000000 +0100
++++ vsftpd-2.0.1/sysutil.c	2005-01-10 10:11:18.172815304 +0100
+@@ -2372,7 +2372,7 @@
+ }
+ 
+ const char*
+-vsf_sysutil_get_current_date(void)
++vsf_sysutil_get_current_date(int use_localtime)
+ {
+   static char datebuf[64];
+   time_t curr_time;
+@@ -2380,7 +2380,11 @@
+   int i = 0;
+   vsf_sysutil_update_cached_time();
+   curr_time = vsf_sysutil_get_cached_time_sec();
+-  p_tm = localtime(&curr_time);
++  if (!use_localtime) {  
++    p_tm = gmtime(&curr_time);
++  } else {
++    p_tm = localtime(&curr_time);
++  }
+   if (strftime(datebuf, sizeof(datebuf), "%a %b!%d %H:%M:%S %Y", p_tm) == 0)
+   {
+     die("strftime");
+--- vsftpd-2.0.1/logging.c.use_localtime	2004-07-02 13:23:26.000000000 +0200
++++ vsftpd-2.0.1/logging.c	2005-01-10 10:11:05.716708920 +0100
+@@ -171,7 +171,7 @@
+   long delta_sec;
+   enum EVSFLogEntryType what = (enum EVSFLogEntryType) p_sess->log_type;
+   /* Date - vsf_sysutil_get_current_date updates cached time */
+-  str_alloc_text(p_str, vsf_sysutil_get_current_date());
++  str_alloc_text(p_str, vsf_sysutil_get_current_date(tunable_use_localtime));
+   str_append_char(p_str, ' ');
+   /* Transfer time (in seconds) */
+   delta_sec = vsf_sysutil_get_cached_time_sec() - p_sess->log_start_sec;
+@@ -241,7 +241,7 @@
+                              const struct mystr* p_log_str)
+ {
+   /* Date - vsf_sysutil_get_current_date updates cached time */
+-  str_alloc_text(p_str, vsf_sysutil_get_current_date());
++  str_alloc_text(p_str, vsf_sysutil_get_current_date(tunable_use_localtime));
+   /* Pid */
+   str_append_text(p_str, " [pid ");
+   str_append_ulong(p_str, vsf_sysutil_getpid());
+--- vsftpd-2.0.1/sysutil.h.use_localtime	2004-06-04 12:11:52.000000000 +0200
++++ vsftpd-2.0.1/sysutil.h	2005-01-10 10:11:23.252043144 +0100
+@@ -288,7 +288,7 @@
+ void vsf_sysutil_set_umask(unsigned int umask);
+ void vsf_sysutil_make_session_leader(void);
+ void vsf_sysutil_tzset(void);
+-const char* vsf_sysutil_get_current_date(void);
++const char* vsf_sysutil_get_current_date(int use_localtime);
+ void vsf_sysutil_qsort(void* p_base, unsigned int num_elem,
+                        unsigned int elem_size,
+                        int (*p_compar)(const void *, const void *));
