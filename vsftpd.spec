@@ -1,16 +1,19 @@
+%define optflags -g
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 1.0.1
-Release: 4
+Release: 5
 License: GPL
 Group: System Environment/Daemons
 URL: ftp://ferret.lmh.ox.ac.uk/pub/linux/
 Source: %{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
-Source3: vsftpd.user_list
+Source3: vsftpd.ftpusers
+Source4: vsftpd.user_list
 Patch1: vsftpd-1.0.1-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
+Patch3: vsftpd-1.0.1-anon.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 Requires: xinetd, logrotate
 Provides: ftpserver
@@ -23,6 +26,7 @@ scratch.
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .rh
 %patch2 -p1 -b .mok
+%patch3 -p1 -b .anon
 
 %build
 make
@@ -43,7 +47,8 @@ install -m 644 vsftpd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
 install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT/etc/logrotate.d/vsftpd.log
 install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/etc/xinetd.d/vsftpd
 install -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/vsftpd
-install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd.user_list
+install -m 600 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd.ftpusers
+install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd.user_list
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -60,6 +65,10 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd.user_list
 %{_mandir}/man8/vsftpd.*
 
 %changelog
+* Wed Apr 10 2002 Bill Nottingham <notting@redhat.com> 1.0.1-5
+- don't spit out ugly errors if anonftp isn't installed (#62987)
+- fix horribly broken userlist setup (#62321)
+
 * Thu Feb 28 2002 Trond Eivind Glomsrød <teg@redhat.com> 1.0.1-4
 - s/Copyright/License/
 - add "missingok" to the logrotate script, so we don't get errors
