@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 2
+Release: 3
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -19,10 +19,17 @@ Patch3: vsftpd-2.0.1-tcp_wrappers.patch
 Patch4: vsftpd-1.5.1-libs.patch
 Patch5: vsftpd-2.0.1-signal.patch
 Patch6: vsftpd-1.2.1-conffile.patch
+Patch7: vsftpd-2.0.1-build_ssl.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
 %endif
+BuildRequires: pam-devel
+Requires: pam
+BuildRequires: libcap-devel
+Requires: libcap
+BuildRequires: openssl-devel
+Requires: openssl
 # for -fpie
 BuildPrereq: gcc > gcc-3.2.3-13, binutils > binutils-2.14.90.0.4-24, glibc-devel >= 2.3.2-45
 Requires: logrotate
@@ -45,6 +52,7 @@ scratch.
 cp %{SOURCE1} .
 %patch5 -p1 -b .signal
 %patch6 -p1
+%patch7 -p1 -b .build_ssl
 
 %build
 %ifarch s390x
@@ -52,7 +60,7 @@ make CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe" \
 %else
 make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe" \
 %endif
-	LINK="-pie" \
+	LINK="-pie -lssl" \
 	%{?_smp_mflags}
 
 %install
@@ -102,10 +110,13 @@ fi
 /var/ftp
 
 %changelog
-* Fri Aug 27 2004 Radek Vokal <rvokal@redhat.com>
+* Wed Sep 08 2004 Jan Kratochvil <project-vsftpd@jankratochvil.net>
+- update for 2.0.1 for SSL
+
+* Fri Aug 27 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-2
 - vsftpd.conf file changed, default IPv6 support
 
-* Fri Aug 20 2004 Radek Vokal <rvokal@redhat.com>
+* Fri Aug 20 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-1
 - tcp_wrapper patch updated, signal patch updated
 - upgrade to 2.0.1, fixes several bugs, RHEL and FC builds
 
