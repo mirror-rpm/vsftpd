@@ -1,17 +1,15 @@
-%define optflags -g
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
-Version: 1.0.1
-Release: 7
+Version: 1.1.0
+Release: 1
 License: GPL
 Group: System Environment/Daemons
-URL: ftp://ferret.lmh.ox.ac.uk/pub/linux/
-Source: %{name}-%{version}.tar.gz
+Source: ftp://ferret.lmh.ox.ac.uk/pub/linux/%{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
-Patch1: vsftpd-1.0.1-rh.patch
+Patch1: vsftpd-1.1.0-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
 Patch3: vsftpd-1.0.1-anon.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -29,7 +27,9 @@ scratch.
 %patch3 -p1 -b .anon
 
 %build
-make
+make CFLAGS="$RPM_OPT_FLAGS -pipe -D_FILE_OFFSET_BITS=64" \
+	LINK="" \
+	%{?_smp_mflags}
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -65,6 +65,11 @@ install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd.user_list
 %{_mandir}/man8/vsftpd.*
 
 %changelog
+* Thu Aug 15 2002 Elliot Lee <sopwith@redhat.com> 1.0.1-8
+- -D_FILE_OFFSET_BITS=64
+- smp make
+- remove forced optflags=-g for lack of supporting documentation
+ 
 * Fri Jun 21 2002 Tim Powers <timp@redhat.com>
 - automated rebuild
 
