@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 4
+Release: 5
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -20,6 +20,7 @@ Patch4: vsftpd-1.5.1-libs.patch
 Patch5: vsftpd-2.0.1-signal.patch
 Patch6: vsftpd-1.2.1-conffile.patch
 Patch7: vsftpd-2.0.1-build_ssl.patch
+Patch8: vsftpd-2.0.1-server_args.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -53,6 +54,7 @@ cp %{SOURCE1} .
 %patch5 -p1 -b .signal
 %patch6 -p1
 %patch7 -p1 -b .build_ssl
+%patch8 -p1 -b .server_args
 
 %build
 %ifarch s390x
@@ -110,6 +112,9 @@ fi
 /var/ftp
 
 %changelog
+* Fri Oct 01 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-5
+- vsftpd under xinetd reads its config file (#134314)
+
 * Thu Sep 16 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-4
 - spec file changed, ftp dir change commented (#130119)
 - added doc files (#113056)
