@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 9
+Release: 10
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -120,6 +120,9 @@ fi
 /var/ftp
 
 %changelog
+* Wed Mar 02 2005 Radek Vokal <rvokal@redhat.com> 2.0.1-10
+- rebuilt against gcc4 and new openssl
+
 * Mon Feb 07 2005 Radek Vokal <rvokal@redhat.com> 2.0.1-9
 - don't allow to read non-root config files (#145548)
 
