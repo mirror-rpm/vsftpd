@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 1
+Release: 2
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -102,6 +102,9 @@ fi
 /var/ftp
 
 %changelog
+* Fri Aug 27 2004 Radek Vokal <rvokal@redhat.com>
+- vsftpd.conf file changed, default IPv6 support
+
 * Fri Aug 20 2004 Radek Vokal <rvokal@redhat.com>
 - tcp_wrapper patch updated, signal patch updated
 - upgrade to 2.0.1, fixes several bugs, RHEL and FC builds
