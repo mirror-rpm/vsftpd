@@ -1,0 +1,110 @@
+--- vsftpd-1.2.1/FAQ.foo	2004-05-03 18:06:26.051315979 -0400
++++ vsftpd-1.2.1/FAQ	2004-05-03 18:08:27.168746928 -0400
+@@ -33,7 +33,7 @@
+ Q) Help! Local users cannot log in.
+ A) There are various possible problems.
+ A1) By default, vsftpd disables any logins other than anonymous logins. Put
+-local_enable=YES in your /etc/vsftpd.conf to allow local users to log in.
++local_enable=YES in your /etc/vsftpd/vsftpd.conf to allow local users to log in.
+ A2) vsftpd tries to link with PAM. (Run "ldd vsftpd" and look for libpam to
+ find out whether this has happened or not). If vsftpd links with PAM, then
+ you will need to have a PAM file installed for the vsftpd service. There is
+@@ -45,12 +45,12 @@
+ A4) If you are not using PAM, then vsftpd will do its own check for a valid
+ user shell in /etc/shells. You may need to disable this if you use an invalid
+ shell to disable logins other than FTP logins. Put check_shell=NO in your
+-/etc/vsftpd.conf.
++/etc/vsftpd/vsftpd.conf.
+ 
+ Q) Help! Uploads or other write commands give me "500 Unknown command.".
+ A) By default, write commands, including uploads and new directories, are
+ disabled. This is a security measure. To enable writes, put write_enable=YES
+-in your /etc/vsftpd.conf.
++in your /etc/vsftpd/vsftpd.conf.
+ 
+ Q) Help! What are the security implications referred to in the
+ "chroot_local_user" option?
+@@ -86,7 +86,7 @@
+ mode. Use "listen_address=x.x.x.x" to set the virtual IP.
+ 
+ Q) Help! Does vsftpd support virtual users?
+-A) Yes, via PAM integration. Set "guest_enable=YES" in /etc/vsftpd.conf. This
++A) Yes, via PAM integration. Set "guest_enable=YES" in /etc/vsftpd/vsftpd.conf. This
+ has the effect of mapping every non-anonymous successful login to the local
+ username specified in "guest_username". Then, use PAM and (e.g.) its pam_userdb
+ module to provide authentication against an external (i.e. non-/etc/passwd)
+--- vsftpd-1.2.1/defs.h.foo	2004-05-03 18:06:29.771837724 -0400
++++ vsftpd-1.2.1/defs.h	2004-05-03 18:07:51.356350436 -0400
+@@ -1,7 +1,7 @@
+ #ifndef VSF_DEFS_H
+ #define VSF_DEFS_H
+ 
+-#define VSFTP_DEFAULT_CONFIG    "/etc/vsftpd.conf"
++#define VSFTP_DEFAULT_CONFIG    "/etc/vsftpd/vsftpd.conf"
+ 
+ #define VSFTP_COMMAND_FD        0
+ 
+--- vsftpd-1.2.1/INSTALL.foo	2004-05-03 18:06:33.061414865 -0400
++++ vsftpd-1.2.1/INSTALL	2004-05-03 18:08:57.133895056 -0400
+@@ -63,7 +63,7 @@
+ vsftpd can run standalone or via an inetd (such as inetd or xinetd). You will
+ typically get more control running vsftpd from an inetd. But first we will run
+ it without, so we can check things are going well so far.
+-Edit /etc/vsftpd.conf, and add this line at the bottom:
++Edit /etc/vsftpd/vsftpd.conf, and add this line at the bottom:
+ 
+ listen=YES
+ 
+@@ -135,11 +135,11 @@
+ Step 7) Customize your configuration
+ 
+ As well as the above three pre-requisites, you are recommended to install a
+-config file. The default location for the config file is /etc/vsftpd.conf.
++config file. The default location for the config file is /etc/vsftpd/vsftpd.conf.
+ There is a sample vsftpd.conf in the distribution tarball. You probably want
+-to copy that to /etc/vsftpd.conf as a basis for modification, i.e.:
++to copy that to /etc/vsftpd/vsftpd.conf as a basis for modification, i.e.:
+ 
+-cp vsftpd.conf /etc
++cp vsftpd.conf /etc/vsftpd/
+ 
+ The default configuration allows neither local user logins nor anonymous
+ uploads. You may wish to change these defaults.
+--- vsftpd-1.2.1/vsftpd.8.foo	2004-05-03 18:06:40.593446659 -0400
++++ vsftpd-1.2.1/vsftpd.8	2004-05-03 18:09:04.438956026 -0400
+@@ -21,7 +21,7 @@
+ recommended. It is activated by setting
+ .Pa listen=YES
+ in
+-.Pa /etc/vsftpd.conf .
++.Pa /etc/vsftpd/vsftpd.conf .
+ Direct execution of the
+ .Nm vsftpd
+ binary will then launch the FTP service ready for immediate client connections.
+@@ -29,6 +29,6 @@
+ An optional
+ .Op configuration file
+ may be given on the command line.  The default configuration file is
+-.Pa /etc/vsftpd.conf .
++.Pa /etc/vsftpd/vsftpd.conf .
+ .Sh SEE ALSO
+ .Xr vsftpd.conf 5
+--- vsftpd-1.2.1/vsftpd.conf.foo	2004-05-03 18:06:55.217566800 -0400
++++ vsftpd-1.2.1/vsftpd.conf	2004-05-03 18:09:28.049920952 -0400
+@@ -1,4 +1,4 @@
+-# Example config file /etc/vsftpd.conf
++# Example config file /etc/vsftpd/vsftpd.conf
+ #
+ # The default compiled in settings are fairly paranoid. This sample file
+ # loosens things up a bit, to make the ftp daemon more usable.
+--- vsftpd-1.2.1/vsftpd.conf.5.foo	2004-05-03 18:07:06.184157099 -0400
++++ vsftpd-1.2.1/vsftpd.conf.5	2004-05-03 18:09:20.649872192 -0400
+@@ -4,7 +4,7 @@
+ .SH DESCRIPTION
+ vsftpd.conf may be used to control various aspects of vsftpd's behaviour. By
+ default, vsftpd looks for this file at the location
+-.BR /etc/vsftpd.conf .
++.BR /etc/vsftpd/vsftpd.conf .
+ However, you may override this by specifying a command line argument to
+ vsftpd. The command line argument is the pathname of the configuration file
+ for vsftpd. This behaviour is useful because you may wish to use an advanced

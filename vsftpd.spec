@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 1.2.1
-Release: 2
+Release: 5
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -17,6 +17,8 @@ Patch1: vsftpd-1.1.3-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
 Patch3: vsftpd-1.2.0-tcp_wrappers.patch
 Patch4: vsftpd-1.5.1-libs.patch
+Patch5: vsftpd-1.2.1-signal.patch
+Patch6: vsftpd-1.2.1-conffile.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -41,6 +43,8 @@ scratch.
 %endif
 %patch4 -p1 -b .libs
 cp %{SOURCE1} .
+%patch5 -p1 -b .signal
+%patch6 -p1
 
 %build
 %ifarch s390x
@@ -98,6 +102,14 @@ fi
 /var/ftp
 
 %changelog
+* Mon May  3 2004 Bill Nottingham <notting@redhat.com> 1.2.1-5
+- fix all references to vsftpd.conf to be /etc/vsftpd/vsftpd.conf,
+  including in the binary (#121199, #104075)
+
+* Thu Mar 25 2004 Bill Nottingham <notting@redhat.com> 1.2.1-4
+- don't call malloc()/free() in signal handlers (#119136,
+  <olivier.baudron@m4x.org>)
+
 * Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
