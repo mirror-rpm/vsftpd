@@ -1,7 +1,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 1.1.3
-Release: 7
+Release: 8
 License: GPL
 Group: System Environment/Daemons
 Source: ftp://ferret.lmh.ox.ac.uk/pub/linux/%{name}-%{version}.tar.gz
@@ -10,9 +10,11 @@ Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
 Source5: vsftpd.init
-Patch1: vsftpd-1.1.0-rh.patch
+Patch1: vsftpd-1.1.3-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
+Patch3: vsftpd-1.1.3-tcp_wrappers.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildPrereq: tcp_wrappers
 Requires: logrotate
 Prereq: /sbin/chkconfig, /sbin/service, /usr/sbin/usermod
 Obsoletes: anonftp
@@ -26,6 +28,7 @@ scratch.
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .rh
 %patch2 -p1 -b .mok
+%patch3 -p1 -b .tcp_wrappers
 cp %{SOURCE1} .
 
 %build
@@ -80,6 +83,9 @@ fi
 /var/ftp
 
 %changelog
+* Fri Feb 28 2003 Nalin Dahyabhai <nalin@redhat.com> 1.1.3-8
+- enable use of tcp_wrappers
+
 * Tue Feb 11 2003 Bill Nottingham <notting@redhat.com> 1.1.3-7
 - provide /var/ftp & /var/ftp/pub. obsolete anonftp.
 
