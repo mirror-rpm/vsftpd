@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 6
+Release: 7
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -23,6 +23,7 @@ Patch6: vsftpd-1.2.1-conffile.patch
 Patch7: vsftpd-2.0.1-build_ssl.patch
 Patch8: vsftpd-2.0.1-server_args.patch
 Patch9: vsftpd-2.0.1-dir.patch
+Patch10: vsftpd-2.0.1-pam.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -116,6 +117,9 @@ fi
 /var/ftp
 
 %changelog
+* Tue Dec 14 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-7
+- fixing directory in vsftpd.pam file (#142805)
+
 * Mon Nov 11 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-6
 - vsftpd. files moved to /etc/vsftpd
 - added vsftpd_conf_migrate.sh script for moving conf files
