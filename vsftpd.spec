@@ -1,7 +1,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 1.1.0
-Release: 1
+Release: 2
 License: GPL
 Group: System Environment/Daemons
 Source: ftp://ferret.lmh.ox.ac.uk/pub/linux/%{name}-%{version}.tar.gz
@@ -65,6 +65,10 @@ install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd.user_list
 %{_mandir}/man8/vsftpd.*
 
 %changelog
+* Tue Nov 12 2002 Nalin Dahyabhai <nalin@redhat.com> 1.0.1-9
+- remove absolute paths from PAM configuration so that the right modules get
+  used for whichever arch we're built for on multilib systems
+
 * Thu Aug 15 2002 Elliot Lee <sopwith@redhat.com> 1.0.1-8
 - -D_FILE_OFFSET_BITS=64
 - smp make
