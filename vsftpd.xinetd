@@ -3,10 +3,11 @@
 #	normal, unencrypted usernames and passwords for authentication.
 service ftp
 {
-	disable	= yes
 	socket_type		= stream
 	wait			= no
 	user			= root
 	server			= /usr/sbin/vsftpd
 	nice			= 10
+	disable			= yes
+	flags			= IPv4
 }

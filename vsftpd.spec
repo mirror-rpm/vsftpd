@@ -1,7 +1,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
-Version: 1.1.0
-Release: 2
+Version: 1.1.3
+Release: 7
 License: GPL
 Group: System Environment/Daemons
 Source: ftp://ferret.lmh.ox.ac.uk/pub/linux/%{name}-%{version}.tar.gz
@@ -9,11 +9,13 @@ Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
+Source5: vsftpd.init
 Patch1: vsftpd-1.1.0-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
-Patch3: vsftpd-1.0.1-anon.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-Requires: xinetd, logrotate
+Requires: logrotate
+Prereq: /sbin/chkconfig, /sbin/service, /usr/sbin/usermod
+Obsoletes: anonftp
 Provides: ftpserver
 
 %description
@@ -24,10 +26,10 @@ scratch.
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .rh
 %patch2 -p1 -b .mok
-%patch3 -p1 -b .anon
+cp %{SOURCE1} .
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS -pipe -D_FILE_OFFSET_BITS=64" \
+make CFLAGS="$RPM_OPT_FLAGS -pipe" \
 	LINK="" \
 	%{?_smp_mflags}
 
@@ -35,36 +37,73 @@ make CFLAGS="$RPM_OPT_FLAGS -pipe -D_FILE_OFFSET_BITS=64" \
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/sbin
 mkdir -p $RPM_BUILD_ROOT/etc
-mkdir -p $RPM_BUILD_ROOT/etc/pam.d
-mkdir -p $RPM_BUILD_ROOT/etc/logrotate.d
-mkdir -p $RPM_BUILD_ROOT/etc/xinetd.d
-mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man5
-mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
+mkdir -p $RPM_BUILD_ROOT/etc/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
+mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man{5,8}
 install -m 755 vsftpd  $RPM_BUILD_ROOT/usr/sbin/vsftpd
-install -m 600 vsftpd.conf $RPM_BUILD_ROOT/etc/vsftpd.conf
+install -m 600 vsftpd.conf $RPM_BUILD_ROOT/etc/vsftpd/vsftpd.conf
 install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 install -m 644 vsftpd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
 install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT/etc/logrotate.d/vsftpd.log
-install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/etc/xinetd.d/vsftpd
 install -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/vsftpd
 install -m 600 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd.ftpusers
 install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd.user_list
+install -m 755 %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/vsftpd
+                            
+mkdir -p $RPM_BUILD_ROOT/var/ftp/pub
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/chkconfig --add vsftpd
+/usr/sbin/usermod -d /var/ftp ftp >/dev/null 2>&1 || :
+
+%preun
+if [ $1 = 0 ]; then
+ /sbin/service vsftpd stop > /dev/null 2>&1
+ /sbin/chkconfig --del vsftpd
+fi
+  
+
 %files
 %defattr(-,root,root)
 /usr/sbin/vsftpd
+/etc/rc.d/init.d/vsftpd
 %config(noreplace) /etc/vsftpd.*
+%dir /etc/vsftpd
+%config(noreplace) /etc/vsftpd/*
 %config(noreplace) /etc/pam.d/vsftpd
 %config(noreplace) /etc/logrotate.d/vsftpd.log
-%config(noreplace) /etc/xinetd.d/vsftpd
-%doc INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD SPEED TODO SECURITY/ TUNING SIZE
+%doc FAQ INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD SPEED TODO SECURITY/ TUNING SIZE vsftpd.xinetd
 %{_mandir}/man5/vsftpd.conf.*
 %{_mandir}/man8/vsftpd.*
+/var/ftp
 
 %changelog
+* Tue Feb 11 2003 Bill Nottingham <notting@redhat.com> 1.1.3-7
+- provide /var/ftp & /var/ftp/pub. obsolete anonftp.
+
+* Mon Feb 10 2003 Bill Nottingham <notting@redhat.com> 1.1.3-6
+- clean up comments in init script (#83962)
+
+* Wed Jan 22 2003 Tim Powers <timp@redhat.com>
+- rebuilt
+
+* Mon Dec 30 2002 Florian La Roche <Florian.LaRoche@redhat.de>
+- change to /etc/rc.d/init.d for better compatibility
+
+* Mon Dec 16 2002 Bill Nottingham <notting@redhat.com> 1.1.3-3
+- fix initscript perms
+- fix typo in initscript (#76587)
+
+* Fri Dec 13 2002 Bill Nottingham <notting@redhat.com> 1.1.3-2
+- update to 1.1.3
+- run standalone, don't run by default
+- fix reqs
+ 
+* Fri Nov 22 2002 Joe Orton <jorton@redhat.com> 1.1.0-3
+- fix use with xinetd-ipv6; add flags=IPv4 in xinetd file (#78410)
+
 * Tue Nov 12 2002 Nalin Dahyabhai <nalin@redhat.com> 1.0.1-9
 - remove absolute paths from PAM configuration so that the right modules get
   used for whichever arch we're built for on multilib systems
