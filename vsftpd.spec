@@ -3,11 +3,11 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: pre2
+Release: 1
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
-Source: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}pre2.tar.gz
+Source: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -120,11 +120,14 @@ fi
 /var/ftp
 
 %changelog
+* Wed Mar 23 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-1
+- new release, fixes #106416 and #134541 
+
 * Mon Mar 14 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-pre2
-- prerelease, fixes IPv6 issues (#134541)
+- prerelease, fixes IPv6 issues
 
 * Mon Mar 14 2005 Radek Vokal <rvokal@redhat.com> 2.0.2-1
-- update to new version, several bug fixes
+- update to new release, several bug fixes
 
 * Wed Mar 02 2005 Radek Vokal <rvokal@redhat.com> 2.0.1-10
 - rebuilt against gcc4 and new openssl
