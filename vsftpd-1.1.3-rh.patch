@@ -36,3 +36,11 @@
 +#enable for standalone mode
 +listen=YES
 +tcp_wrappers=YES
+--- vsftpd-1.2.1/RedHat/vsftpd.log.rh	2004-05-19 17:17:21.000000000 -0400
++++ vsftpd-1.2.1/RedHat/vsftpd.log	2004-05-19 17:17:27.000000000 -0400
+@@ -1,4 +1,4 @@
+-/var/log/vsftpd.log {
++/var/log/xferlog {
+     # ftpd doesn't handle SIGHUP properly
+     nocompress
+     missingok
