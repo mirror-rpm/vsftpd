@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #
 # vsftpd      This shell script takes care of starting and stopping

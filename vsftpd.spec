@@ -1,10 +1,13 @@
+%{!?tcp_wrappers:%define tcp_wrappers 1}
+
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
-Version: 1.1.3
-Release: 8
+Version: 1.2.0
+Release: 5
 License: GPL
 Group: System Environment/Daemons
-Source: ftp://ferret.lmh.ox.ac.uk/pub/linux/%{name}-%{version}.tar.gz
+URL: http://vsftpd.beasts.org/
+Source: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -12,9 +15,14 @@ Source4: vsftpd.user_list
 Source5: vsftpd.init
 Patch1: vsftpd-1.1.3-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
-Patch3: vsftpd-1.1.3-tcp_wrappers.patch
+Patch3: vsftpd-1.2.0-tcp_wrappers.patch
+Patch4: vsftpd-1.2.0-man.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+%if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
+%endif
+# for -fpie
+BuildPrereq: gcc > gcc-3.2.3-13, binutils > binutils-2.14.90.0.4-24, glibc-devel >= 2.3.2-45
 Requires: logrotate
 Prereq: /sbin/chkconfig, /sbin/service, /usr/sbin/usermod
 Obsoletes: anonftp
@@ -28,12 +36,19 @@ scratch.
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .rh
 %patch2 -p1 -b .mok
+%if %{tcp_wrappers}
 %patch3 -p1 -b .tcp_wrappers
+%endif
+%patch4 -p1 -b .manpage
 cp %{SOURCE1} .
 
 %build
-make CFLAGS="$RPM_OPT_FLAGS -pipe" \
-	LINK="" \
+%ifarch s390x
+make CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe" \
+%else
+make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe" \
+%endif
+	LINK="-pie" \
 	%{?_smp_mflags}
 
 %install
@@ -83,6 +98,26 @@ fi
 /var/ftp
 
 %changelog
+* Sun Oct 12 2003 Florian La Roche <Florian.LaRoche@redhat.de>
+- allow compiling without tcp_wrappers support
+
+* Mon Sep 15 2003 Bill Nottingham <notting@redhat.com> 1.2.0-4
+- fix errant newline (#104443)
+
+* Fri Aug  8 2003 Bill Nottingham <notting@redhat.com> 1.2.0-3
+- tweak man page (#84584, #72798)
+- buildprereqs for pie (#99336)
+- free ride through the build system to fix (#101582)
+
+* Thu Jun 26 2003 Bill Nottingham <notting@redhat.com> 1.2.0-2
+- update to 1.2.0
+
+* Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Mon Apr 28 2003 Bill Nottingham <notting@redhat.com> 1.1.3-9
+- fix tcp_wrappers usage (#89765, <dale@riyescott.com>)
+
 * Fri Feb 28 2003 Nalin Dahyabhai <nalin@redhat.com> 1.1.3-8
 - enable use of tcp_wrappers
 
