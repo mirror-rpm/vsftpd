@@ -27,20 +27,16 @@ start() {
         # Start daemons.
 
         if [ -d /etc/vsftpd ] ; then
-                declare -a sites
-                sites=(`ls /etc/vsftpd/*.conf`)
-                site_count=${#sites[@]}
-                index=0
-
-                while [ "${index}" -lt "${site_count}" ] ; do
-                        site=`basename ${sites[${index}]} .conf`
+                for i in `ls /etc/vsftpd/*.conf`; do
+                        site=`basename $i .conf`
                         echo -n $"Starting $prog for $site: "
-                                ( /usr/sbin/vsftpd ${sites[${index}]} &)
-                                daemon true
-                                RETVAL=$?
+                        /usr/sbin/vsftpd $i &
+                        RETVAL=$?
+                        [ $RETVAL -eq 0 ] && {
+                           touch /var/lock/subsys/$prog
+                           success $"$prog $site" 
+                        } 
                         echo
-                        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
-                        let "index = index + 1"
                 done
         else
                 RETVAL=1

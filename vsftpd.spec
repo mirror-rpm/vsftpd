@@ -2,8 +2,8 @@
 
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
-Version: 1.2.0
-Release: 5
+Version: 1.2.1
+Release: 1
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -16,7 +16,7 @@ Source5: vsftpd.init
 Patch1: vsftpd-1.1.3-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
 Patch3: vsftpd-1.2.0-tcp_wrappers.patch
-Patch4: vsftpd-1.2.0-man.patch
+Patch4: vsftpd-1.5.1-libs.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -39,7 +39,7 @@ scratch.
 %if %{tcp_wrappers}
 %patch3 -p1 -b .tcp_wrappers
 %endif
-%patch4 -p1 -b .manpage
+%patch4 -p1 -b .libs
 cp %{SOURCE1} .
 
 %build
@@ -98,6 +98,12 @@ fi
 /var/ftp
 
 %changelog
+* Mon Nov 24 2003 Karsten Hopp <karsten@redhat.de> 1.2.1-1
+- update to 1.2.1, which fixes #89765 and lot of other issues
+- remove manpage patch, it isn't required anymore
+- clean up init script
+- don't use script to find libs to link with (lib64 issues)
+
 * Sun Oct 12 2003 Florian La Roche <Florian.LaRoche@redhat.de>
 - allow compiling without tcp_wrappers support
 

@@ -1,0 +1,12 @@
+--- vsftpd-1.2.1/Makefile.rh1	2003-11-25 15:58:11.000000000 +0100
++++ vsftpd-1.2.1/Makefile	2003-11-25 15:58:33.000000000 +0100
+@@ -5,7 +5,8 @@
+ #CFLAGS = -g
+ CFLAGS	=	-O2 -Wall -W -Wshadow #-pedantic -Werror -Wconversion
+ 
+-LIBS	=	`./vsf_findlibs.sh`
++#LIBS	=	`./vsf_findlibs.sh`
++LIBS	=	-lwrap -lnsl -lpam -lcap -ldl
+ LINK	=	-Wl,-s
+ 
+ OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
