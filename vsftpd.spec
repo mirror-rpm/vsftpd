@@ -2,7 +2,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 1.0.1
-Release: 5
+Release: 7
 License: GPL
 Group: System Environment/Daemons
 URL: ftp://ferret.lmh.ox.ac.uk/pub/linux/
@@ -65,6 +65,12 @@ install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd.user_list
 %{_mandir}/man8/vsftpd.*
 
 %changelog
+* Fri Jun 21 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
+* Thu May 23 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
 * Wed Apr 10 2002 Bill Nottingham <notting@redhat.com> 1.0.1-5
 - don't spit out ugly errors if anonftp isn't installed (#62987)
 - fix horribly broken userlist setup (#62321)
