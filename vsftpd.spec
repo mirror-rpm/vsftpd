@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 5
+Release: 6
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -13,6 +13,7 @@ Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
 Source5: vsftpd.init
+Source6: vsftpd_conf_migrate.sh
 Patch1: vsftpd-1.1.3-rh.patch
 Patch2: vsftpd-1.0.1-missingok.patch
 Patch3: vsftpd-2.0.1-tcp_wrappers.patch
@@ -21,6 +22,7 @@ Patch5: vsftpd-2.0.1-signal.patch
 Patch6: vsftpd-1.2.1-conffile.patch
 Patch7: vsftpd-2.0.1-build_ssl.patch
 Patch8: vsftpd-2.0.1-server_args.patch
+Patch9: vsftpd-2.0.1-dir.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -55,6 +57,7 @@ cp %{SOURCE1} .
 %patch6 -p1
 %patch7 -p1 -b .build_ssl
 %patch8 -p1 -b .server_args
+%patch9 -p1 -b .dir
 
 %build
 %ifarch s390x
@@ -77,9 +80,10 @@ install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 install -m 644 vsftpd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
 install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT/etc/logrotate.d/vsftpd.log
 install -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/vsftpd
-install -m 600 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd.ftpusers
-install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd.user_list
+install -m 600 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd/ftpusers
+install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd/user_list
 install -m 755 %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/vsftpd
+install -m 744 %{SOURCE6} $RPM_BUILD_ROOT/etc/vsftpd/vsftpd_conf_migrate.sh
                             
 mkdir -p $RPM_BUILD_ROOT/var/ftp/pub
 
@@ -101,7 +105,7 @@ fi
 %defattr(-,root,root)
 /usr/sbin/vsftpd
 /etc/rc.d/init.d/vsftpd
-%config(noreplace) /etc/vsftpd.*
+#%config(noreplace) /etc/vsftpd.*
 %dir /etc/vsftpd
 %config(noreplace) /etc/vsftpd/*
 %config(noreplace) /etc/pam.d/vsftpd
@@ -112,6 +116,10 @@ fi
 /var/ftp
 
 %changelog
+* Mon Nov 11 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-6
+- vsftpd. files moved to /etc/vsftpd
+- added vsftpd_conf_migrate.sh script for moving conf files
+
 * Fri Oct 01 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-5
 - vsftpd under xinetd reads its config file (#134314)
 
