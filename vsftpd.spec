@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 1.2.1
-Release: 6
+Release: 7
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -102,6 +102,9 @@ fi
 /var/ftp
 
 %changelog
+* Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Wed May 19 2004 Bill Nottingham <notting@redhat.com> 1.2.1-6
 - fix the logrotate config (#116253) 
 
