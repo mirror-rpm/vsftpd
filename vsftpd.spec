@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.1
-Release: 3
+Release: 4
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -86,7 +86,7 @@ mkdir -p $RPM_BUILD_ROOT/var/ftp/pub
 
 %post
 /sbin/chkconfig --add vsftpd
-/usr/sbin/usermod -d /var/ftp ftp >/dev/null 2>&1 || :
+#/usr/sbin/usermod -d /var/ftp ftp >/dev/null 2>&1 || :
 
 %preun
 if [ $1 = 0 ]; then
@@ -104,12 +104,16 @@ fi
 %config(noreplace) /etc/vsftpd/*
 %config(noreplace) /etc/pam.d/vsftpd
 %config(noreplace) /etc/logrotate.d/vsftpd.log
-%doc FAQ INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD SPEED TODO SECURITY/ TUNING SIZE vsftpd.xinetd
+%doc FAQ INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD SPEED TODO BENCHMARKS COPYING SECURITY/ EXAMPLE/ TUNING SIZE vsftpd.xinetd
 %{_mandir}/man5/vsftpd.conf.*
 %{_mandir}/man8/vsftpd.*
 /var/ftp
 
 %changelog
+* Thu Sep 16 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-4
+- spec file changed, ftp dir change commented (#130119)
+- added doc files (#113056)
+
 * Wed Sep 08 2004 Jan Kratochvil <project-vsftpd@jankratochvil.net>
 - update for 2.0.1 for SSL
 
