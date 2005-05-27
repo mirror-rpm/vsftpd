@@ -25,6 +25,7 @@ Patch8: vsftpd-2.0.1-server_args.patch
 Patch9: vsftpd-2.0.1-dir.patch
 Patch10: vsftpd-2.0.1-use_localtime.patch
 Patch11: vsftpd-1.2.1-nonrootconf.patch
+Patch12: vsftpd-2.0.1-tzfix.diff
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -62,6 +63,7 @@ cp %{SOURCE1} .
 %patch9 -p1 -b .dir
 %patch10 -p1 -b .use_localtime
 %patch11 -p1 -b .nonrootconf
+%patch12 -p1 -b .tzfix
 
 %build
 %ifarch s390x
@@ -120,6 +122,9 @@ fi
 /var/ftp
 
 %changelog
+* Fri May 27 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-2
+- timezone fix, patch from suse.de (#158779)
+
 * Wed Mar 23 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-1
 - new release, fixes #106416 and #134541 
 
