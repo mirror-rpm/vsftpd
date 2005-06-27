@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: 4
+Release: 5
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -32,7 +32,7 @@ BuildPrereq: tcp_wrappers
 %endif
 BuildRequires: pam-devel
 Requires: pam
-Requires: pam_loginuid.so
+Requires: /%{_lib}/security/pam_loginuid.so
 BuildRequires: libcap-devel
 Requires: libcap
 BuildRequires: openssl-devel
@@ -123,6 +123,9 @@ fi
 /var/ftp
 
 %changelog
+* Mon Jun 27 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-5
+- fixed requires for 64bit libs
+
 * Thu Jun 23 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-4
 - fixed requires for pam_loginuid
 
