@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: 5
+Release: 6
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -26,6 +26,7 @@ Patch9: vsftpd-2.0.1-dir.patch
 Patch10: vsftpd-2.0.1-use_localtime.patch
 Patch11: vsftpd-1.2.1-nonrootconf.patch
 Patch12: vsftpd-2.0.1-tzfix.diff
+Patch13: vsftpd-2.0.3-background.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -65,6 +66,7 @@ cp %{SOURCE1} .
 %patch10 -p1 -b .use_localtime
 %patch11 -p1 -b .nonrootconf
 %patch12 -p1 -b .tzfix
+%patch13 -p1 -b .background
 
 %build
 %ifarch s390x
@@ -123,6 +125,9 @@ fi
 /var/ftp
 
 %changelog
+* Thu Jun 30 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-6
+- start in background as default, init script changed (#158714)
+
 * Mon Jun 27 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-5
 - fixed requires for 64bit libs
 

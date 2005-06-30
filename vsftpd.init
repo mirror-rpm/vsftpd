@@ -30,12 +30,9 @@ start() {
                 for i in `ls /etc/vsftpd/*.conf`; do
                         site=`basename $i .conf`
                         echo -n $"Starting $prog for $site: "
-                        /usr/sbin/vsftpd $i &
+                        daemon /usr/sbin/vsftpd $i
                         RETVAL=$?
-                        [ $RETVAL -eq 0 ] && {
-                           touch /var/lock/subsys/$prog
-                           success $"$prog $site" 
-                        } 
+                        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
                         echo
                 done
         else

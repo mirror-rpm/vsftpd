@@ -1,0 +1,22 @@
+--- vsftpd-2.0.3/tunables.c.background	2005-06-30 09:51:51.000000000 +0200
++++ vsftpd-2.0.3/tunables.c	2005-06-30 09:57:29.000000000 +0200
+@@ -49,7 +49,7 @@
+ int tunable_listen_ipv6 = 0;
+ int tunable_dual_log_enable = 0;
+ int tunable_syslog_enable = 0;
+-int tunable_background = 0;
++int tunable_background = 1;
+ int tunable_virtual_use_local_privs = 0;
+ int tunable_session_support = 0;
+ int tunable_download_enable = 1;
+--- vsftpd-2.0.3/vsftpd.conf.5.background	2005-06-30 09:51:51.000000000 +0200
++++ vsftpd-2.0.3/vsftpd.conf.5	2005-06-30 09:58:28.000000000 +0200
+@@ -108,7 +108,7 @@
+ the listener process. i.e. control will immediately be returned to the shell
+ which launched vsftpd.
+ 
+-Default: NO
++Default: YES
+ .TP
+ .B check_shell
+ Note! This option only has an effect for non-PAM builds of vsftpd. If disabled,
