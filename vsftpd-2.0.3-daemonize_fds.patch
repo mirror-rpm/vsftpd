@@ -1,0 +1,70 @@
+diff -u vsftpd-2.0.1.orig/standalone.c vsftpd-2.0.1/standalone.c
+--- vsftpd-2.0.1.orig/standalone.c	2005-06-15 16:08:52.000000000 -0400
++++ vsftpd-2.0.1/standalone.c	2005-06-15 16:06:26.000000000 -0400
+@@ -53,6 +53,7 @@
+       vsf_sysutil_exit(0);
+     }
+     vsf_sysutil_make_session_leader();
++    vsf_sysutil_reopen_standard_fds();
+   }
+   if (tunable_listen)
+   {
+diff -u vsftpd-2.0.1.orig/sysutil.c vsftpd-2.0.1/sysutil.c
+--- vsftpd-2.0.1.orig/sysutil.c	2005-06-15 16:08:52.000000000 -0400
++++ vsftpd-2.0.1/sysutil.c	2005-06-15 16:03:25.000000000 -0400
+@@ -2357,6 +2357,44 @@
+ }
+ 
+ void
++vsf_sysutil_reopen_standard_fds(void)
++{
++  /* This reopens STDIN, STDOUT and STDERR to /dev/null */
++
++  int fd;
++
++  if ( (fd = open("/dev/null", O_RDWR, 0)) == -1 )
++  {
++    goto error;
++  }
++
++  if ( dup2(fd, STDIN_FILENO) == -1 )
++  {
++    goto error;
++  }
++
++  if ( dup2(fd, STDOUT_FILENO) == -1 )
++  {
++    goto error;
++  }
++
++  if ( dup2(fd, STDERR_FILENO) == -1 )
++  {
++    goto error;
++  }
++
++  if ( fd > 2 )
++  {
++    (void) close(fd);
++  }
++
++  return;
++
++error:
++  die("reopening standard file descriptors to /dev/null failed");
++}
++
++void
+ vsf_sysutil_tzset(void)
+ {
+   tzset();
+diff -u vsftpd-2.0.1.orig/sysutil.h vsftpd-2.0.1/sysutil.h
+--- vsftpd-2.0.1.orig/sysutil.h	2004-06-04 06:11:52.000000000 -0400
++++ vsftpd-2.0.1/sysutil.h	2005-06-15 16:03:54.000000000 -0400
+@@ -287,6 +287,7 @@
+ unsigned int vsf_sysutil_get_umask(void);
+ void vsf_sysutil_set_umask(unsigned int umask);
+ void vsf_sysutil_make_session_leader(void);
++void vsf_sysutil_reopen_standard_fds(void);
+ void vsf_sysutil_tzset(void);
+ const char* vsf_sysutil_get_current_date(void);
+ void vsf_sysutil_qsort(void* p_base, unsigned int num_elem,
