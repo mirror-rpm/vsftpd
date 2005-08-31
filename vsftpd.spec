@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: 8
+Release: 9
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -29,6 +29,8 @@ Patch12: vsftpd-2.0.1-tzfix.diff
 Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
 Patch15: vsftpd-2.0.1-kickline.patch
+Patch16: vsfptd-2.0.3-user_config.patch
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
 BuildPrereq: tcp_wrappers
@@ -71,6 +73,7 @@ cp %{SOURCE1} .
 %patch13 -p1 -b .background
 %patch14 -p1 -b .fds
 %patch15 -p1 -b .kickline
+%patch16 -p1 -b .user_config
 
 %build
 %ifarch s390x
@@ -129,6 +132,9 @@ fi
 /var/ftp
 
 %changelog
+* Wed Aug 31 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-9
+- don't die when no user config file is present (#166986)
+
 * Tue Aug 09 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-8
 - removed additional cmd line for ftp (#165083)
 
