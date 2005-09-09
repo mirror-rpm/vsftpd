@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: 9
+Release: 10
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -30,6 +30,7 @@ Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
 Patch15: vsftpd-2.0.1-kickline.patch
 Patch16: vsfptd-2.0.3-user_config.patch
+Patch17: vsftpd-2.0.3-pam_hostname.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -74,6 +75,7 @@ cp %{SOURCE1} .
 %patch14 -p1 -b .fds
 %patch15 -p1 -b .kickline
 %patch16 -p1 -b .user_config
+%patch17 -p1 -b .old
 
 %build
 %ifarch s390x
@@ -132,6 +134,10 @@ fi
 /var/ftp
 
 %changelog
+* Fri Sep 09 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-10
+- vsfptd.log as a default log file has to be rotated (#167359)
+- vsftpd does dns reverse before passing hosts to pam_access.so (#159745)
+
 * Wed Aug 31 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-9
 - don't die when no user config file is present (#166986)
 
