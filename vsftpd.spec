@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: 11
+Release: 12
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -31,6 +31,7 @@ Patch14: vsftpd-2.0.3-daemonize_fds.patch
 Patch15: vsftpd-2.0.1-kickline.patch
 Patch16: vsfptd-2.0.3-user_config.patch
 Patch17: vsftpd-2.0.3-pam_hostname.patch
+Patch18: vsftpd-close-std-fds.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -75,7 +76,8 @@ cp %{SOURCE1} .
 %patch14 -p1 -b .fds
 %patch15 -p1 -b .kickline
 %patch16 -p1 -b .user_config
-%patch17 -p1 -b .old
+%patch17 -p1 -b .old-pam
+%patch18 -p1 -b .close-fds
 
 %build
 %ifarch s390x
@@ -134,6 +136,10 @@ fi
 /var/ftp
 
 %changelog
+* Wed Nov 09 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-12
+- rebuilt against new openssl
+- close std file descriptors
+
 * Tue Oct 04 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-11
 - use include instead of pam_stack in pam config
 

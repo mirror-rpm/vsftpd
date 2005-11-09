@@ -1,0 +1,13 @@
+diff -up vsftpd-2.0.1/standalone.c vsftpd-2.0.1.new/standalone.c
+--- vsftpd-2.0.1/standalone.c	2005-10-24 11:49:43.478375564 +0100
++++ vsftpd-2.0.1.new/standalone.c	2005-10-24 11:47:33.666544352 +0100
+@@ -126,6 +126,9 @@ vsf_standalone_main(void)
+       die("could not bind listening IPv6 socket");
+     }
+   }
++  vsf_sysutil_close(0);
++  vsf_sysutil_close(1);
++  vsf_sysutil_close(2);
+   vsf_sysutil_listen(listen_sock, VSFTP_LISTEN_BACKLOG);
+   vsf_sysutil_sockaddr_alloc(&p_accept_addr);
+   while (1)
