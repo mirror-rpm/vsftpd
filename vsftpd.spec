@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.3
-Release: 12
+Release: 12.1
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -136,6 +136,9 @@ fi
 /var/ftp
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Wed Nov 09 2005 Radek Vokal <rvokal@redhat.com> 2.0.3-12
 - rebuilt against new openssl
 - close std file descriptors
