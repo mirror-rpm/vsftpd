@@ -2,8 +2,8 @@
 
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
-Version: 2.0.3
-Release: 12.1
+Version: 2.0.4
+Release: 1
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -25,7 +25,6 @@ Patch8: vsftpd-2.0.1-server_args.patch
 Patch9: vsftpd-2.0.1-dir.patch
 Patch10: vsftpd-2.0.1-use_localtime.patch
 Patch11: vsftpd-1.2.1-nonrootconf.patch
-Patch12: vsftpd-2.0.1-tzfix.diff
 Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
 Patch15: vsftpd-2.0.1-kickline.patch
@@ -71,7 +70,6 @@ cp %{SOURCE1} .
 %patch9 -p1 -b .dir
 %patch10 -p1 -b .use_localtime
 %patch11 -p1 -b .nonrootconf
-%patch12 -p1 -b .tzfix
 %patch13 -p1 -b .background
 %patch14 -p1 -b .fds
 %patch15 -p1 -b .kickline
@@ -136,6 +134,10 @@ fi
 /var/ftp
 
 %changelog
+* Thu Jan 12 2006 Radek Vokal <rvokal@redhat.com> 2.0.4-1
+- upgrade to 2.0.4
+- vsftpd now lock files for simultanous up/downloads (#162511)
+
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
 
