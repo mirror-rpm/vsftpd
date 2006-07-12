@@ -2,8 +2,8 @@
 
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
-Version: 2.0.4
-Release: 1.2.1
+Version: 2.0.5
+Release: 1
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -134,6 +134,10 @@ fi
 /var/ftp
 
 %changelog
+* Wed Jul 12 2006 Radek Vokal <rvokal@redhat.com> - 2.0.5-1
+- upgrade to 2.0.5
+- IE should now show the login dialog again (#191147)
+
 * Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 2.0.4-1.2.1
 - rebuild
 
