@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 2
+Release: 3
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -31,6 +31,7 @@ Patch15: vsftpd-2.0.1-kickline.patch
 Patch16: vsfptd-2.0.3-user_config.patch
 Patch17: vsftpd-2.0.3-pam_hostname.patch
 Patch18: vsftpd-close-std-fds.patch
+Patch19: vsftpd-2.0.5-default_ipv6.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -76,6 +77,7 @@ cp %{SOURCE1} .
 %patch16 -p1 -b .user_config
 %patch17 -p1 -b .old-pam
 %patch18 -p1 -b .close-fds
+%patch19 -p1
 
 %build
 %ifarch s390x
@@ -134,6 +136,9 @@ fi
 /var/ftp
 
 %changelog
+* Mon Jul 17 2006 Radek Vokal <rvokal@redhat.com> - 2.0.5-3
+- listen to IPv6 connections in default conf file
+
 * Thu Jul 13 2006 Radek Vokal <rvokal@redhat.com> - 2.0.5-2
 - add keyinit instructions to the vsftpd PAM script (#198637)
 
