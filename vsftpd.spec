@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 3
+Release: 4
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -136,6 +136,10 @@ fi
 /var/ftp
 
 %changelog
+* Thu Aug 01 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-4
+- listen to IPv4 connections in default conf file
+- option to change listening to IPv6 protocol
+
 * Mon Jul 17 2006 Radek Vokal <rvokal@redhat.com> - 2.0.5-3
 - listen to IPv6 connections in default conf file
 
