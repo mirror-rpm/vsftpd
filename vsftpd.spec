@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 4
+Release: 5
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -32,6 +32,7 @@ Patch16: vsfptd-2.0.3-user_config.patch
 Patch17: vsftpd-2.0.3-pam_hostname.patch
 Patch18: vsftpd-close-std-fds.patch
 Patch19: vsftpd-2.0.5-default_ipv6.patch
+Patch20: vsftpd-2.0.5-add_ipv6_option.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -78,6 +79,7 @@ cp %{SOURCE1} .
 %patch17 -p1 -b .old-pam
 %patch18 -p1 -b .close-fds
 %patch19 -p1
+%patch20 -p1
 
 %build
 %ifarch s390x
@@ -136,9 +138,11 @@ fi
 /var/ftp
 
 %changelog
+* Tue Aug 08 2006 Maros Barabas	<mbarabas@redhat.com> - 2.0.5-5
+- option to change listening to IPv6 protocol
+
 * Thu Aug 01 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-4
 - listen to IPv4 connections in default conf file
-- option to change listening to IPv6 protocol
 
 * Mon Jul 17 2006 Radek Vokal <rvokal@redhat.com> - 2.0.5-3
 - listen to IPv6 connections in default conf file

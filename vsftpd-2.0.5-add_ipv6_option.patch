@@ -1,0 +1,16 @@
+--- vsftpd-2.0.5/vsftpd.conf.old	2006-08-01 13:56:18.000000000 +0200
++++ vsftpd-2.0.5/vsftpd.conf	2006-08-01 13:59:15.000000000 +0200
+@@ -103,7 +103,11 @@
+ 
+ pam_service_name=vsftpd
+ userlist_enable=YES
+-#enable for standalone mode
++# When enabled, vsftpd runs in standalone mode, but listen only to IPv6 sockets. 
++# This directive cannot be used in conjunction with the listen directive.
++# Make sure, that one of listen options are commited
++# enable for standalone mode
+ listen=YES
+-listen_ipv6=YES
++#listen_ipv6=YES
++
+ tcp_wrappers=YES
