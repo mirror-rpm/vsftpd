@@ -1,0 +1,27 @@
+--- vsftpd-2.0.5/vsftpd.conf.old	2006-08-22 09:53:09.000000000 +0200
++++ vsftpd-2.0.5/vsftpd.conf	2006-08-22 10:04:55.000000000 +0200
+@@ -100,14 +100,17 @@
+ # sites. However, some broken FTP clients such as "ncftp" and "mirror" assume
+ # the presence of the "-R" option, so there is a strong case for enabling it.
+ #ls_recurse_enable=YES
+-
+-pam_service_name=vsftpd
+-userlist_enable=YES
+-# When enabled, vsftpd runs in standalone mode, but listen only to IPv6 sockets. 
+-# This directive cannot be used in conjunction with the listen directive.
+-# Make sure, that one of listen options are commited
+-# enable for standalone mode
++#
++# When "listen" directive is enabled, vsftpd runs in standalone mode and 
++# listens on IPv4 sockets. This directive cannot be used in conjunction 
++# with the listen_ipv6 directive.
+ listen=YES
++#
++# This directive enables listening on IPv6 sockets. To listen on IPv4 and IPv6
++# sockets, you must run two copies of vsftpd whith two configuration files.
++# Make sure, that one of the listen options is commented !!
+ #listen_ipv6=YES
+ 
++pam_service_name=vsftpd
++userlist_enable=YES
+ tcp_wrappers=YES
