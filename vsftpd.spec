@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 6
+Release: 7
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
