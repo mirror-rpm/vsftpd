@@ -34,6 +34,7 @@ Patch18: vsftpd-close-std-fds.patch
 Patch19: vsftpd-2.0.5-default_ipv6.patch
 Patch20: vsftpd-2.0.5-add_ipv6_option.patch
 Patch21: vsftpd-2.0.5-correct_comments.patch
+Patch22: vsftpd-2.0.5-man.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -79,9 +80,10 @@ cp %{SOURCE1} .
 %patch16 -p1 -b .user_config
 %patch17 -p1 -b .old-pam
 %patch18 -p1 -b .close-fds
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
+%patch19 -p1 -b .ipv6
+%patch20 -p1 -b .ipv6opt
+%patch21 -p1 -b .comments
+%patch22 -p1 -b .manp
 
 %build
 %ifarch s390x
@@ -140,6 +142,9 @@ fi
 /var/ftp
 
 %changelog
+* Tue Aug 22 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-7
+- correct paths of configuration files on man pages
+
 * Tue Aug 15 2006 Maros Barabas	<mbarabas@redhat.com> - 2.0.5-6
 - correct comments
 
