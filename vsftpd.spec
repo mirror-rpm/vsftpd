@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 8
+Release: 9
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -39,7 +39,7 @@ Patch23: vsftpd-2.0.4-filter.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
-BuildPrereq: tcp_wrappers
+BuildPrereq: tcp_wrappers-devel
 %endif
 BuildRequires: pam-devel
 Requires: pam
@@ -144,6 +144,9 @@ fi
 /var/ftp
 
 %changelog
+* Mon Dec 04 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-9
+- change BuildRequires tcp_wrappers to tcp_wrappers-devel
+
 * Mon Aug 28 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-8
 - added forgotten patch to make filename filter (#174764)
 
