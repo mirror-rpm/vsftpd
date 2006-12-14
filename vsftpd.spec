@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 9
+Release: 10
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -36,6 +36,8 @@ Patch20: vsftpd-2.0.5-add_ipv6_option.patch
 Patch21: vsftpd-2.0.5-correct_comments.patch
 Patch22: vsftpd-2.0.5-man.patch
 Patch23: vsftpd-2.0.4-filter.patch
+Patch24: vsftpd-2.0.5-file_stat.patch
+Patch25: vsftpd-2.0.5-confspell.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -86,6 +88,8 @@ cp %{SOURCE1} .
 %patch21 -p1 -b .comments
 %patch22 -p1 -b .manp
 %patch23 -p1 -b .filter
+%patch24 -p1 -b .file_stat
+%patch25 -p1
 
 %build
 %ifarch s390x
@@ -144,6 +148,12 @@ fi
 /var/ftp
 
 %changelog
+* Thu Dec 14 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-10
+- correct man (5) pages
+- Resolves: #216765
+- correct calling function stat 
+- Resolves: bz200763
+
 * Mon Dec 04 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-9
 - change BuildRequires tcp_wrappers to tcp_wrappers-devel
 
