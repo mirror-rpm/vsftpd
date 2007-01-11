@@ -41,7 +41,7 @@ Patch25: vsftpd-2.0.5-confspell.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
-BuildPrereq: tcp_wrappers-devel
+BuildPrereq: tcp_wrappers
 %endif
 BuildRequires: pam-devel
 Requires: pam

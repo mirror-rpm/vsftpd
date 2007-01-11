@@ -1,0 +1,17 @@
+--- vsftpd-2.0.5/vsftpd.conf.5.old	2006-12-04 17:10:51.000000000 +0100
++++ vsftpd-2.0.5/vsftpd.conf.5	2006-12-04 17:11:57.000000000 +0100
+@@ -588,12 +588,12 @@
+ 
+ Default: 300
+ .TP
+-.B delay_failed_logins
++.B delay_failed_login
+ The number of seconds to pause prior to reporting a failed login.
+ 
+ Default: 1
+ .TP
+-.B delay_successful_logins
++.B delay_successful_login
+ The number of seconds to pause prior to allowing a successful login.
+ 
+ Default: 0

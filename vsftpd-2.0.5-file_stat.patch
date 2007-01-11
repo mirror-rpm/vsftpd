@@ -1,0 +1,11 @@
+--- vsftpd-2.0.5/parseconf.c.old	2006-12-05 12:19:48.000000000 +0100
++++ vsftpd-2.0.5/parseconf.c	2006-12-05 12:19:54.000000000 +0100
+@@ -208,7 +208,7 @@
+     copy_string_settings();
+   }
+   retval = str_fileread(&config_file_str, p_filename, VSFTP_CONF_FILE_MAX);
+-  (int)str_stat(&config_file_str, &p_statbuf);
++  (int)vsf_sysutil_stat(p_filename, &p_statbuf);
+   /* Security - die unless the conf file is owned by root */ 
+   if (vsf_sysutil_retval_is_error(retval) || vsf_sysutil_statbuf_get_uid(p_statbuf) != VSFTP_ROOT_UID)
+   {
