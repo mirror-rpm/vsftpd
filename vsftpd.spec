@@ -150,7 +150,7 @@ fi
 /var/ftp
 
 %changelog
-* Wed Jan 17 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-11
+* Wed Jan 17 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-11
 - add errno EACCES to not die by vsf_sysutil_bind
 - Resolves #198677
 
