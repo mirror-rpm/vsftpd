@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 10
+Release: 11
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -38,6 +38,7 @@ Patch22: vsftpd-2.0.5-man.patch
 Patch23: vsftpd-2.0.4-filter.patch
 Patch24: vsftpd-2.0.5-file_stat.patch
 Patch25: vsftpd-2.0.5-confspell.patch
+Patch26: vsftpd-2.0.5-bind_denied.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -90,6 +91,7 @@ cp %{SOURCE1} .
 %patch23 -p1 -b .filter
 %patch24 -p1 -b .file_stat
 %patch25 -p1
+%patch26 -p1 -b .bind_denied
 
 %build
 %ifarch s390x
@@ -148,6 +150,10 @@ fi
 /var/ftp
 
 %changelog
+* Wed Jan 17 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-11
+- add errno EACCES to not die by vsf_sysutil_bind
+- Resolves #198677
+
 * Thu Dec 14 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-10
 - correct man (5) pages
 - Resolves: #216765

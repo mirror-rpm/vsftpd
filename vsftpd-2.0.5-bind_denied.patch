@@ -1,0 +1,36 @@
+--- vsftpd-2.0.5/postlogin.c.old	2007-01-17 12:22:10.000000000 +0100
++++ vsftpd-2.0.5/postlogin.c	2007-01-17 12:20:33.000000000 +0100
+@@ -557,7 +557,8 @@
+     {
+       break;
+     }
+-    if (vsf_sysutil_get_error() == kVSFSysUtilErrADDRINUSE)
++    if ( (vsf_sysutil_get_error() == kVSFSysUtilErrADDRINUSE) ||
++         (vsf_sysutil_get_error() == kVSFSysUtilErrEACCES) )
+     {
+       continue;
+     }
+--- vsftpd-2.0.5/sysutil.h.old	2007-01-17 12:22:10.000000000 +0100
++++ vsftpd-2.0.5/sysutil.h	2007-01-17 12:20:52.000000000 +0100
+@@ -16,7 +16,8 @@
+   kVSFSysUtilErrNOSYS,
+   kVSFSysUtilErrINTR,
+   kVSFSysUtilErrINVAL,
+-  kVSFSysUtilErrOPNOTSUPP
++  kVSFSysUtilErrOPNOTSUPP,
++  kVSFSysUtilErrEACCES
+ };
+ enum EVSFSysUtilError vsf_sysutil_get_error(void);
+ 
+--- vsftpd-2.0.5/sysutil.c.old	2007-01-17 12:22:10.000000000 +0100
++++ vsftpd-2.0.5/sysutil.c	2007-01-17 12:20:22.000000000 +0100
+@@ -1553,6 +1553,9 @@
+     case EOPNOTSUPP:
+       retval = kVSFSysUtilErrOPNOTSUPP;
+       break;
++    case EACCES:
++      retval = kVSFSysUtilErrEACCES;
++      break;
+   }
+   return retval;
+ }
