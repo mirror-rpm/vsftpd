@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 11
+Release: 12%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -150,6 +150,9 @@ fi
 /var/ftp
 
 %changelog
+* Thu Jan 18 2007 Radek Vokál <rvokal@redhat.com> - 2.0.5-12
+- add dist tag
+
 * Wed Jan 17 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-11
 - add errno EACCES to not die by vsf_sysutil_bind
 - Resolves #198677
