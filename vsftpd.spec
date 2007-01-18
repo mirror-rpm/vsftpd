@@ -42,7 +42,7 @@ Patch26: vsftpd-2.0.5-bind_denied.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
-BuildPrereq: tcp_wrappers
+BuildPrereq: tcp_wrappers-devel
 %endif
 BuildRequires: pam-devel
 Requires: pam
@@ -152,6 +152,7 @@ fi
 %changelog
 * Thu Jan 18 2007 Radek Vokál <rvokal@redhat.com> - 2.0.5-12
 - add dist tag
+- add buildrequires tcp_wrappers-devel
 
 * Wed Jan 17 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-11
 - add errno EACCES to not die by vsf_sysutil_bind
