@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -39,6 +39,7 @@ Patch23: vsftpd-2.0.4-filter.patch
 Patch24: vsftpd-2.0.5-file_stat.patch
 Patch25: vsftpd-2.0.5-confspell.patch
 Patch26: vsftpd-2.0.5-bind_denied.patch
+Patch27: vsftpd-2.0.5-uniq_rename.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -92,6 +93,7 @@ cp %{SOURCE1} .
 %patch24 -p1 -b .file_stat
 %patch25 -p1
 %patch26 -p1 -b .bind_denied
+%patch27 -p1 -b .uniq_rename
 
 %build
 %ifarch s390x
@@ -150,6 +152,10 @@ fi
 /var/ftp
 
 %changelog
+* Fri Jan 19 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-13
+- add lost patch: don't die when no user config file is present 
+- Resolves #166986
+
 * Thu Jan 18 2007 Radek Vokál <rvokal@redhat.com> - 2.0.5-12
 - add dist tag
 - add buildrequires tcp_wrappers-devel
