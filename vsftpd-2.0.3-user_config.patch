@@ -1,0 +1,11 @@
+--- vsftpd-2.0.3/twoprocess.c.test	2005-08-31 11:49:58.000000000 +0200
++++ vsftpd-2.0.3/twoprocess.c	2005-08-31 11:58:11.000000000 +0200
+@@ -422,7 +424,7 @@ handle_per_user_config(const struct myst
+   {
+     vsf_parseconf_load_file(str_getbuf(&filename_str), 1);
+   }
+-  else
++  else if (vsf_sysutil_statbuf_get_uid(p_statbuf) != VSFTP_ROOT_UID)
+   {
+     die("reading non-root config file"); 
+   }

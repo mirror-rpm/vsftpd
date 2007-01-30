@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -28,7 +28,7 @@ Patch11: vsftpd-1.2.1-nonrootconf.patch
 Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
 Patch15: vsftpd-2.0.1-kickline.patch
-Patch16: vsfptd-2.0.3-user_config.patch
+Patch16: vsftpd-2.0.3-user_config.patch
 Patch17: vsftpd-2.0.3-pam_hostname.patch
 Patch18: vsftpd-close-std-fds.patch
 Patch19: vsftpd-2.0.5-default_ipv6.patch
@@ -40,6 +40,7 @@ Patch24: vsftpd-2.0.5-file_stat.patch
 Patch25: vsftpd-2.0.5-confspell.patch
 Patch26: vsftpd-2.0.5-bind_denied.patch
 Patch27: vsftpd-2.0.5-uniq_rename.patch
+Patch28: vsftpd-2.0.5-anon_umask.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -94,6 +95,7 @@ cp %{SOURCE1} .
 %patch25 -p1
 %patch26 -p1 -b .bind_denied
 %patch27 -p1 -b .uniq_rename
+%patch28 -p1 -b .anon_umask
 
 %build
 %ifarch s390x
@@ -152,11 +154,16 @@ fi
 /var/ftp
 
 %changelog
+* Tue Jan 30 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-14
+- remove file upload permission problem 
+- change name of patch vsfptd-2.0.3-user_config
+- Resolves #190193
+
 * Fri Jan 19 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-13
 - add lost patch: don't die when no user config file is present 
 - Resolves #166986
 
-* Thu Jan 18 2007 Radek Vokál <rvokal@redhat.com> - 2.0.5-12
+* Thu Jan 18 2007 Radek Vokal <rvokal@redhat.com> - 2.0.5-12
 - add dist tag
 - add buildrequires tcp_wrappers-devel
 

@@ -1,0 +1,10 @@
+--- vsftpd-2.0.5/postlogin.c.old	2007-01-19 12:52:52.000000000 +0100
++++ vsftpd-2.0.5/postlogin.c	2007-01-30 10:42:05.000000000 +0100
+@@ -1016,7 +1016,6 @@
+   /* Are we required to chown() this file for security? */
+   if (p_sess->is_anonymous && tunable_chown_uploads)
+   {
+-    vsf_sysutil_fchmod(new_file_fd, 0600);
+     if (tunable_one_process_model)
+     {
+       vsf_one_process_chown_upload(p_sess, new_file_fd);
