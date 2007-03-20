@@ -3,7 +3,7 @@
 Summary: vsftpd - Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -54,7 +54,7 @@ Requires: libcap
 BuildRequires: openssl-devel
 Requires: openssl
 # for -fpie
-BuildPrereq: gcc > gcc-3.2.3-13, binutils > binutils-2.14.90.0.4-24, glibc-devel >= 2.3.2-45
+BuildPrereq: gcc > 3.2.3-13, binutils > 2.14.90.0.4-24, glibc-devel >= 2.3.2-45
 Requires: logrotate
 Prereq: /sbin/chkconfig, /sbin/service, /usr/sbin/usermod
 Obsoletes: anonftp
@@ -154,6 +154,9 @@ fi
 /var/ftp
 
 %changelog
+* Tue Mar 20 2007 Florian La Roche <laroche@redhat.com> - 2.0.5-15
+- fix BuildPrereq
+
 * Tue Jan 30 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-14
 - remove file upload permission problem 
 - change name of patch vsfptd-2.0.3-user_config
