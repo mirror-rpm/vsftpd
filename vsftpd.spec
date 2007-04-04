@@ -1,9 +1,9 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
-Summary: vsftpd - Very Secure Ftp Daemon
+Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -44,21 +44,21 @@ Patch28: vsftpd-2.0.5-anon_umask.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
-BuildPrereq: tcp_wrappers-devel
+BuildRequires: tcp_wrappers-devel
 %endif
 BuildRequires: pam-devel
-Requires: pam
 Requires: /%{_lib}/security/pam_loginuid.so
 BuildRequires: libcap-devel
-Requires: libcap
 BuildRequires: openssl-devel
-Requires: openssl
+Requires: libcap
 # for -fpie
-BuildPrereq: gcc > 3.2.3-13, binutils > 2.14.90.0.4-24, glibc-devel >= 2.3.2-45
+BuildRequires: gcc > 3.2.3-13, binutils > 2.14.90.0.4-24, glibc-devel >= 2.3.2-45
 Requires: logrotate
-Prereq: /sbin/chkconfig, /sbin/service, /usr/sbin/usermod
-Obsoletes: anonftp
-Provides: ftpserver
+Requires (preun): /sbin/chkconfig
+Requires (preun): /sbin/service
+Requires (post): /sbin/chkconfig
+#Obsoletes: anonftp
+#Provides: ftpserver
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -108,22 +108,22 @@ make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe" \
 
 %install
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/sbin
-mkdir -p $RPM_BUILD_ROOT/etc
-mkdir -p $RPM_BUILD_ROOT/etc/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
-mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man{5,8}
-install -m 755 vsftpd  $RPM_BUILD_ROOT/usr/sbin/vsftpd
-install -m 600 vsftpd.conf $RPM_BUILD_ROOT/etc/vsftpd/vsftpd.conf
+mkdir -p $RPM_BUILD_ROOT%{_sbindir}
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{5,8}
+install -m 755 vsftpd  $RPM_BUILD_ROOT%{_sbindir}/vsftpd
+install -m 600 vsftpd.conf $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd.conf
 install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 install -m 644 vsftpd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
-install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT/etc/logrotate.d/vsftpd.log
-install -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/vsftpd
-install -m 600 %{SOURCE3} $RPM_BUILD_ROOT/etc/vsftpd/ftpusers
-install -m 600 %{SOURCE4} $RPM_BUILD_ROOT/etc/vsftpd/user_list
-install -m 755 %{SOURCE5} $RPM_BUILD_ROOT/etc/rc.d/init.d/vsftpd
-install -m 744 %{SOURCE6} $RPM_BUILD_ROOT/etc/vsftpd/vsftpd_conf_migrate.sh
+install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/vsftpd.log
+install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/vsftpd
+install -m 600 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/ftpusers
+install -m 600 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/user_list
+install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/vsftpd
+install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
                             
-mkdir -p $RPM_BUILD_ROOT/var/ftp/pub
+mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
@@ -141,19 +141,25 @@ fi
 
 %files
 %defattr(-,root,root)
-/usr/sbin/vsftpd
-/etc/rc.d/init.d/vsftpd
+%{_sbindir}/vsftpd
+%{_sysconfdir}/rc.d/init.d/vsftpd
 #%config(noreplace) /etc/vsftpd.*
-%dir /etc/vsftpd
-%config(noreplace) /etc/vsftpd/*
-%config(noreplace) /etc/pam.d/vsftpd
-%config(noreplace) /etc/logrotate.d/vsftpd.log
+%dir %{_sysconfdir}/vsftpd
+%config(noreplace) %{_sysconfdir}/vsftpd/*
+%config(noreplace) %{_sysconfdir}/pam.d/vsftpd
+%config(noreplace) %{_sysconfdir}/logrotate.d/vsftpd.log
 %doc FAQ INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD SPEED TODO BENCHMARKS COPYING SECURITY/ EXAMPLE/ TUNING SIZE vsftpd.xinetd
 %{_mandir}/man5/vsftpd.conf.*
 %{_mandir}/man8/vsftpd.*
-/var/ftp
+%{_var}/ftp
 
 %changelog
+* Wed Apr 04 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-16
+- Merge review: - fix using %%{_var}, %%{_sbindir} and 
+                  %%{_sysconfigdir} macros for files and install
+                - fix BuildRoot
+                - dropped usermod, openssl & pam requirement
+
 * Tue Mar 20 2007 Florian La Roche <laroche@redhat.com> - 2.0.5-15
 - fix BuildPrereq
 
@@ -390,7 +396,7 @@ fi
 - don't spit out ugly errors if anonftp isn't installed (#62987)
 - fix horribly broken userlist setup (#62321)
 
-* Thu Feb 28 2002 Trond Eivind Glomsrød <teg@redhat.com> 1.0.1-4
+* Thu Feb 28 2002 Trond Eivind GlomsrÃ¸d <teg@redhat.com> 1.0.1-4
 - s/Copyright/License/
 - add "missingok" to the logrotate script, so we don't get errors
   when nothing has happened
@@ -409,7 +415,7 @@ fi
 
 * Wed Mar 7 2001 Seth Vidal <skvidal@phy.duke.edu>
 - Updated to 0.0.14
-- made %files entry for man page
+- made %%files entry for man page
 
 * Wed Feb 21 2001 Seth Vidal <skvidal@phy.duke.edu>
 - Updated to 0.0.13
