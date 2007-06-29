@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -41,6 +41,7 @@ Patch25: vsftpd-2.0.5-confspell.patch
 Patch26: vsftpd-2.0.5-bind_denied.patch
 Patch27: vsftpd-2.0.5-uniq_rename.patch
 Patch28: vsftpd-2.0.5-anon_umask.patch
+Patch29: vsftpd-2.0.5-pasv_dot.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -96,6 +97,7 @@ cp %{SOURCE1} .
 %patch26 -p1 -b .bind_denied
 %patch27 -p1 -b .uniq_rename
 %patch28 -p1 -b .anon_umask
+%patch29 -p1 -b .pasv_dot
 
 %build
 %ifarch s390x
@@ -154,6 +156,9 @@ fi
 %{_var}/ftp
 
 %changelog
+* Fri Jun 29 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-17
+- Fix pasv dot after pasv response (RFC 959 page 40)
+
 * Wed Apr 04 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-16
 - Merge review: - fix using %%{_var}, %%{_sbindir} and 
                   %%{_sysconfigdir} macros for files and install
