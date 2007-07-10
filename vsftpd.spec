@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -156,6 +156,10 @@ fi
 %{_var}/ftp
 
 %changelog
+* Tue Jul 10 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-18
+- Add comment for xferlog_std_format
+- Resolves #218260
+
 * Fri Jun 29 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-17
 - Fix pasv dot after pasv response (RFC 959 page 40)
 

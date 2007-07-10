@@ -1,6 +1,16 @@
---- vsftpd-2.0.5/vsftpd.conf.old	2006-08-22 09:53:09.000000000 +0200
-+++ vsftpd-2.0.5/vsftpd.conf	2006-08-22 10:04:55.000000000 +0200
-@@ -100,14 +100,17 @@
+--- vsftpd-2.0.5/vsftpd.conf.comments	2007-07-10 16:12:51.000000000 +0200
++++ vsftpd-2.0.5/vsftpd.conf	2007-07-10 16:15:18.000000000 +0200
+@@ -50,7 +50,8 @@
+ # below.
+ #xferlog_file=/var/log/vsftpd.log
+ #
+-# If you want, you can have your log file in standard ftpd xferlog format
++# If you want, you can have your log file in standard ftpd xferlog format.
++# Note that the default log file location is /var/log/xferlog in this case.
+ xferlog_std_format=YES
+ #
+ # You may change the default value for timing out an idle session.
+@@ -100,14 +101,17 @@
  # sites. However, some broken FTP clients such as "ncftp" and "mirror" assume
  # the presence of the "-R" option, so there is a strong case for enabling it.
  #ls_recurse_enable=YES
