@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -156,6 +156,9 @@ fi
 %{_var}/ftp
 
 %changelog
+* Wed Aug 29 2007 Fedora Release Engineering <rel-eng at fedoraproject dot org> - 2.0.5-19
+- Rebuild for selinux ppc32 issue.
+
 * Tue Jul 10 2007 Maros Barabas <mbarabas@redhat.com> - 2.0.5-18
 - Add comment for xferlog_std_format
 - Resolves #218260
