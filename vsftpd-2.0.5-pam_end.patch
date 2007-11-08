@@ -1,0 +1,81 @@
+diff -up vsftpd-2.0.5/sysdeputil.c.pam_end vsftpd-2.0.5/sysdeputil.c
+--- vsftpd-2.0.5/sysdeputil.c.pam_end	2007-11-02 15:53:20.000000000 +0100
++++ vsftpd-2.0.5/sysdeputil.c	2007-11-08 13:49:44.000000000 +0100
+@@ -320,7 +320,7 @@ vsf_sysdep_check_auth(const struct mystr
+     retval = pam_set_item(s_pamh, PAM_RHOST, str_getbuf(p_remote_host));
+   if (retval != PAM_SUCCESS)
+   {
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+@@ -329,7 +329,7 @@ vsf_sysdep_check_auth(const struct mystr
+   retval = pam_set_item(s_pamh, PAM_TTY, "ftp");
+   if (retval != PAM_SUCCESS)
+   {
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+@@ -338,7 +338,7 @@ vsf_sysdep_check_auth(const struct mystr
+   retval = pam_set_item(s_pamh, PAM_RUSER, str_getbuf(p_user_str));
+   if (retval != PAM_SUCCESS)
+   {
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+@@ -346,28 +346,28 @@ vsf_sysdep_check_auth(const struct mystr
+   retval = pam_authenticate(s_pamh, 0);
+   if (retval != PAM_SUCCESS)
+   {
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+   retval = pam_acct_mgmt(s_pamh, 0);
+   if (retval != PAM_SUCCESS)
+   {
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+   retval = pam_setcred(s_pamh, PAM_ESTABLISH_CRED);
+   if (retval != PAM_SUCCESS)
+   {
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+   if (!tunable_session_support)
+   {
+     /* You're in already! */
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 1;
+   }
+@@ -378,7 +378,7 @@ vsf_sysdep_check_auth(const struct mystr
+   {
+     vsf_remove_uwtmp();
+     (void) pam_setcred(s_pamh, PAM_DELETE_CRED);
+-    (void) pam_end(s_pamh, 0);
++    (void) pam_end(s_pamh, retval);
+     s_pamh = 0;
+     return 0;
+   }
+@@ -399,7 +399,7 @@ vsf_auth_shutdown(void)
+   }
+   (void) pam_close_session(s_pamh, 0);
+   (void) pam_setcred(s_pamh, PAM_DELETE_CRED);
+-  (void) pam_end(s_pamh, 0);
++  (void) pam_end(s_pamh, PAM_SUCCESS);
+   s_pamh = 0;
+   vsf_remove_uwtmp();
+ }
