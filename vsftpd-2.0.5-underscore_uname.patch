@@ -1,0 +1,12 @@
+diff -up vsftpd-2.0.5/sysutil.c.underscore_uname vsftpd-2.0.5/sysutil.c
+--- vsftpd-2.0.5/sysutil.c.underscore_uname	2007-11-30 13:14:50.000000000 +0100
++++ vsftpd-2.0.5/sysutil.c	2007-11-30 13:12:25.000000000 +0100
+@@ -905,7 +905,7 @@ vsf_sysutil_isprint(int the_char)
+ int
+ vsf_sysutil_isalnum(int the_char)
+ {
+-  return isalnum(the_char);
++  return isalnum(the_char) || the_char == '_' || the_char == '.';
+ }
+ 
+ int

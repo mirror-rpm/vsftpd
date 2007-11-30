@@ -45,6 +45,7 @@ Patch30: vsftpd-2.0.5-pam_end.patch
 Patch31: vsftpd-2.0.5-write_race.patch
 Patch32: vsftpd-2.0.5-fix_unique.patch
 Patch33: vsftpd-2.0.5-userlist_log.patch
+Patch34: vsftpd-2.0.5-underscore_uname.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -104,6 +105,7 @@ cp %{SOURCE1} .
 %patch31 -p1 -b .write_race
 %patch32 -p1 -b .fix_unique
 %patch33 -p1 -b .userlist_log
+%patch34 -p1 -b .underscore_uname
 
 %build
 %ifarch s390x
@@ -168,6 +170,7 @@ fi
   (#240550).
 - Fix bad handling of unique files (#392231).
 - Added userlist_log option.
+- Allow usernames to begin with underscore or dot (#339911).
 
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
