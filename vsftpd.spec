@@ -28,7 +28,6 @@ Patch11: vsftpd-1.2.1-nonrootconf.patch
 Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
 Patch15: vsftpd-2.0.1-kickline.patch
-Patch16: vsftpd-2.0.3-user_config.patch
 Patch17: vsftpd-2.0.3-pam_hostname.patch
 Patch18: vsftpd-close-std-fds.patch
 Patch19: vsftpd-2.0.5-default_ipv6.patch
@@ -88,7 +87,6 @@ cp %{SOURCE1} .
 %patch13 -p1 -b .background
 %patch14 -p1 -b .fds
 %patch15 -p1 -b .kickline
-%patch16 -p1 -b .user_config
 %patch17 -p1 -b .old-pam
 %patch18 -p1 -b .close-fds
 %patch19 -p1 -b .ipv6
@@ -171,6 +169,8 @@ fi
 - Fix bad handling of unique files (#392231).
 - Added userlist_log option.
 - Allow usernames to begin with underscore or dot (#339911).
+- Removed user_config patch.
+- Fix nonrootconf patch (#400921).
 
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
