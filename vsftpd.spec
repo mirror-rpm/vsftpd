@@ -43,6 +43,7 @@ Patch28: vsftpd-2.0.5-anon_umask.patch
 Patch29: vsftpd-2.0.5-pasv_dot.patch
 Patch30: vsftpd-2.0.5-pam_end.patch
 Patch31: vsftpd-2.0.5-write_race.patch
+Patch32: vsftpd-2.0.5-fix_unique.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -100,6 +101,7 @@ cp %{SOURCE1} .
 %patch29 -p1 -b .pasv_dot
 %patch30 -p1 -b .pam_end
 %patch31 -p1 -b .write_race
+%patch32 -p1 -b .fix_unique
 
 %build
 %ifarch s390x
@@ -162,6 +164,7 @@ fi
 - Remove uniq_rename patch.
 - Correct create/lock race condition, original patch by <mpoole@redhat.com>
   (#240550).
+- Fix bad handling of unique files (#392231).
 
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
