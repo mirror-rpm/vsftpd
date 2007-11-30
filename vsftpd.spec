@@ -45,6 +45,7 @@ Patch31: vsftpd-2.0.5-write_race.patch
 Patch32: vsftpd-2.0.5-fix_unique.patch
 Patch33: vsftpd-2.0.5-userlist_log.patch
 Patch34: vsftpd-2.0.5-underscore_uname.patch
+Patch35: vsftpd-2.0.5-uname_size.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -104,6 +105,7 @@ cp %{SOURCE1} .
 %patch32 -p1 -b .fix_unique
 %patch33 -p1 -b .userlist_log
 %patch34 -p1 -b .underscore_uname
+%patch35 -p1 -b .uname_size
 
 %build
 %ifarch s390x
@@ -171,6 +173,7 @@ fi
 - Allow usernames to begin with underscore or dot (#339911).
 - Removed user_config patch.
 - Fix nonrootconf patch (#400921).
+- Increase maximum length of allowed username (#236326).
 
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
