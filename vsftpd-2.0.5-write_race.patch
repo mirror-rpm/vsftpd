@@ -1,0 +1,68 @@
+diff -up vsftpd-2.0.5/sysutil.h.write_race vsftpd-2.0.5/sysutil.h
+--- vsftpd-2.0.5/sysutil.h.write_race	2007-11-21 08:48:28.000000000 +0100
++++ vsftpd-2.0.5/sysutil.h	2007-11-21 08:48:28.000000000 +0100
+@@ -91,6 +91,8 @@ void vsf_sysutil_close(int fd);
+ int vsf_sysutil_close_failok(int fd);
+ int vsf_sysutil_unlink(const char* p_dead);
+ int vsf_sysutil_write_access(const char* p_filename);
++/* Trucate after open */
++int vsf_sysutil_truncate(int fd, filesize_t length);
+ 
+ /* Reading and writing */
+ void vsf_sysutil_lseek_to(const int fd, filesize_t seek_pos);
+diff -up vsftpd-2.0.5/postlogin.c.write_race vsftpd-2.0.5/postlogin.c
+--- vsftpd-2.0.5/postlogin.c.write_race	2007-11-21 08:48:28.000000000 +0100
++++ vsftpd-2.0.5/postlogin.c	2007-11-21 08:51:59.000000000 +0100
+@@ -953,6 +953,7 @@ handle_upload_common(struct vsf_session*
+   struct vsf_transfer_ret trans_ret;
+   int new_file_fd;
+   int remote_fd;
++  int truncit = 0;
+   filesize_t offset = p_sess->restart_pos;
+   p_sess->restart_pos = 0;
+   if (!data_transfer_checks_ok(p_sess))
+@@ -987,7 +988,15 @@ handle_upload_common(struct vsf_session*
+     /* For non-anonymous, allow open() to overwrite or append existing files */
+     if (!is_append && offset == 0)
+     {
+-      new_file_fd = str_create_overwrite(p_filename);
++      if (tunable_lock_upload_files)
++      {
++        new_file_fd = str_create_append(p_filename);
++        truncit = 1;
++      }
++      else
++      {
++        new_file_fd = str_create_overwrite(p_filename);
++      }
+     }
+     else
+     {
+@@ -1023,6 +1032,11 @@ handle_upload_common(struct vsf_session*
+   if (tunable_lock_upload_files)
+   {
+     vsf_sysutil_lock_file_write(new_file_fd);
++    if (truncit)
++    {
++      vsf_sysutil_truncate(new_file_fd, 0);
++      vsf_sysutil_lseek_to(new_file_fd, 0);
++    }
+   }
+   if (!is_append && offset != 0)
+   {
+diff -up vsftpd-2.0.5/sysutil.c.write_race vsftpd-2.0.5/sysutil.c
+--- vsftpd-2.0.5/sysutil.c.write_race	2007-11-21 08:48:28.000000000 +0100
++++ vsftpd-2.0.5/sysutil.c	2007-11-21 08:48:28.000000000 +0100
+@@ -1196,6 +1196,12 @@ vsf_sysutil_close_failok(int fd)
+ }
+ 
+ int
++vsf_sysutil_truncate(int fd, filesize_t length)
++{
++  return ftruncate(fd, length);
++}
++
++int
+ vsf_sysutil_unlink(const char* p_dead)
+ {
+   return unlink(p_dead);

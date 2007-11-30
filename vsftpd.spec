@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -39,10 +39,10 @@ Patch23: vsftpd-2.0.4-filter.patch
 Patch24: vsftpd-2.0.5-file_stat.patch
 Patch25: vsftpd-2.0.5-confspell.patch
 Patch26: vsftpd-2.0.5-bind_denied.patch
-Patch27: vsftpd-2.0.5-uniq_rename.patch
 Patch28: vsftpd-2.0.5-anon_umask.patch
 Patch29: vsftpd-2.0.5-pasv_dot.patch
 Patch30: vsftpd-2.0.5-pam_end.patch
+Patch31: vsftpd-2.0.5-write_race.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -96,10 +96,10 @@ cp %{SOURCE1} .
 %patch24 -p1 -b .file_stat
 %patch25 -p1
 %patch26 -p1 -b .bind_denied
-%patch27 -p1 -b .uniq_rename
 %patch28 -p1 -b .anon_umask
 %patch29 -p1 -b .pasv_dot
 %patch30 -p1 -b .pam_end
+%patch31 -p1 -b .write_race
 
 %build
 %ifarch s390x
@@ -158,6 +158,11 @@ fi
 %{_var}/ftp
 
 %changelog
+* Fri Nov 30 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-21
+- Remove uniq_rename patch.
+- Correct create/lock race condition, original patch by <mpoole@redhat.com>
+  (#240550).
+
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
 
