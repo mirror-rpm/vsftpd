@@ -46,6 +46,7 @@ Patch32: vsftpd-2.0.5-fix_unique.patch
 Patch33: vsftpd-2.0.5-userlist_log.patch
 Patch34: vsftpd-2.0.5-underscore_uname.patch
 Patch35: vsftpd-2.0.5-uname_size.patch
+Patch36: vsftpd-2.0.5-greedy.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -106,6 +107,7 @@ cp %{SOURCE1} .
 %patch33 -p1 -b .userlist_log
 %patch34 -p1 -b .underscore_uname
 %patch35 -p1 -b .uname_size
+%patch36 -p1 -b .greedy
 
 %build
 %ifarch s390x
@@ -174,6 +176,7 @@ fi
 - Removed user_config patch.
 - Fix nonrootconf patch (#400921).
 - Increase maximum length of allowed username (#236326).
+- Fix file listing issue with wildcard (#392181).
 
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
