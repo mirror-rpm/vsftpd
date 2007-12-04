@@ -23,7 +23,6 @@ Patch6: vsftpd-1.2.1-conffile.patch
 Patch7: vsftpd-2.0.1-build_ssl.patch
 Patch8: vsftpd-2.0.1-server_args.patch
 Patch9: vsftpd-2.0.1-dir.patch
-Patch10: vsftpd-2.0.1-use_localtime.patch
 Patch11: vsftpd-1.2.1-nonrootconf.patch
 Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
@@ -84,7 +83,6 @@ cp %{SOURCE1} .
 %patch7 -p1 -b .build_ssl
 %patch8 -p1 -b .server_args
 %patch9 -p1 -b .dir
-%patch10 -p1 -b .use_localtime
 %patch11 -p1 -b .nonrootconf
 %patch13 -p1 -b .background
 %patch14 -p1 -b .fds
@@ -177,6 +175,7 @@ fi
 - Fix nonrootconf patch (#400921).
 - Increase maximum length of allowed username (#236326).
 - Fix file listing issue with wildcard (#392181).
+- Removed use_localtime patch (#243087).
 
 * Thu Nov 08 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-20
 - Correct calling of pam_end (#235843).
