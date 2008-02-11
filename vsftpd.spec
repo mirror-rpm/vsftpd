@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.5
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -164,6 +164,9 @@ fi
 %{_var}/ftp
 
 %changelog
+* Mon Feb 11 2008 Martin Nagy <mnagy@redhat.com> - 2.0.5-22
+- rebuild for gcc-4.3
+
 * Fri Nov 30 2007 Martin Nagy <mnagy@redhat.com> - 2.0.5-21
 - Remove uniq_rename patch.
 - Correct create/lock race condition, original patch by <mpoole@redhat.com>
