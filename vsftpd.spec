@@ -2,8 +2,8 @@
 
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
-Version: 2.0.5
-Release: 22%{?dist}
+Version: 2.0.6
+Release: 1%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -26,7 +26,6 @@ Patch9: vsftpd-2.0.1-dir.patch
 Patch11: vsftpd-1.2.1-nonrootconf.patch
 Patch13: vsftpd-2.0.3-background.patch
 Patch14: vsftpd-2.0.3-daemonize_fds.patch
-Patch15: vsftpd-2.0.1-kickline.patch
 Patch17: vsftpd-2.0.3-pam_hostname.patch
 Patch18: vsftpd-close-std-fds.patch
 Patch19: vsftpd-2.0.5-default_ipv6.patch
@@ -35,17 +34,15 @@ Patch21: vsftpd-2.0.5-correct_comments.patch
 Patch22: vsftpd-2.0.5-man.patch
 Patch23: vsftpd-2.0.4-filter.patch
 Patch24: vsftpd-2.0.5-file_stat.patch
-Patch25: vsftpd-2.0.5-confspell.patch
 Patch26: vsftpd-2.0.5-bind_denied.patch
-Patch28: vsftpd-2.0.5-anon_umask.patch
 Patch29: vsftpd-2.0.5-pasv_dot.patch
 Patch30: vsftpd-2.0.5-pam_end.patch
 Patch31: vsftpd-2.0.5-write_race.patch
 Patch32: vsftpd-2.0.5-fix_unique.patch
-Patch33: vsftpd-2.0.5-userlist_log.patch
 Patch34: vsftpd-2.0.5-underscore_uname.patch
 Patch35: vsftpd-2.0.5-uname_size.patch
 Patch36: vsftpd-2.0.5-greedy.patch
+Patch37: vsftpd-2.0.6-userlist_log.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -86,7 +83,6 @@ cp %{SOURCE1} .
 %patch11 -p1 -b .nonrootconf
 %patch13 -p1 -b .background
 %patch14 -p1 -b .fds
-%patch15 -p1 -b .kickline
 %patch17 -p1 -b .old-pam
 %patch18 -p1 -b .close-fds
 %patch19 -p1 -b .ipv6
@@ -95,17 +91,15 @@ cp %{SOURCE1} .
 %patch22 -p1 -b .manp
 %patch23 -p1 -b .filter
 %patch24 -p1 -b .file_stat
-%patch25 -p1
 %patch26 -p1 -b .bind_denied
-%patch28 -p1 -b .anon_umask
 %patch29 -p1 -b .pasv_dot
 %patch30 -p1 -b .pam_end
 %patch31 -p1 -b .write_race
 %patch32 -p1 -b .fix_unique
-%patch33 -p1 -b .userlist_log
 %patch34 -p1 -b .underscore_uname
 %patch35 -p1 -b .uname_size
 %patch36 -p1 -b .greedy
+%patch37 -p1 -b .userlist_log
 
 %build
 %ifarch s390x
@@ -164,6 +158,10 @@ fi
 %{_var}/ftp
 
 %changelog
+* Fri Feb 22 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-1
+- rebase for new upstream version
+- remove patches that were fixed in upstream: kickline, confspell, anon_umask
+
 * Mon Feb 11 2008 Martin Nagy <mnagy@redhat.com> - 2.0.5-22
 - rebuild for gcc-4.3
 

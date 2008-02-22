@@ -1,29 +1,29 @@
-diff -up vsftpd-2.0.5/tunables.c.userlist_log vsftpd-2.0.5/tunables.c
---- vsftpd-2.0.5/tunables.c.userlist_log	2007-11-30 12:44:22.000000000 +0100
-+++ vsftpd-2.0.5/tunables.c	2007-11-30 12:46:52.000000000 +0100
+diff -up vsftpd-2.0.6/tunables.c.userlist_log vsftpd-2.0.6/tunables.c
+--- vsftpd-2.0.6/tunables.c.userlist_log	2008-02-22 12:49:36.000000000 +0100
++++ vsftpd-2.0.6/tunables.c	2008-02-22 12:56:49.000000000 +0100
 @@ -71,6 +71,7 @@ int tunable_force_anon_data_ssl = 0;
  int tunable_mdtm_write = 1;
  int tunable_lock_upload_files = 1;
  int tunable_pasv_addr_resolve = 0;
 +int tunable_userlist_log = 0;
- 
- unsigned int tunable_accept_timeout = 60;
- unsigned int tunable_connect_timeout = 60;
-diff -up vsftpd-2.0.5/parseconf.c.userlist_log vsftpd-2.0.5/parseconf.c
---- vsftpd-2.0.5/parseconf.c.userlist_log	2007-11-30 12:44:48.000000000 +0100
-+++ vsftpd-2.0.5/parseconf.c	2007-11-30 12:46:50.000000000 +0100
+ int tunable_debug_ssl = 0;
+ int tunable_require_cert = 0;
+ int tunable_validate_cert = 0;
+diff -up vsftpd-2.0.6/parseconf.c.userlist_log vsftpd-2.0.6/parseconf.c
+--- vsftpd-2.0.6/parseconf.c.userlist_log	2008-02-22 12:49:36.000000000 +0100
++++ vsftpd-2.0.6/parseconf.c	2008-02-22 12:58:19.000000000 +0100
 @@ -100,6 +100,7 @@ parseconf_bool_array[] =
    { "mdtm_write", &tunable_mdtm_write },
    { "lock_upload_files", &tunable_lock_upload_files },
    { "pasv_addr_resolve", &tunable_pasv_addr_resolve },
 +  { "userlist_log", &tunable_userlist_log },
-   { 0, 0 }
- };
- 
-diff -up vsftpd-2.0.5/prelogin.c.userlist_log vsftpd-2.0.5/prelogin.c
---- vsftpd-2.0.5/prelogin.c.userlist_log	2007-11-30 12:43:45.000000000 +0100
-+++ vsftpd-2.0.5/prelogin.c	2007-11-30 12:46:41.000000000 +0100
-@@ -189,6 +189,20 @@ handle_user_command(struct vsf_session* 
+   { "debug_ssl", &tunable_debug_ssl },
+   { "require_cert", &tunable_require_cert },
+   { "validate_cert", &tunable_validate_cert },
+diff -up vsftpd-2.0.6/prelogin.c.userlist_log vsftpd-2.0.6/prelogin.c
+--- vsftpd-2.0.6/prelogin.c.userlist_log	2008-02-12 04:57:07.000000000 +0100
++++ vsftpd-2.0.6/prelogin.c	2008-02-22 12:49:36.000000000 +0100
+@@ -194,6 +194,20 @@ handle_user_command(struct vsf_session* 
          (!located && !tunable_userlist_deny))
      {
        vsf_cmdio_write(p_sess, FTP_LOGINERR, "Permission denied.");
@@ -44,21 +44,21 @@ diff -up vsftpd-2.0.5/prelogin.c.userlist_log vsftpd-2.0.5/prelogin.c
        str_empty(&p_sess->user_str);
        return;
      }
-diff -up vsftpd-2.0.5/tunables.h.userlist_log vsftpd-2.0.5/tunables.h
---- vsftpd-2.0.5/tunables.h.userlist_log	2007-11-30 12:44:28.000000000 +0100
-+++ vsftpd-2.0.5/tunables.h	2007-11-30 12:46:46.000000000 +0100
+diff -up vsftpd-2.0.6/tunables.h.userlist_log vsftpd-2.0.6/tunables.h
+--- vsftpd-2.0.6/tunables.h.userlist_log	2008-02-12 05:52:49.000000000 +0100
++++ vsftpd-2.0.6/tunables.h	2008-02-22 12:59:01.000000000 +0100
 @@ -67,6 +67,7 @@ extern int tunable_force_anon_data_ssl; 
  extern int tunable_mdtm_write;                /* Allow MDTM to set timestamps */
  extern int tunable_lock_upload_files;         /* Lock uploading files */
  extern int tunable_pasv_addr_resolve;         /* DNS resolve pasv_addr */
 +extern int tunable_userlist_log;              /* Log every failed login attempt */
- 
- /* Integer/numeric defines */
- extern unsigned int tunable_accept_timeout;
-diff -up vsftpd-2.0.5/logging.h.userlist_log vsftpd-2.0.5/logging.h
---- vsftpd-2.0.5/logging.h.userlist_log	2007-11-30 12:44:05.000000000 +0100
-+++ vsftpd-2.0.5/logging.h	2007-11-30 12:46:43.000000000 +0100
-@@ -73,5 +73,16 @@ void vsf_log_do_log(struct vsf_session* 
+ extern int tunable_debug_ssl;                 /* Verbose SSL logging */
+ extern int tunable_require_cert;              /* SSL client cert required */
+ extern int tunable_validate_cert;             /* SSL certs must be valid */
+diff -up vsftpd-2.0.6/logging.h.userlist_log vsftpd-2.0.6/logging.h
+--- vsftpd-2.0.6/logging.h.userlist_log	2008-02-08 02:29:59.000000000 +0100
++++ vsftpd-2.0.6/logging.h	2008-02-22 12:49:36.000000000 +0100
+@@ -80,5 +80,16 @@ void vsf_log_do_log(struct vsf_session* 
  void vsf_log_line(struct vsf_session* p_sess, enum EVSFLogEntryType what,
                    struct mystr* p_str);
  
@@ -75,10 +75,10 @@ diff -up vsftpd-2.0.5/logging.h.userlist_log vsftpd-2.0.5/logging.h
 +
  #endif /* VSF_LOGGING_H */
  
-diff -up vsftpd-2.0.5/vsftpd.conf.5.userlist_log vsftpd-2.0.5/vsftpd.conf.5
---- vsftpd-2.0.5/vsftpd.conf.5.userlist_log	2007-11-30 12:45:07.000000000 +0100
-+++ vsftpd-2.0.5/vsftpd.conf.5	2007-11-30 12:46:48.000000000 +0100
-@@ -520,6 +520,14 @@ cleartext passwords being transmitted. S
+diff -up vsftpd-2.0.6/vsftpd.conf.5.userlist_log vsftpd-2.0.6/vsftpd.conf.5
+--- vsftpd-2.0.6/vsftpd.conf.5.userlist_log	2008-02-22 12:49:36.000000000 +0100
++++ vsftpd-2.0.6/vsftpd.conf.5	2008-02-22 12:49:36.000000000 +0100
+@@ -541,6 +541,14 @@ Self-signed certs do not constitute OK v
  
  Default: NO
  .TP
@@ -93,9 +93,9 @@ diff -up vsftpd-2.0.5/vsftpd.conf.5.userlist_log vsftpd-2.0.5/vsftpd.conf.5
  .B virtual_use_local_privs
  If enabled, virtual users will use the same privileges as local users. By
  default, virtual users will use the same privileges as anonymous users, which
-diff -up vsftpd-2.0.5/logging.c.userlist_log vsftpd-2.0.5/logging.c
---- vsftpd-2.0.5/logging.c.userlist_log	2007-11-30 12:43:30.000000000 +0100
-+++ vsftpd-2.0.5/logging.c	2007-11-30 12:46:39.000000000 +0100
+diff -up vsftpd-2.0.6/logging.c.userlist_log vsftpd-2.0.6/logging.c
+--- vsftpd-2.0.6/logging.c.userlist_log	2008-02-08 02:30:40.000000000 +0100
++++ vsftpd-2.0.6/logging.c	2008-02-22 12:49:36.000000000 +0100
 @@ -95,6 +95,13 @@ vsf_log_line(struct vsf_session* p_sess,
    vsf_log_common(p_sess, 1, what, p_str);
  }
