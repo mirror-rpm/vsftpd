@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -158,6 +158,10 @@ fi
 %{_var}/ftp
 
 %changelog
+* Mon Feb 25 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-2
+- fix init script (#431452)
+- make the init script LSB compliant (#247093)
+
 * Fri Feb 22 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-1
 - rebase for new upstream version
 - remove patches that were fixed in upstream: kickline, confspell, anon_umask

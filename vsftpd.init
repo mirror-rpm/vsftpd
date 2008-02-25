@@ -1,5 +1,14 @@
 #!/bin/bash
 #
+### BEGIN INIT INFO
+# Provides: vsftpd
+# Required-Start: $local_fs $network $named $remote_fs $syslog
+# Required-Stop: $local_fs $network $named $remote_fs $syslog
+# Short-Description: Very Secure Ftp Daemon
+# Description: vsftpd is a Very Secure FTP daemon. It was written completely from
+#              scratch
+### END INIT INFO
+
 # vsftpd      This shell script takes care of starting and stopping
 #             standalone vsftpd.
 #
@@ -15,19 +24,21 @@
 # Source networking configuration.
 . /etc/sysconfig/network
 
-# Check that networking is up.
-[ ${NETWORKING} = "no" ] && exit 0
-
-[ -x /usr/sbin/vsftpd ] || exit 0
-
 RETVAL=0
 prog="vsftpd"
 
 start() {
         # Start daemons.
 
+	# Check that networking is up.
+	[ ${NETWORKING} = "no" ] && exit 1
+
+	[ -x /usr/sbin/vsftpd ] || exit 1
+
         if [ -d /etc/vsftpd ] ; then
-                for i in `ls /etc/vsftpd/*.conf`; do
+                CONFS=`ls /etc/vsftpd/*.conf 2>/dev/null`
+                [ -z $CONFS ] && exit 6
+                for i in $CONFS; do
                         site=`basename $i .conf`
                         echo -n $"Starting $prog for $site: "
                         daemon /usr/sbin/vsftpd $i
