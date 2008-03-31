@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -43,6 +43,7 @@ Patch34: vsftpd-2.0.5-underscore_uname.patch
 Patch35: vsftpd-2.0.5-uname_size.patch
 Patch36: vsftpd-2.0.5-greedy.patch
 Patch37: vsftpd-2.0.6-userlist_log.patch
+Patch38: vsftpd-2.0.6-listen.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %if %{tcp_wrappers}
@@ -100,6 +101,7 @@ cp %{SOURCE1} .
 %patch35 -p1 -b .uname_size
 %patch36 -p1 -b .greedy
 %patch37 -p1 -b .userlist_log
+%patch38 -p1 -b .listen
 
 %build
 %ifarch s390x
@@ -158,6 +160,9 @@ fi
 %{_var}/ftp
 
 %changelog
+* Mon Mar 31 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-3
+- set option listen to default to YES
+
 * Mon Feb 25 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-2
 - fix init script (#431452)
 - make the init script LSB compliant (#247093)

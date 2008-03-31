@@ -1,0 +1,24 @@
+diff -up vsftpd-2.0.6/tunables.c.listen vsftpd-2.0.6/tunables.c
+--- vsftpd-2.0.6/tunables.c.listen      2008-03-31 22:28:07.000000000 +0200
++++ vsftpd-2.0.6/tunables.c     2008-03-31 22:28:25.000000000 +0200
+@@ -39,7 +39,7 @@ int tunable_userlist_deny = 1;
+ int tunable_use_localtime = 0;
+ int tunable_check_shell = 1;
+ int tunable_hide_ids = 0;
+-int tunable_listen = 0;
++int tunable_listen = 1;
+ int tunable_port_promiscuous = 0;
+ int tunable_passwd_chroot_enable = 0;
+ int tunable_no_anon_password = 0;
+diff -up vsftpd-2.0.6/vsftpd.conf.5.listen vsftpd-2.0.6/vsftpd.conf.5
+--- vsftpd-2.0.6/vsftpd.conf.5.listen   2008-03-31 22:38:00.000000000 +0200
++++ vsftpd-2.0.6/vsftpd.conf.5  2008-03-31 22:38:24.000000000 +0200
+@@ -265,7 +265,7 @@ not be run from an inetd of some kind. I
+ run once directly. vsftpd itself will then take care of listening for and
+ handling incoming connections.
+ 
+-Default: NO
++Default: YES
+ .TP
+ .B listen_ipv6
+ Like the listen parameter, except vsftpd will listen on an IPv6 socket instead
