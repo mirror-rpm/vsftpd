@@ -54,7 +54,7 @@
 +void
 +str_basename (struct mystr* d_str, const struct mystr* path)
 +{
-+  struct mystr tmp = INIT_MYSTR;
++  static struct mystr tmp;
 +
 +  str_copy (&tmp, path);
 +  str_split_char_reverse(&tmp, d_str, '/');

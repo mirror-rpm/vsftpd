@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -160,6 +160,9 @@ fi
 %{_var}/ftp
 
 %changelog
+* Wed May 21 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-4
+- fix a small memory leak (#397011)
+
 * Mon Mar 31 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-3
 - set option listen to default to YES
 
