@@ -3,7 +3,7 @@
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
 Version: 2.0.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
@@ -104,7 +104,7 @@ cp %{SOURCE1} .
 %patch38 -p1 -b .listen
 
 %build
-%ifarch s390x
+%ifarch s390x sparcv9 sparc64
 make CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe" \
 %else
 make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe" \
@@ -160,6 +160,9 @@ fi
 %{_var}/ftp
 
 %changelog
+* Fri Jun 20 2008 Dennis Gilmore <dennis@ausil.us> - 2.0.6-5
+- add sparc arches to -fPIE list
+
 * Wed May 21 2008 Martin Nagy <mnagy@redhat.com> - 2.0.6-4
 - fix a small memory leak (#397011)
 
