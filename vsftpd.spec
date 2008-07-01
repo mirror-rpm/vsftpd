@@ -33,7 +33,6 @@ Patch20: vsftpd-2.0.5-add_ipv6_option.patch
 Patch21: vsftpd-2.0.5-correct_comments.patch
 Patch22: vsftpd-2.0.5-man.patch
 Patch23: vsftpd-2.0.4-filter.patch
-Patch24: vsftpd-2.0.5-file_stat.patch
 Patch26: vsftpd-2.0.5-bind_denied.patch
 Patch29: vsftpd-2.0.5-pasv_dot.patch
 Patch30: vsftpd-2.0.5-pam_end.patch
@@ -91,7 +90,6 @@ cp %{SOURCE1} .
 %patch21 -p1 -b .comments
 %patch22 -p1 -b .manp
 %patch23 -p1 -b .filter
-%patch24 -p1 -b .file_stat
 %patch26 -p1 -b .bind_denied
 %patch29 -p1 -b .pasv_dot
 %patch30 -p1 -b .pam_end
