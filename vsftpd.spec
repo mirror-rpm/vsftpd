@@ -2,9 +2,10 @@
 
 Summary: Very Secure Ftp Daemon
 Name: vsftpd
-Version: 2.0.6
-Release: 5%{?dist}
-License: GPL
+Version: 2.0.7
+Release: 1%{?dist}
+# OpenSSL link exception
+License: GPLv2 with exceptions
 Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
 Source: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
@@ -111,7 +112,7 @@ make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe" \
 	%{?_smp_mflags}
 
 %install
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
@@ -130,7 +131,7 @@ install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migra
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
 %clean
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add vsftpd
@@ -158,6 +159,10 @@ fi
 %{_var}/ftp
 
 %changelog
+* Mon Sep  8 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.0.7-1
+- fix license tag
+- update to 2.0.7
+
 * Fri Jun 20 2008 Dennis Gilmore <dennis@ausil.us> - 2.0.6-5
 - add sparc arches to -fPIE list
 
