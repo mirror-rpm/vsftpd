@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.1.0
-Release: 0.1.pre3%{?dist}
+Release: 0.2.pre3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -49,6 +49,8 @@ Patch9: vsftpd-2.1.0-userlist_log.patch
 # Sent upstream on 2009-01-16 via email
 Patch10: vsftpd-2.1.0-warnings.patch
 
+Patch11: vsftpd-2.1.0-disable_ptrace.patch
+
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -71,6 +73,7 @@ cp %{SOURCE1} .
 %patch8 -p1 -b .greedy
 %patch9 -p1 -b .userlist_log
 %patch10 -p1 -b .warnings
+%patch11 -p1 -b .disable_ptrace
 
 
 %build
@@ -133,6 +136,9 @@ fi
 
 
 %changelog
+* Fri Jan 16 2009 Martin Nagy <mnagy@redhat.com> - 2.1.0-0.2.pre3
+- disable ptrace sandbox to fix build on i386
+
 * Fri Jan 16 2009 Martin Nagy <mnagy@redhat.com> - 2.1.0-0.1.pre3
 - update to latest upstream release
 - cleanup the spec file

@@ -1,7 +1,27 @@
 diff -up vsftpd-2.1.0/ptracesandbox.c.warnings vsftpd-2.1.0/ptracesandbox.c
---- vsftpd-2.1.0/ptracesandbox.c.warnings	2009-01-15 15:31:26.000000000 +0100
-+++ vsftpd-2.1.0/ptracesandbox.c	2009-01-15 15:32:56.000000000 +0100
-@@ -1146,6 +1146,7 @@ int
+--- vsftpd-2.1.0/ptracesandbox.c.warnings	2009-01-09 07:20:00.000000000 +0100
++++ vsftpd-2.1.0/ptracesandbox.c	2009-01-16 19:01:27.000000000 +0100
+@@ -20,6 +20,7 @@
+ #include <sys/prctl.h>
+ #include <sys/ptrace.h>
+ #include <sys/types.h>
++#include <sys/user.h>
+ #include <sys/wait.h>
+ #include <err.h>
+ #include <errno.h>
+@@ -31,10 +32,10 @@
+ #include <syslog.h>
+ 
+ #include <asm/unistd.h>
+-#include <asm/user.h>
+ 
+ /* For the socketcall() multiplex args. */
+ #include <linux/net.h>
++#include <linux/socket.h>
+ 
+ #ifndef PTRACE_SETOPTIONS
+   #define PTRACE_SETOPTIONS 0x4200
+@@ -1146,6 +1147,7 @@ int
  ptrace_sandbox_run_processes(struct pt_sandbox* p_sandbox)
  {
    (void) p_sandbox;
@@ -9,4 +29,3 @@ diff -up vsftpd-2.1.0/ptracesandbox.c.warnings vsftpd-2.1.0/ptracesandbox.c
  }
  
  void
-diff -up vsftpd-2.1.0/sysdeputil.c.warnings vsftpd-2.1.0/sysdeputil.c
