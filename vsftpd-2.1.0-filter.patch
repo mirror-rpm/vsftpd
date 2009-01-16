@@ -1,6 +1,7 @@
---- vsftpd-2.0.4/ls.c.orig	2005-05-23 23:55:00.000000000 +0200
-+++ vsftpd-2.0.4/ls.c	2006-07-11 01:02:21.000000000 +0200
-@@ -239,9 +239,31 @@
+diff -up vsftpd-2.1.0/ls.c.filter vsftpd-2.1.0/ls.c
+--- vsftpd-2.1.0/ls.c.filter	2008-02-02 02:30:41.000000000 +0100
++++ vsftpd-2.1.0/ls.c	2009-01-08 19:31:15.000000000 +0100
+@@ -239,9 +239,31 @@ vsf_filename_passes_filter(const struct 
    int ret = 0;
    char last_token = 0;
    int must_match_at_current_pos = 1;
@@ -34,20 +35,10 @@
    while (!str_isempty(&filter_remain_str))
    {
      static struct mystr s_match_needed_str;
---- vsftpd-2.0.4/str.h.orig	2004-06-04 18:35:00.000000000 +0200
-+++ vsftpd-2.0.4/str.h	2006-07-11 00:59:59.000000000 +0200
-@@ -96,6 +96,8 @@
- int str_contains_space(const struct mystr* p_str);
- int str_contains_unprintable(const struct mystr* p_str);
- void str_replace_unprintable(struct mystr* p_str, char new_char);
-+void str_basename (struct mystr* d_str, const struct mystr* path);
-+
- int str_atoi(const struct mystr* p_str);
- filesize_t str_a_to_filesize_t(const struct mystr* p_str);
- unsigned int str_octal_to_uint(const struct mystr* p_str);
---- vsftpd-2.0.4/str.c.orig	2004-07-12 19:58:39.000000000 +0200
-+++ vsftpd-2.0.4/str.c	2006-07-11 00:59:59.000000000 +0200
-@@ -662,3 +662,14 @@
+diff -up vsftpd-2.1.0/str.c.filter vsftpd-2.1.0/str.c
+--- vsftpd-2.1.0/str.c.filter	2008-12-17 06:54:16.000000000 +0100
++++ vsftpd-2.1.0/str.c	2009-01-08 19:31:15.000000000 +0100
+@@ -680,3 +680,14 @@ str_replace_unprintable(struct mystr* p_
    }
  }
  
@@ -62,3 +53,14 @@
 +  if (str_isempty(d_str))
 +   str_copy (d_str, path);
 +}
+diff -up vsftpd-2.1.0/str.h.filter vsftpd-2.1.0/str.h
+--- vsftpd-2.1.0/str.h.filter	2008-12-17 06:53:23.000000000 +0100
++++ vsftpd-2.1.0/str.h	2009-01-08 19:32:14.000000000 +0100
+@@ -100,6 +100,7 @@ void str_replace_unprintable(struct myst
+ int str_atoi(const struct mystr* p_str);
+ filesize_t str_a_to_filesize_t(const struct mystr* p_str);
+ unsigned int str_octal_to_uint(const struct mystr* p_str);
++void str_basename (struct mystr* d_str, const struct mystr* path);
+ 
+ /* PURPOSE: Extract a line of text (delimited by \n or EOF) from a string
+  * buffer, starting at character position 'p_pos'. The extracted line will

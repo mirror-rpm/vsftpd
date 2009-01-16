@@ -1,115 +1,86 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
-Summary: Very Secure Ftp Daemon
 Name: vsftpd
-Version: 2.0.7
-Release: 1%{?dist}
+Version: 2.1.0
+Release: 0.1.pre3%{?dist}
+Summary: Very Secure Ftp Daemon
+
+Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
-Group: System Environment/Daemons
 URL: http://vsftpd.beasts.org/
-Source: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
+Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}pre3.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
 Source5: vsftpd.init
 Source6: vsftpd_conf_migrate.sh
-Patch1: vsftpd-1.1.3-rh.patch
-Patch2: vsftpd-1.0.1-missingok.patch
-Patch3: vsftpd-2.0.1-tcp_wrappers.patch
-Patch4: vsftpd-1.5.1-libs.patch
-Patch5: vsftpd-2.0.2-signal.patch
-Patch6: vsftpd-1.2.1-conffile.patch
-Patch7: vsftpd-2.0.1-build_ssl.patch
-Patch8: vsftpd-2.0.1-server_args.patch
-Patch9: vsftpd-2.0.1-dir.patch
-Patch11: vsftpd-1.2.1-nonrootconf.patch
-Patch13: vsftpd-2.0.3-background.patch
-Patch14: vsftpd-2.0.3-daemonize_fds.patch
-Patch17: vsftpd-2.0.3-pam_hostname.patch
-Patch18: vsftpd-close-std-fds.patch
-Patch19: vsftpd-2.0.5-default_ipv6.patch
-Patch20: vsftpd-2.0.5-add_ipv6_option.patch
-Patch21: vsftpd-2.0.5-correct_comments.patch
-Patch22: vsftpd-2.0.5-man.patch
-Patch23: vsftpd-2.0.4-filter.patch
-Patch26: vsftpd-2.0.5-bind_denied.patch
-Patch29: vsftpd-2.0.5-pasv_dot.patch
-Patch30: vsftpd-2.0.5-pam_end.patch
-Patch31: vsftpd-2.0.5-write_race.patch
-Patch32: vsftpd-2.0.5-fix_unique.patch
-Patch34: vsftpd-2.0.5-underscore_uname.patch
-Patch35: vsftpd-2.0.5-uname_size.patch
-Patch36: vsftpd-2.0.5-greedy.patch
-Patch37: vsftpd-2.0.6-userlist_log.patch
-Patch38: vsftpd-2.0.6-listen.patch
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires: pam-devel
+BuildRequires: libcap-devel
+BuildRequires: openssl-devel
 %if %{tcp_wrappers}
 BuildRequires: tcp_wrappers-devel
 %endif
-BuildRequires: pam-devel
-Requires: /%{_lib}/security/pam_loginuid.so
-BuildRequires: libcap-devel
-BuildRequires: openssl-devel
-Requires: libcap
-# for -fpie
-BuildRequires: gcc > 3.2.3-13, binutils > 2.14.90.0.4-24, glibc-devel >= 2.3.2-45
+
 Requires: logrotate
 Requires (preun): /sbin/chkconfig
 Requires (preun): /sbin/service
 Requires (post): /sbin/chkconfig
-#Obsoletes: anonftp
-#Provides: ftpserver
+
+# Build patches
+Patch1: vsftpd-2.1.0-libs.patch
+Patch2: vsftpd-2.1.0-build_ssl.patch
+Patch3: vsftpd-2.1.0-tcp_wrappers.patch
+
+# Use /etc/vsftpd/ instead of /etc/
+Patch4: vsftpd-2.1.0-configuration.patch
+
+# These need review
+Patch5: vsftpd-2.1.0-pam_hostname.patch
+Patch6: vsftpd-close-std-fds.patch
+Patch7: vsftpd-2.1.0-filter.patch
+Patch8: vsftpd-2.0.5-greedy.patch
+Patch9: vsftpd-2.1.0-userlist_log.patch
+
+# Sent upstream on 2009-01-16 via email
+Patch10: vsftpd-2.1.0-warnings.patch
+
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
 scratch.
 
+
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1 -b .rh
-%patch2 -p1 -b .mok
+cp %{SOURCE1} .
+
+%patch1 -p1 -b .libs
+%patch2 -p1 -b .build_ssl
 %if %{tcp_wrappers}
 %patch3 -p1 -b .tcp_wrappers
 %endif
-%patch4 -p1 -b .libs
-cp %{SOURCE1} .
-%patch5 -p1 -b .signal
-%patch6 -p1
-%patch7 -p1 -b .build_ssl
-%patch8 -p1 -b .server_args
-%patch9 -p1 -b .dir
-%patch11 -p1 -b .nonrootconf
-%patch13 -p1 -b .background
-%patch14 -p1 -b .fds
-%patch17 -p1 -b .old-pam
-%patch18 -p1 -b .close-fds
-%patch19 -p1 -b .ipv6
-%patch20 -p1 -b .ipv6opt
-%patch21 -p1 -b .comments
-%patch22 -p1 -b .manp
-%patch23 -p1 -b .filter
-%patch26 -p1 -b .bind_denied
-%patch29 -p1 -b .pasv_dot
-%patch30 -p1 -b .pam_end
-%patch31 -p1 -b .write_race
-%patch32 -p1 -b .fix_unique
-%patch34 -p1 -b .underscore_uname
-%patch35 -p1 -b .uname_size
-%patch36 -p1 -b .greedy
-%patch37 -p1 -b .userlist_log
-%patch38 -p1 -b .listen
+%patch4 -p1 -b .configuration
+%patch5 -p1 -b .pam_hostname
+%patch6 -p1 -b .close_fds
+%patch7 -p1 -b .filter
+%patch8 -p1 -b .greedy
+%patch9 -p1 -b .userlist_log
+%patch10 -p1 -b .warnings
+
 
 %build
 %ifarch s390x sparcv9 sparc64
-make CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe" \
+make CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror" \
 %else
-make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe" \
+make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 %endif
-	LINK="-pie -lssl" \
-	%{?_smp_mflags}
+        LINK="-pie -lssl" %{?_smp_mflags}
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -130,12 +101,15 @@ install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migra
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %post
 /sbin/chkconfig --add vsftpd
 #/usr/sbin/usermod -d /var/ftp ftp >/dev/null 2>&1 || :
+
 
 %preun
 if [ $1 = 0 ]; then
@@ -145,10 +119,9 @@ fi
   
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{_sbindir}/vsftpd
 %{_sysconfdir}/rc.d/init.d/vsftpd
-#%config(noreplace) /etc/vsftpd.*
 %dir %{_sysconfdir}/vsftpd
 %config(noreplace) %{_sysconfdir}/vsftpd/*
 %config(noreplace) %{_sysconfdir}/pam.d/vsftpd
@@ -158,7 +131,36 @@ fi
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
 
+
 %changelog
+* Fri Jan 16 2009 Martin Nagy <mnagy@redhat.com> - 2.1.0-0.1.pre3
+- update to latest upstream release
+- cleanup the spec file
+- drop patches fixed upstream:
+    vsftpd-1.0.1-missingok.patch
+    vsftpd-1.2.1-nonrootconf.patch
+    vsftpd-2.0.1-tcp_wrappers.patch
+    vsftpd-2.0.2-signal.patch
+    vsftpd-2.0.3-daemonize_fds.patch
+    vsftpd-2.0.5-correct_comments.patch
+    vsftpd-2.0.5-pasv_dot.patch
+    vsftpd-2.0.5-write_race.patch
+    vsftpd-2.0.5-fix_unique.patch
+    vsftpd-2.0.5-uname_size.patch
+    vsftpd-2.0.5-bind_denied.patch
+    vsftpd-2.0.5-pam_end.patch
+    vsftpd-2.0.5-underscore_uname.patch
+    vsftpd-2.0.6-listen.patch
+- join all configuration patches into one:
+    vsftpd-1.1.3-rh.patch
+    vsftpd-1.2.1-conffile.patch
+    vsftpd-2.0.1-dir.patch
+    vsftpd-2.0.1-server_args.patch
+    vsftpd-2.0.3-background.patch
+    vsftpd-2.0.5-default_ipv6.patch
+    vsftpd-2.0.5-add_ipv6_option.patch
+    vsftpd-2.0.5-man.patch
+
 * Mon Sep  8 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.0.7-1
 - fix license tag
 - update to 2.0.7
@@ -250,10 +252,10 @@ fi
 * Tue Aug 22 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-7
 - correct paths of configuration files on man pages
 
-* Tue Aug 15 2006 Maros Barabas	<mbarabas@redhat.com> - 2.0.5-6
+* Tue Aug 15 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-6
 - correct comments
 
-* Tue Aug 08 2006 Maros Barabas	<mbarabas@redhat.com> - 2.0.5-5
+* Tue Aug 08 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-5
 - option to change listening to IPv6 protocol
 
 * Thu Aug 01 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-4

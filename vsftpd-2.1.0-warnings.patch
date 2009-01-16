@@ -1,0 +1,12 @@
+diff -up vsftpd-2.1.0/ptracesandbox.c.warnings vsftpd-2.1.0/ptracesandbox.c
+--- vsftpd-2.1.0/ptracesandbox.c.warnings	2009-01-15 15:31:26.000000000 +0100
++++ vsftpd-2.1.0/ptracesandbox.c	2009-01-15 15:32:56.000000000 +0100
+@@ -1146,6 +1146,7 @@ int
+ ptrace_sandbox_run_processes(struct pt_sandbox* p_sandbox)
+ {
+   (void) p_sandbox;
++  return -1;
+ }
+ 
+ void
+diff -up vsftpd-2.1.0/sysdeputil.c.warnings vsftpd-2.1.0/sysdeputil.c

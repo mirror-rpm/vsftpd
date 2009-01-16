@@ -1,8 +1,0 @@
---- vsftpd-2.0.5/vsftpd.conf.ipv6	2006-07-12 15:34:13.000000000 +0200
-+++ vsftpd-2.0.5/vsftpd.conf	2006-07-17 11:16:10.000000000 +0200
-@@ -105,4 +105,5 @@
- userlist_enable=YES
- #enable for standalone mode
- listen=YES
-+listen_ipv6=YES
- tcp_wrappers=YES
