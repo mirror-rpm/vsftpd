@@ -2,14 +2,14 @@
 
 Name: vsftpd
 Version: 2.1.0
-Release: 0.2.pre3%{?dist}
+Release: 0.3.pre4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
 URL: http://vsftpd.beasts.org/
-Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}pre3.tar.gz
+Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}pre4.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -46,11 +46,6 @@ Patch7: vsftpd-2.1.0-filter.patch
 Patch8: vsftpd-2.0.5-greedy.patch
 Patch9: vsftpd-2.1.0-userlist_log.patch
 
-# Sent upstream on 2009-01-16 via email
-Patch10: vsftpd-2.1.0-warnings.patch
-
-Patch11: vsftpd-2.1.0-disable_ptrace.patch
-
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -72,8 +67,6 @@ cp %{SOURCE1} .
 %patch7 -p1 -b .filter
 %patch8 -p1 -b .greedy
 %patch9 -p1 -b .userlist_log
-%patch10 -p1 -b .warnings
-%patch11 -p1 -b .disable_ptrace
 
 
 %build
@@ -95,7 +88,7 @@ install -m 755 vsftpd  $RPM_BUILD_ROOT%{_sbindir}/vsftpd
 install -m 600 vsftpd.conf $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd.conf
 install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 install -m 644 vsftpd.8 $RPM_BUILD_ROOT/%{_mandir}/man8/
-install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/vsftpd.log
+install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/vsftpd
 install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/vsftpd
 install -m 600 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/ftpusers
 install -m 600 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/user_list
@@ -111,7 +104,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add vsftpd
-#/usr/sbin/usermod -d /var/ftp ftp >/dev/null 2>&1 || :
 
 
 %preun
@@ -126,16 +118,25 @@ fi
 %{_sbindir}/vsftpd
 %{_sysconfdir}/rc.d/init.d/vsftpd
 %dir %{_sysconfdir}/vsftpd
-%config(noreplace) %{_sysconfdir}/vsftpd/*
+%{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
+%config(noreplace) %{_sysconfdir}/vsftpd/ftpusers
+%config(noreplace) %{_sysconfdir}/vsftpd/user_list
+%config(noreplace) %{_sysconfdir}/vsftpd/vsftpd.conf
 %config(noreplace) %{_sysconfdir}/pam.d/vsftpd
-%config(noreplace) %{_sysconfdir}/logrotate.d/vsftpd.log
-%doc FAQ INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD SPEED TODO BENCHMARKS COPYING SECURITY/ EXAMPLE/ TUNING SIZE vsftpd.xinetd
+%config(noreplace) %{_sysconfdir}/logrotate.d/vsftpd
+%doc FAQ INSTALL BUGS AUDIT Changelog LICENSE README README.security REWARD
+%doc SPEED TODO BENCHMARKS COPYING SECURITY/ EXAMPLE/ TUNING SIZE vsftpd.xinetd
 %{_mandir}/man5/vsftpd.conf.*
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
 
 
 %changelog
+* Fri Jan 23 2009 Martin Nagy <mnagy@redhat.com> - 2.1.0-0.3.pre4
+- update to latest upstream release
+- enable ptrace sandbox again
+- don't mark vsftpd_conf_migrate.sh as a config file
+
 * Fri Jan 16 2009 Martin Nagy <mnagy@redhat.com> - 2.1.0-0.2.pre3
 - disable ptrace sandbox to fix build on i386
 
