@@ -1,6 +1,6 @@
 diff -up vsftpd-2.1.1/standalone.c.daemonize_plus vsftpd-2.1.1/standalone.c
---- vsftpd-2.1.1/standalone.c.daemonize_plus	2009-04-29 17:46:52.000000000 +0200
-+++ vsftpd-2.1.1/standalone.c	2009-04-29 17:46:52.000000000 +0200
+--- vsftpd-2.1.1/standalone.c.daemonize_plus	2009-05-04 16:18:30.000000000 +0200
++++ vsftpd-2.1.1/standalone.c	2009-05-04 16:18:30.000000000 +0200
 @@ -26,6 +26,8 @@ static unsigned int s_ipaddr_size;
  
  static void handle_sigchld(void*  duff);
@@ -69,8 +69,8 @@ diff -up vsftpd-2.1.1/standalone.c.daemonize_plus vsftpd-2.1.1/standalone.c
  hash_ip(unsigned int buckets, void* p_key)
  {
 diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
---- vsftpd-2.1.1/sysutil.c.daemonize_plus	2009-02-26 02:44:29.000000000 +0100
-+++ vsftpd-2.1.1/sysutil.c	2009-04-29 17:46:52.000000000 +0200
+--- vsftpd-2.1.1/sysutil.c.daemonize_plus	2009-05-04 16:18:30.000000000 +0200
++++ vsftpd-2.1.1/sysutil.c	2009-05-04 16:18:30.000000000 +0200
 @@ -201,6 +201,9 @@ vsf_sysutil_translate_sig(const enum EVS
      case kVSFSysUtilSigHUP:
        realsig = SIGHUP;
@@ -94,26 +94,7 @@ diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
  int
  vsf_sysutil_fork(void)
  {
-@@ -1031,6 +1040,18 @@ vsf_sysutil_strdup(const char* p_str)
-   return strdup(p_str);
- }
- 
-+char*
-+vsf_sysutil_strndup(const char* p_str, unsigned int p_len)
-+{
-+  char *new = (char *)malloc(p_len+1);
-+
-+  if (new == NULL)
-+    return NULL;
-+
-+  new[p_len]='\0';
-+  return (char *)memcpy(new, p_str, p_len);
-+}
-+
- void
- vsf_sysutil_memclr(void* p_dest, unsigned int size)
- {
-@@ -2774,3 +2795,23 @@ vsf_sysutil_set_no_fds()
+@@ -2786,3 +2795,23 @@ vsf_sysutil_set_no_fds()
      die("setrlimit NOFILE");
    }
  }
@@ -138,8 +119,8 @@ diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
 +  return pause();
 +}
 diff -up vsftpd-2.1.1/sysutil.h.daemonize_plus vsftpd-2.1.1/sysutil.h
---- vsftpd-2.1.1/sysutil.h.daemonize_plus	2009-02-26 02:47:41.000000000 +0100
-+++ vsftpd-2.1.1/sysutil.h	2009-04-29 17:46:52.000000000 +0200
+--- vsftpd-2.1.1/sysutil.h.daemonize_plus	2009-05-04 16:18:30.000000000 +0200
++++ vsftpd-2.1.1/sysutil.h	2009-05-04 16:23:47.000000000 +0200
 @@ -29,7 +29,8 @@ enum EVSFSysUtilSignal
    kVSFSysUtilSigCHLD,
    kVSFSysUtilSigPIPE,
@@ -158,7 +139,7 @@ diff -up vsftpd-2.1.1/sysutil.h.daemonize_plus vsftpd-2.1.1/sysutil.h
  int vsf_sysutil_fork(void);
  int vsf_sysutil_fork_failok(void);
  void vsf_sysutil_exit(int exit_code);
-@@ -180,10 +182,14 @@ int vsf_sysutil_wait_exited_normally(
+@@ -180,6 +182,9 @@ int vsf_sysutil_wait_exited_normally(
    const struct vsf_sysutil_wait_retval* p_waitret);
  int vsf_sysutil_wait_get_exitcode(
    const struct vsf_sysutil_wait_retval* p_waitret);
@@ -168,8 +149,3 @@ diff -up vsftpd-2.1.1/sysutil.h.daemonize_plus vsftpd-2.1.1/sysutil.h
  
  /* Various string functions */
  unsigned int vsf_sysutil_strlen(const char* p_text);
- char* vsf_sysutil_strdup(const char* p_str);
-+char* vsf_sysutil_strndup(const char* p_str, unsigned int p_len);
- void vsf_sysutil_memclr(void* p_dest, unsigned int size);
- void vsf_sysutil_memcpy(void* p_dest, const void* p_src,
-                         const unsigned int size);

@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 2.1.1
-Release: 0.1.%{pretag}%{?dist}
+Release: 0.2.%{pretag}%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -47,9 +47,9 @@ Patch7: vsftpd-2.1.0-filter.patch
 Patch8: vsftpd-2.0.5-greedy.patch
 Patch9: vsftpd-2.1.0-userlist_log.patch
 
-Patch10: vsftpd-2.1.1-daemonize_plus.patch
-Patch11: vsftpd-2.1.0-trim.patch
-Patch12: vsftpd-2.1.0-userlistdelay.patch
+Patch10: vsftpd-2.1.0-trim.patch
+Patch11: vsftpd-2.1.0-userlistdelay.patch
+Patch12: vsftpd-2.1.1-daemonize_plus.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -71,9 +71,9 @@ cp %{SOURCE1} .
 %patch7 -p1 -b .filter
 %patch8 -p1 -b .greedy
 %patch9 -p1 -b .userlist_log
-%patch10 -p1 -b .daemonize_plus
-%patch11 -p1 -b .trim
-%patch12 -p1 -b .userlistdelay
+%patch10 -p1 -b .trim
+%patch11 -p1 -b .userlistdelay
+%patch12 -p1 -b .daemonize_plus
 
 
 %build
@@ -139,6 +139,9 @@ fi
 
 
 %changelog
+* Mon May 04 2009 Jiri Skala <jskala@redhat.com> - 2.1.1-0.2
+- fixes daemonize patch
+
 * Wed Apr 22 2009 Jiri Skala <jskala@redhat.com> - 2.1.0-3
 - updated to latest upstream version
 - improved daemonizing - init script gets correct return code if binding fails
