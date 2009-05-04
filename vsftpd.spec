@@ -1,15 +1,16 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
+%{!?pretag:%define pretag pre1}
 
 Name: vsftpd
-Version: 2.1.0
-Release: 2%{?dist}
+Version: 2.1.1
+Release: 0.1.%{pretag}%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
 URL: http://vsftpd.beasts.org/
-Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
+Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}%{pretag}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -46,6 +47,9 @@ Patch7: vsftpd-2.1.0-filter.patch
 Patch8: vsftpd-2.0.5-greedy.patch
 Patch9: vsftpd-2.1.0-userlist_log.patch
 
+Patch10: vsftpd-2.1.1-daemonize_plus.patch
+Patch11: vsftpd-2.1.0-trim.patch
+Patch12: vsftpd-2.1.0-userlistdelay.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -67,6 +71,9 @@ cp %{SOURCE1} .
 %patch7 -p1 -b .filter
 %patch8 -p1 -b .greedy
 %patch9 -p1 -b .userlist_log
+%patch10 -p1 -b .daemonize_plus
+%patch11 -p1 -b .trim
+%patch12 -p1 -b .userlistdelay
 
 
 %build
@@ -132,6 +139,12 @@ fi
 
 
 %changelog
+* Wed Apr 22 2009 Jiri Skala <jskala@redhat.com> - 2.1.0-3
+- updated to latest upstream version
+- improved daemonizing - init script gets correct return code if binding fails
+- trim white spaces from option values
+- fixed #483604 - vsftpd not honouring delay_failed_login when userlist active
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
