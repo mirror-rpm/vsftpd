@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 2.1.1
-Release: 0.2.%{pretag}%{?dist}
+Release: 0.3.%{pretag}%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -139,6 +139,10 @@ fi
 
 
 %changelog
+* Thu May 21 2009 Jiri Skala <jskala@redhat.com> - 2.1.1-0.3
+- fixed daemonize_plus patch
+- fixed test in initscript [ -z "CONFS" ]
+
 * Mon May 04 2009 Jiri Skala <jskala@redhat.com> - 2.1.1-0.2
 - fixes daemonize patch
 

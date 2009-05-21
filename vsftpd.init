@@ -37,7 +37,7 @@ start() {
 
         if [ -d /etc/vsftpd ] ; then
                 CONFS=`ls /etc/vsftpd/*.conf 2>/dev/null`
-                [ -z $CONFS ] && exit 6
+                [ -z "$CONFS" ] && exit 6
                 for i in $CONFS; do
                         site=`basename $i .conf`
                         echo -n $"Starting $prog for $site: "
