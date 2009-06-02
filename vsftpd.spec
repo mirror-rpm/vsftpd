@@ -1,16 +1,15 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
-%{!?pretag:%define pretag pre1}
 
 Name: vsftpd
-Version: 2.1.1
-Release: 0.3.%{pretag}%{?dist}
+Version: 2.1.2
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
 URL: http://vsftpd.beasts.org/
-Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}%{pretag}.tar.gz
+Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -48,7 +47,6 @@ Patch8: vsftpd-2.0.5-greedy.patch
 Patch9: vsftpd-2.1.0-userlist_log.patch
 
 Patch10: vsftpd-2.1.0-trim.patch
-Patch11: vsftpd-2.1.0-userlistdelay.patch
 Patch12: vsftpd-2.1.1-daemonize_plus.patch
 
 %description
@@ -72,9 +70,7 @@ cp %{SOURCE1} .
 %patch8 -p1 -b .greedy
 %patch9 -p1 -b .userlist_log
 %patch10 -p1 -b .trim
-%patch11 -p1 -b .userlistdelay
 %patch12 -p1 -b .daemonize_plus
-
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -139,6 +135,9 @@ fi
 
 
 %changelog
+* Tue Jun 02 2009 Jiri Skala <jskala@redhat.com> - 2.1.2-1
+- updated to latest upstream version
+
 * Thu May 21 2009 Jiri Skala <jskala@redhat.com> - 2.1.1-0.3
 - fixed daemonize_plus patch
 - fixed test in initscript [ -z "CONFS" ]

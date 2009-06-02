@@ -49,8 +49,8 @@ diff -up vsftpd-2.1.0/parseconf.c.userlist_log vsftpd-2.1.0/parseconf.c
 diff -up vsftpd-2.1.0/prelogin.c.userlist_log vsftpd-2.1.0/prelogin.c
 --- vsftpd-2.1.0/prelogin.c.userlist_log	2009-02-18 23:23:53.000000000 +0100
 +++ vsftpd-2.1.0/prelogin.c	2009-02-24 09:17:41.000000000 +0100
-@@ -219,6 +219,20 @@ handle_user_command(struct vsf_session* 
-     {
+@@ -220,6 +220,20 @@ handle_user_command(struct vsf_session* 
+       check_login_delay();
        vsf_cmdio_write(p_sess, FTP_LOGINERR, "Permission denied.");
        check_login_fails(p_sess);
 +      if (tunable_userlist_log)

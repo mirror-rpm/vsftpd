@@ -81,7 +81,7 @@ diff -up vsftpd-2.1.1/standalone.c.daemonize_plus vsftpd-2.1.1/standalone.c
 diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
 --- vsftpd-2.1.1/sysutil.c.daemonize_plus	2009-05-10 22:11:24.000000000 +0200
 +++ vsftpd-2.1.1/sysutil.c	2009-05-10 22:11:59.000000000 +0200
-@@ -201,6 +201,9 @@ vsf_sysutil_translate_sig(const enum EVS
+@@ -202,6 +202,9 @@ vsf_sysutil_translate_sig(const enum EVS
      case kVSFSysUtilSigHUP:
        realsig = SIGHUP;
        break;
@@ -91,7 +91,7 @@ diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
      default:
        bug("unknown signal in vsf_sysutil_translate_sig");
        break;
-@@ -538,6 +541,12 @@ vsf_sysutil_getpid(void)
+@@ -539,6 +542,12 @@ vsf_sysutil_getpid(void)
    return (unsigned int) s_current_pid;
  }
  
@@ -104,9 +104,9 @@ diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
  int
  vsf_sysutil_fork(void)
  {
-@@ -2786,3 +2795,53 @@ vsf_sysutil_set_no_fds()
-     die("setrlimit NOFILE");
-   }
+@@ -2807,3 +2816,53 @@ vsf_sysutil_set_no_fds()
+ {
+   s_current_pid = -1;
  }
 +
 +static struct sigaction sigalr, sigusr1;
@@ -171,15 +171,15 @@ diff -up vsftpd-2.1.1/sysutil.h.daemonize_plus vsftpd-2.1.1/sysutil.h
  };
  enum EVSFSysUtilInterruptContext
  {
-@@ -164,6 +165,7 @@ void vsf_sysutil_free(void* p_ptr);
+@@ -165,6 +165,7 @@ void vsf_sysutil_free(void* p_ptr);
  
  /* Process creation/exit/process handling */
  unsigned int vsf_sysutil_getpid(void);
 +unsigned int vsf_sysutil_getppid(void);
+ void vsf_sysutil_clear_pid_cache(void);
  int vsf_sysutil_fork(void);
  int vsf_sysutil_fork_failok(void);
- void vsf_sysutil_exit(int exit_code);
-@@ -180,6 +182,9 @@ int vsf_sysutil_wait_exited_normally(
+@@ -182,6 +184,9 @@ int vsf_sysutil_wait_exited_normally(
    const struct vsf_sysutil_wait_retval* p_waitret);
  int vsf_sysutil_wait_get_exitcode(
    const struct vsf_sysutil_wait_retval* p_waitret);
