@@ -1,6 +1,6 @@
-diff -up vsftpd-2.1.0/sysdeputil.c.pam_hostname vsftpd-2.1.0/sysdeputil.c
---- vsftpd-2.1.0/sysdeputil.c.pam_hostname	2008-12-17 22:40:56.000000000 +0100
-+++ vsftpd-2.1.0/sysdeputil.c	2009-01-15 15:38:14.000000000 +0100
+diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
+--- vsftpd-2.2.0/sysdeputil.c.pam_hostname	2009-07-14 06:03:31.000000000 +0200
++++ vsftpd-2.2.0/sysdeputil.c	2009-08-04 08:00:00.000000000 +0200
 @@ -16,6 +16,10 @@
  #include "tunables.h"
  #include "builddefs.h"
@@ -12,7 +12,7 @@ diff -up vsftpd-2.1.0/sysdeputil.c.pam_hostname vsftpd-2.1.0/sysdeputil.c
  /* For Linux, this adds nothing :-) */
  #include "port/porting_junk.h"
  
-@@ -296,6 +300,10 @@ vsf_sysdep_check_auth(const struct mystr
+@@ -316,6 +320,10 @@ vsf_sysdep_check_auth(struct mystr* p_us
                        const struct mystr* p_remote_host)
  {
    int retval;
@@ -20,10 +20,10 @@ diff -up vsftpd-2.1.0/sysdeputil.c.pam_hostname vsftpd-2.1.0/sysdeputil.c
 +  struct sockaddr_in sin;
 +  struct hostent *host;
 +#endif
+   const char* pam_user_name = 0;
    struct pam_conv the_conv =
    {
-     &pam_conv_func,
-@@ -314,7 +322,12 @@ vsf_sysdep_check_auth(const struct mystr
+@@ -335,7 +343,12 @@ vsf_sysdep_check_auth(struct mystr* p_us
      return 0;
    }
  #ifdef PAM_RHOST
@@ -37,7 +37,7 @@ diff -up vsftpd-2.1.0/sysdeputil.c.pam_hostname vsftpd-2.1.0/sysdeputil.c
    if (retval != PAM_SUCCESS)
    {
      (void) pam_end(s_pamh, retval);
-@@ -516,7 +529,7 @@ vsf_sysdep_has_capabilities(void)
+@@ -547,7 +560,7 @@ vsf_sysdep_has_capabilities(void)
    }
    return s_runtime_has_caps;
  }
@@ -46,7 +46,7 @@ diff -up vsftpd-2.1.0/sysdeputil.c.pam_hostname vsftpd-2.1.0/sysdeputil.c
    #ifndef VSF_SYSDEP_HAVE_LIBCAP
  static int
  do_checkcap(void)
-@@ -1038,7 +1051,7 @@ vsf_sysutil_recv_fd(const int sock_fd)
+@@ -1069,7 +1082,7 @@ vsf_sysutil_recv_fd(const int sock_fd)
    msg.msg_flags = 0;
    /* In case something goes wrong, set the fd to -1 before the syscall */
    p_fd = (int*)CMSG_DATA(CMSG_FIRSTHDR(&msg));

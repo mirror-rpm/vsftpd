@@ -1,15 +1,15 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 2.1.2
-Release: 2%{?dist}
+Version: 2.2.0
+Release: 0.1.pre4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
 URL: http://vsftpd.beasts.org/
-Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
+Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}pre4.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -135,6 +135,9 @@ fi
 
 
 %changelog
+* Tue Aug 04 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-0.1.pre4
+- update to latest upstream release
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 

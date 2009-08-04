@@ -1,6 +1,6 @@
-diff -up vsftpd-2.1.0/defs.h.configuration vsftpd-2.1.0/defs.h
---- vsftpd-2.1.0/defs.h.configuration	2009-01-08 18:01:13.000000000 +0100
-+++ vsftpd-2.1.0/defs.h	2009-01-08 18:01:23.000000000 +0100
+diff -up vsftpd-2.2.0/defs.h.configuration vsftpd-2.2.0/defs.h
+--- vsftpd-2.2.0/defs.h.configuration	2009-01-07 21:22:22.000000000 +0100
++++ vsftpd-2.2.0/defs.h	2009-08-04 07:37:01.000000000 +0200
 @@ -1,7 +1,7 @@
  #ifndef VSF_DEFS_H
  #define VSF_DEFS_H
@@ -10,9 +10,9 @@ diff -up vsftpd-2.1.0/defs.h.configuration vsftpd-2.1.0/defs.h
  
  #define VSFTP_COMMAND_FD        0
  
-diff -up vsftpd-2.1.0/EXAMPLE/INTERNET_SITE_NOINETD/README.configuration vsftpd-2.1.0/EXAMPLE/INTERNET_SITE_NOINETD/README
---- vsftpd-2.1.0/EXAMPLE/INTERNET_SITE_NOINETD/README.configuration	2009-01-08 18:17:07.000000000 +0100
-+++ vsftpd-2.1.0/EXAMPLE/INTERNET_SITE_NOINETD/README	2009-01-08 18:15:07.000000000 +0100
+diff -up vsftpd-2.2.0/EXAMPLE/INTERNET_SITE_NOINETD/README.configuration vsftpd-2.2.0/EXAMPLE/INTERNET_SITE_NOINETD/README
+--- vsftpd-2.2.0/EXAMPLE/INTERNET_SITE_NOINETD/README.configuration	2008-02-02 02:30:40.000000000 +0100
++++ vsftpd-2.2.0/EXAMPLE/INTERNET_SITE_NOINETD/README	2009-08-04 07:37:01.000000000 +0200
 @@ -17,7 +17,7 @@ even per-connect-IP configurability.
  
  To use this example config:
@@ -29,9 +29,9 @@ diff -up vsftpd-2.1.0/EXAMPLE/INTERNET_SITE_NOINETD/README.configuration vsftpd-
 -vsftpd /etc/vsftpd.conf.site1 &
 +vsftpd /etc/vsftpd/vsftpd.conf.site1 &
  
-diff -up vsftpd-2.1.0/EXAMPLE/INTERNET_SITE/README.configuration vsftpd-2.1.0/EXAMPLE/INTERNET_SITE/README
---- vsftpd-2.1.0/EXAMPLE/INTERNET_SITE/README.configuration	2009-01-08 18:15:29.000000000 +0100
-+++ vsftpd-2.1.0/EXAMPLE/INTERNET_SITE/README	2009-01-08 18:16:13.000000000 +0100
+diff -up vsftpd-2.2.0/EXAMPLE/INTERNET_SITE/README.configuration vsftpd-2.2.0/EXAMPLE/INTERNET_SITE/README
+--- vsftpd-2.2.0/EXAMPLE/INTERNET_SITE/README.configuration	2008-02-02 02:30:40.000000000 +0100
++++ vsftpd-2.2.0/EXAMPLE/INTERNET_SITE/README	2009-08-04 07:37:01.000000000 +0200
 @@ -41,13 +41,13 @@ no_access               = 192.168.1.3
  As an example of how to ban certain sites from connecting, 192.168.1.3 will
  be denied access.
@@ -57,9 +57,9 @@ diff -up vsftpd-2.1.0/EXAMPLE/INTERNET_SITE/README.configuration vsftpd-2.1.0/EX
  
  Let's example the contents of the file:
  
-diff -up vsftpd-2.1.0/EXAMPLE/PER_IP_CONFIG/README.configuration vsftpd-2.1.0/EXAMPLE/PER_IP_CONFIG/README
---- vsftpd-2.1.0/EXAMPLE/PER_IP_CONFIG/README.configuration	2009-01-08 18:19:14.000000000 +0100
-+++ vsftpd-2.1.0/EXAMPLE/PER_IP_CONFIG/README	2009-01-08 18:19:35.000000000 +0100
+diff -up vsftpd-2.2.0/EXAMPLE/PER_IP_CONFIG/README.configuration vsftpd-2.2.0/EXAMPLE/PER_IP_CONFIG/README
+--- vsftpd-2.2.0/EXAMPLE/PER_IP_CONFIG/README.configuration	2008-02-02 02:30:40.000000000 +0100
++++ vsftpd-2.2.0/EXAMPLE/PER_IP_CONFIG/README	2009-08-04 07:37:01.000000000 +0200
 @@ -20,12 +20,12 @@ directory: hosts.allow. It lives at /etc
  
  Let's have a look at the example:
@@ -75,9 +75,9 @@ diff -up vsftpd-2.1.0/EXAMPLE/PER_IP_CONFIG/README.configuration vsftpd-2.1.0/EX
  applied ON TOP of the default vsftpd.conf.
  This is obviously very powerful. You might use this to apply different
  access restrictions for some IPs (e.g. the ability to upload).
-diff -up vsftpd-2.1.0/EXAMPLE/VIRTUAL_USERS/README.configuration vsftpd-2.1.0/EXAMPLE/VIRTUAL_USERS/README
---- vsftpd-2.1.0/EXAMPLE/VIRTUAL_USERS/README.configuration	2009-01-08 18:18:04.000000000 +0100
-+++ vsftpd-2.1.0/EXAMPLE/VIRTUAL_USERS/README	2009-01-08 18:18:53.000000000 +0100
+diff -up vsftpd-2.2.0/EXAMPLE/VIRTUAL_USERS/README.configuration vsftpd-2.2.0/EXAMPLE/VIRTUAL_USERS/README
+--- vsftpd-2.2.0/EXAMPLE/VIRTUAL_USERS/README.configuration	2008-02-02 02:30:40.000000000 +0100
++++ vsftpd-2.2.0/EXAMPLE/VIRTUAL_USERS/README	2009-08-04 07:37:01.000000000 +0200
 @@ -15,7 +15,7 @@ See example file "logins.txt" - this spe
  "fred" with password "bar".
  Whilst logged in as root, create the actual database file like this:
@@ -123,9 +123,9 @@ diff -up vsftpd-2.1.0/EXAMPLE/VIRTUAL_USERS/README.configuration vsftpd-2.1.0/EX
  
  
  Step 5) Start up vsftpd.
-diff -up vsftpd-2.1.0/FAQ.configuration vsftpd-2.1.0/FAQ
---- vsftpd-2.1.0/FAQ.configuration	2009-01-08 17:58:39.000000000 +0100
-+++ vsftpd-2.1.0/FAQ	2009-01-08 18:01:04.000000000 +0100
+diff -up vsftpd-2.2.0/FAQ.configuration vsftpd-2.2.0/FAQ
+--- vsftpd-2.2.0/FAQ.configuration	2009-02-18 23:33:04.000000000 +0100
++++ vsftpd-2.2.0/FAQ	2009-08-04 07:37:01.000000000 +0200
 @@ -34,7 +34,7 @@ needs this user to run bits of itself wi
  Q) Help! Local users cannot log in.
  A) There are various possible problems.
@@ -159,9 +159,9 @@ diff -up vsftpd-2.1.0/FAQ.configuration vsftpd-2.1.0/FAQ
  has the effect of mapping every non-anonymous successful login to the local
  username specified in "guest_username". Then, use PAM and (e.g.) its pam_userdb
  module to provide authentication against an external (i.e. non-/etc/passwd)
-diff -up vsftpd-2.1.0/INSTALL.configuration vsftpd-2.1.0/INSTALL
---- vsftpd-2.1.0/INSTALL.configuration	2009-01-08 18:01:36.000000000 +0100
-+++ vsftpd-2.1.0/INSTALL	2009-01-08 18:03:30.000000000 +0100
+diff -up vsftpd-2.2.0/INSTALL.configuration vsftpd-2.2.0/INSTALL
+--- vsftpd-2.2.0/INSTALL.configuration	2008-02-02 02:30:39.000000000 +0100
++++ vsftpd-2.2.0/INSTALL	2009-08-04 07:37:01.000000000 +0200
 @@ -56,14 +56,14 @@ cp vsftpd.8 /usr/local/man/man8
  
  "make install" doesn't copy the sample config file. It is recommended you
@@ -194,9 +194,9 @@ diff -up vsftpd-2.1.0/INSTALL.configuration vsftpd-2.1.0/INSTALL
  
  The default configuration allows neither local user logins nor anonymous
  uploads. You may wish to change these defaults.
-diff -up vsftpd-2.1.0/README.configuration vsftpd-2.1.0/README
---- vsftpd-2.1.0/README.configuration	2009-01-08 18:13:37.000000000 +0100
-+++ vsftpd-2.1.0/README	2009-01-08 18:14:21.000000000 +0100
+diff -up vsftpd-2.2.0/README.configuration vsftpd-2.2.0/README
+--- vsftpd-2.2.0/README.configuration	2009-07-07 22:23:22.000000000 +0200
++++ vsftpd-2.2.0/README	2009-08-04 07:37:01.000000000 +0200
 @@ -37,3 +37,8 @@ All configuration options are documented
  Various example configurations are discussed in the EXAMPLE directory.
  Frequently asked questions are tackled in the FAQ file.
@@ -206,10 +206,10 @@ diff -up vsftpd-2.1.0/README.configuration vsftpd-2.1.0/README
 +The location of configuration files was changed to /etc/vsftpd/. If you want
 +to migrate your old conf files from /etc (files vsftpd.xxxx.rpmsave) use
 +/etc/vsfptd/vsftpd_conf_migrate.sh
-diff -up vsftpd-2.1.0/tunables.c.configuration vsftpd-2.1.0/tunables.c
---- vsftpd-2.1.0/tunables.c.configuration	2009-01-08 18:20:05.000000000 +0100
-+++ vsftpd-2.1.0/tunables.c	2009-01-08 18:22:13.000000000 +0100
-@@ -184,7 +184,7 @@ tunables_load_defaults()
+diff -up vsftpd-2.2.0/tunables.c.configuration vsftpd-2.2.0/tunables.c
+--- vsftpd-2.2.0/tunables.c.configuration	2009-07-15 22:08:27.000000000 +0200
++++ vsftpd-2.2.0/tunables.c	2009-08-04 07:37:01.000000000 +0200
+@@ -186,7 +186,7 @@ tunables_load_defaults()
    tunable_listen_ipv6 = 0;
    tunable_dual_log_enable = 0;
    tunable_syslog_enable = 0;
@@ -218,7 +218,7 @@ diff -up vsftpd-2.1.0/tunables.c.configuration vsftpd-2.1.0/tunables.c
    tunable_virtual_use_local_privs = 0;
    tunable_session_support = 0;
    tunable_download_enable = 1;
-@@ -250,11 +250,11 @@ tunables_load_defaults()
+@@ -254,11 +254,11 @@ tunables_load_defaults()
    install_str_setting(".message", &tunable_message_file);
    install_str_setting("nobody", &tunable_nopriv_user);
    install_str_setting(0, &tunable_ftpd_banner);
@@ -233,7 +233,7 @@ diff -up vsftpd-2.1.0/tunables.c.configuration vsftpd-2.1.0/tunables.c
    install_str_setting(0, &tunable_anon_root);
    install_str_setting(0, &tunable_local_root);
    install_str_setting(0, &tunable_banner_file);
-@@ -267,7 +267,7 @@ tunables_load_defaults()
+@@ -271,7 +271,7 @@ tunables_load_defaults()
    install_str_setting(0, &tunable_hide_file);
    install_str_setting(0, &tunable_deny_file);
    install_str_setting(0, &tunable_user_sub_token);
@@ -242,9 +242,9 @@ diff -up vsftpd-2.1.0/tunables.c.configuration vsftpd-2.1.0/tunables.c
                        &tunable_email_password_file);
    install_str_setting("/usr/share/ssl/certs/vsftpd.pem",
                        &tunable_rsa_cert_file);
-diff -up vsftpd-2.1.0/vsftpd.8.configuration vsftpd-2.1.0/vsftpd.8
---- vsftpd-2.1.0/vsftpd.8.configuration	2009-01-08 18:03:47.000000000 +0100
-+++ vsftpd-2.1.0/vsftpd.8	2009-01-08 18:04:02.000000000 +0100
+diff -up vsftpd-2.2.0/vsftpd.8.configuration vsftpd-2.2.0/vsftpd.8
+--- vsftpd-2.2.0/vsftpd.8.configuration	2009-07-17 22:56:23.000000000 +0200
++++ vsftpd-2.2.0/vsftpd.8	2009-08-04 07:40:27.000000000 +0200
 @@ -21,7 +21,7 @@ itself will listen on the network. This 
  recommended. It is activated by setting
  .Pa listen=YES
@@ -254,17 +254,36 @@ diff -up vsftpd-2.1.0/vsftpd.8.configuration vsftpd-2.1.0/vsftpd.8
  Direct execution of the
  .Nm vsftpd
  binary will then launch the FTP service ready for immediate client connections.
-@@ -30,6 +30,6 @@ An optional
- .Op configuration file
- may be given on the command line. This file must be owned as root if running as
- root. The default configuration file is
--.Pa /etc/vsftpd.conf .
-+.Pa /etc/vsftpd/vsftpd.conf .
+@@ -33,7 +33,7 @@ as root. Any command line option not sta
+ as a config file that will be loaded. Note that config files are loaded in the
+ strict order that they are encountered on the command line.
+ If no config files are specified, the default configuration file of
+-.Pa /etc/vsftpd.conf
++.Pa /etc/vsftpd/vsftpd.conf
+ will be loaded, after all other command line options are processed.
+ .Pp
+ Supported options are:
+@@ -47,14 +47,14 @@ their appearance on the command line, in
+ config files.
+ .El
+ .Sh EXAMPLES
+-vsftpd -olisten=NO /etc/vsftpd.conf -oftpd_banner=blah
++vsftpd -olisten=NO /etc/vsftpd/vsftpd.conf -oftpd_banner=blah
+ .Pp
+ That example overrides vsftpd's built-in default for the "listen" option to be
+-NO, but then loads /etc/vsftpd.conf which may override that setting. Finally,
++NO, but then loads /etc/vsftpd/vsftpd.conf which may override that setting. Finally,
+ the "ftpd_banner" setting is set to "blah", which overrides any default vsftpd
+ setting and any identical setting that was in the config file.
+ .Sh FILES
+-.Pa /etc/vsftpd.conf
++.Pa /etc/vsftpd/vsftpd.conf
  .Sh SEE ALSO
  .Xr vsftpd.conf 5
-diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
---- vsftpd-2.1.0/vsftpd.conf.5.configuration	2009-01-08 18:04:53.000000000 +0100
-+++ vsftpd-2.1.0/vsftpd.conf.5	2009-01-08 18:29:33.000000000 +0100
+ .end
+diff -up vsftpd-2.2.0/vsftpd.conf.5.configuration vsftpd-2.2.0/vsftpd.conf.5
+--- vsftpd-2.2.0/vsftpd.conf.5.configuration	2009-07-17 22:57:04.000000000 +0200
++++ vsftpd-2.2.0/vsftpd.conf.5	2009-08-04 07:37:01.000000000 +0200
 @@ -4,7 +4,7 @@ vsftpd.conf \- config file for vsftpd
  .SH DESCRIPTION
  vsftpd.conf may be used to control various aspects of vsftpd's behaviour. By
@@ -301,7 +320,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  .BR banned_email_file
  setting.
  
-@@ -430,7 +430,7 @@ anonymous logins are prevented unless th
+@@ -433,7 +433,7 @@ anonymous logins are prevented unless th
  file specified by the
  .BR email_password_file
  setting. The file format is one password per line, no extra whitespace. The
@@ -310,7 +329,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  
  Default: NO
  .TP
-@@ -761,7 +761,7 @@ passwords which are not permitted. This 
+@@ -764,7 +764,7 @@ passwords which are not permitted. This 
  .BR deny_email_enable
  is enabled.
  
@@ -319,7 +338,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  .TP
  .B banner_file
  This option is the name of a file containing text to display when someone
-@@ -798,7 +798,7 @@ is enabled. If the option
+@@ -801,7 +801,7 @@ is enabled. If the option
  is enabled, then the list file becomes a list of users to NOT place in a
  chroot() jail.
  
@@ -328,7 +347,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  .TP
  .B cmds_allowed
  This options specifies a comma separated list of allowed FTP commands (post
-@@ -859,7 +859,7 @@ This option can be used to provide an al
+@@ -862,7 +862,7 @@ This option can be used to provide an al
  .BR secure_email_list_enable
  setting.
  
@@ -337,7 +356,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  .TP
  .B ftp_username
  This is the name of the user we use for handling anonymous FTP. The home
-@@ -982,10 +982,10 @@ the manual page, on a per-user basis. Us
+@@ -985,10 +985,10 @@ the manual page, on a per-user basis. Us
  with an example. If you set
  .BR user_config_dir
  to be
@@ -350,7 +369,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  for the duration of the session. The format of this file is as detailed in
  this manual page! PLEASE NOTE that not all settings are effective on a
  per-user basis. For example, many settings only prior to the user's session
-@@ -1021,7 +1021,7 @@ This option is the name of the file load
+@@ -1024,7 +1024,7 @@ This option is the name of the file load
  .BR userlist_enable
  option is active.
  
@@ -359,16 +378,16 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.configuration vsftpd-2.1.0/vsftpd.conf.5
  .TP
  .B vsftpd_log_file
  This option is the name of the file to which we write the vsftpd style
-diff -up vsftpd-2.1.0/vsftpd.conf.configuration vsftpd-2.1.0/vsftpd.conf
---- vsftpd-2.1.0/vsftpd.conf.configuration	2009-01-08 17:54:33.000000000 +0100
-+++ vsftpd-2.1.0/vsftpd.conf	2009-01-08 18:20:55.000000000 +0100
+diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
+--- vsftpd-2.2.0/vsftpd.conf.configuration	2009-06-17 22:05:28.000000000 +0200
++++ vsftpd-2.2.0/vsftpd.conf	2009-08-04 07:53:13.000000000 +0200
 @@ -1,4 +1,4 @@
 -# Example config file /etc/vsftpd.conf
 +# Example config file /etc/vsftpd/vsftpd.conf
  #
  # The default compiled in settings are fairly paranoid. This sample file
  # loosens things up a bit, to make the ftp daemon more usable.
-@@ -87,14 +87,14 @@ connect_from_port_20=YES
+@@ -87,7 +87,7 @@ connect_from_port_20=YES
  # useful for combatting certain DoS attacks.
  #deny_email_enable=YES
  # (default follows)
@@ -377,7 +396,8 @@ diff -up vsftpd-2.1.0/vsftpd.conf.configuration vsftpd-2.1.0/vsftpd.conf
  #
  # You may specify an explicit list of local users to chroot() to their home
  # directory. If chroot_local_user is YES, then this list becomes a list of
- # users to NOT chroot().
+@@ -95,7 +95,7 @@ connect_from_port_20=YES
+ #chroot_local_user=YES
  #chroot_list_enable=YES
  # (default follows)
 -#chroot_list_file=/etc/vsftpd.chroot_list
@@ -385,7 +405,7 @@ diff -up vsftpd-2.1.0/vsftpd.conf.configuration vsftpd-2.1.0/vsftpd.conf
  #
  # You may activate the "-R" option to the builtin ls. This is disabled by
  # default to avoid remote users being able to cause excessive I/O on large
-@@ -111,3 +111,7 @@ listen=YES
+@@ -112,3 +112,7 @@ listen=YES
  # sockets, you must run two copies of vsftpd whith two configuration files.
  # Make sure, that one of the listen options is commented !!
  #listen_ipv6=YES
