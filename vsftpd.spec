@@ -48,6 +48,7 @@ Patch9: vsftpd-2.1.0-userlist_log.patch
 
 Patch10: vsftpd-2.1.0-trim.patch
 Patch12: vsftpd-2.1.1-daemonize_plus.patch
+Patch13: vsftpd-2.2.0-openssl.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -71,6 +72,7 @@ cp %{SOURCE1} .
 %patch9 -p1 -b .userlist_log
 %patch10 -p1 -b .trim
 %patch12 -p1 -b .daemonize_plus
+%patch13 -p1 -b .openssl
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -135,7 +137,7 @@ fi
 
 
 %changelog
-* Fri Aug 21 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-0.2.pre4
+* Sat Aug 22 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-0.2.pre4
 - rebuilt with new openssl
 
 * Tue Aug 04 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-0.1.pre4
