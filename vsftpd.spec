@@ -2,14 +2,14 @@
 
 Name: vsftpd
 Version: 2.2.0
-Release: 0.2.pre4%{?dist}
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
 URL: http://vsftpd.beasts.org/
-Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}pre4.tar.gz
+Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -137,6 +137,9 @@ fi
 
 
 %changelog
+* Tue Aug 24 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-1
+- update to latest upstream release 2.2.0
+
 * Sat Aug 22 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-0.2.pre4
 - rebuilt with new openssl
 
