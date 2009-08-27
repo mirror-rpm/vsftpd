@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -137,11 +137,11 @@ fi
 
 
 %changelog
+* Thu Aug 27 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-2
+- rebuilt with new openssl
+
 * Tue Aug 24 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-1
 - update to latest upstream release 2.2.0
-
-* Sat Aug 22 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-0.2.pre4
-- rebuilt with new openssl
 
 * Tue Aug 04 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-0.1.pre4
 - update to latest upstream release
