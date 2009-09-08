@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -49,6 +49,7 @@ Patch9: vsftpd-2.1.0-userlist_log.patch
 Patch10: vsftpd-2.1.0-trim.patch
 Patch12: vsftpd-2.1.1-daemonize_plus.patch
 Patch13: vsftpd-2.2.0-openssl.patch
+Patch14: vsftpd-2.2.0-wildchar.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -73,6 +74,7 @@ cp %{SOURCE1} .
 %patch10 -p1 -b .trim
 %patch12 -p1 -b .daemonize_plus
 %patch13 -p1 -b .openssl
+%patch14 -p1 -b .wildchar
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -137,6 +139,9 @@ fi
 
 
 %changelog
+* Tue Sep 08 2009 Jiri Skala <jskala@rehat.com> - 2.2.0-3
+- fixed bug messaged in RHEL-4 #479774 - Wildcard failures with vsftpd
+
 * Thu Aug 27 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-2
 - rebuilt with new openssl
 
