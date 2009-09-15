@@ -43,8 +43,16 @@ start() {
                         echo -n $"Starting $prog for $site: "
                         daemon /usr/sbin/vsftpd $i
                         RETVAL=$?
-                        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
                         echo
+                        if [ $RETVAL -eq 0 ]; then
+                                touch /var/lock/subsys/$prog
+                                break
+                        else
+                                if [ -f /var/lock/subsys/$prog ]; then
+                                        RETVAL=0
+                                        break
+                                fi
+                        fi
                 done
         else
                 RETVAL=1
@@ -75,7 +83,7 @@ case "$1" in
         start
         RETVAL=$?
         ;;
-  condrestart)
+  condrestart|try-restart|force-reload)
         if [ -f /var/lock/subsys/$prog ]; then
             stop
             start
@@ -87,7 +95,7 @@ case "$1" in
         RETVAL=$?
         ;;
   *)
-        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        echo $"Usage: $0 {start|stop|restart|try-restart|force-reload|status}"
         exit 1
 esac
 

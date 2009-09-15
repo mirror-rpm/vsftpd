@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -139,6 +139,9 @@ fi
 
 
 %changelog
+* Mon Sep 14 2009 Jiri Skala <jskala@rehat.com> - 2.2.0-4
+- modified init script to be LSB compliant
+
 * Tue Sep 08 2009 Jiri Skala <jskala@rehat.com> - 2.2.0-3
 - fixed bug messaged in RHEL-4 #479774 - Wildcard failures with vsftpd
 
