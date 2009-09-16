@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -139,6 +139,9 @@ fi
 
 
 %changelog
+* Wed Sep 16 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-5
+- use password-auth common PAM configuration instead of system-auth
+
 * Mon Sep 14 2009 Jiri Skala <jskala@rehat.com> - 2.2.0-4
 - modified init script to be LSB compliant
 
