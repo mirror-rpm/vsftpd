@@ -387,6 +387,33 @@ diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
  #
  # The default compiled in settings are fairly paranoid. This sample file
  # loosens things up a bit, to make the ftp daemon more usable.
+@@ -12,14 +12,14 @@
+ anonymous_enable=YES
+ #
+ # Uncomment this to allow local users to log in.
+-#local_enable=YES
++local_enable=YES
+ #
+ # Uncomment this to enable any form of FTP write command.
+-#write_enable=YES
++write_enable=YES
+ #
+ # Default umask for local users is 077. You may wish to change this to 022,
+ # if your users expect that (022 is used by most other ftpd's)
+-#local_umask=022
++local_umask=022
+ #
+ # Uncomment this to allow the anonymous FTP user to upload files. This only
+ # has an effect if the above global write enable is activated. Also, you will
+@@ -52,7 +52,7 @@ connect_from_port_20=YES
+ #
+ # If you want, you can have your log file in standard ftpd xferlog format.
+ # Note that the default log file location is /var/log/xferlog in this case.
+-#xferlog_std_format=YES
++xferlog_std_format=YES
+ #
+ # You may change the default value for timing out an idle session.
+ #idle_session_timeout=600
 @@ -87,7 +87,7 @@ connect_from_port_20=YES
  # useful for combatting certain DoS attacks.
  #deny_email_enable=YES
