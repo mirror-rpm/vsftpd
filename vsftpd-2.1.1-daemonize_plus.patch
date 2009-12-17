@@ -105,8 +105,8 @@ diff -up vsftpd-2.1.1/sysutil.c.daemonize_plus vsftpd-2.1.1/sysutil.c
  vsf_sysutil_fork(void)
  {
 @@ -2807,3 +2816,53 @@ vsf_sysutil_set_no_fds()
- {
-   s_current_pid = -1;
+     s_sig_details[i].pending = 0;
+   }
  }
 +
 +static struct sigaction sigalr, sigusr1;
