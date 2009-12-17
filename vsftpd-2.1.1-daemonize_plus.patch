@@ -176,7 +176,7 @@ diff -up vsftpd-2.1.1/sysutil.h.daemonize_plus vsftpd-2.1.1/sysutil.h
  /* Process creation/exit/process handling */
  unsigned int vsf_sysutil_getpid(void);
 +unsigned int vsf_sysutil_getppid(void);
- void vsf_sysutil_clear_pid_cache(void);
+ void vsf_sysutil_post_fork(void);
  int vsf_sysutil_fork(void);
  int vsf_sysutil_fork_failok(void);
 @@ -182,6 +184,9 @@ int vsf_sysutil_wait_exited_normally(

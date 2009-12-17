@@ -1,8 +1,8 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 2.2.0
-Release: 6%{?dist}
+Version: 2.2.2
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -139,6 +139,9 @@ fi
 
 
 %changelog
+* Thu Dec 17 2009 Jiri Skala <jskala@redhat.com> - 2.2.2-1
+- update to latest upstream
+
 * Mon Nov 23 2009 Jiri Skala <jskala@rehat.com> - 2.2.0-6
 - added lost default values of vsftpd.conf (rh patch)
 
