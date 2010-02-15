@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -51,6 +51,8 @@ Patch12: vsftpd-2.1.1-daemonize_plus.patch
 Patch13: vsftpd-2.2.0-openssl.patch
 Patch14: vsftpd-2.2.0-wildchar.patch
 
+Patch15: vsftpd-2.2.2-dso.patch
+
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
 scratch.
@@ -75,6 +77,7 @@ cp %{SOURCE1} .
 %patch12 -p1 -b .daemonize_plus
 %patch13 -p1 -b .openssl
 %patch14 -p1 -b .wildchar
+%patch15 -p1 -b .dso
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -139,6 +142,9 @@ fi
 
 
 %changelog
+* Mon Feb 15 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-3
+- fixes #565067 - FTBFS: ImplicitDSOLinking
+
 * Thu Dec 17 2009 Jiri Skala <jskala@redhat.com> - 2.2.2-2
 - corrected two patches due to fuzz 0
 

@@ -1,0 +1,12 @@
+diff -up vsftpd-2.2.2/Makefile.dso vsftpd-2.2.2/Makefile
+--- vsftpd-2.2.2/Makefile.dso	2010-02-15 14:22:36.107319983 +0100
++++ vsftpd-2.2.2/Makefile	2010-02-15 14:37:45.760066748 +0100
+@@ -5,7 +5,7 @@ IFLAGS  = -idirafter dummyinc
+ #CFLAGS = -g
+ CFLAGS	=	-O2 -Wall -W -Wshadow #-pedantic -Werror -Wconversion
+ 
+-LIBS	=	-lwrap -lnsl -lpam -lcap -ldl
++LIBS	=	-lwrap -lnsl -lpam -lcap -ldl -lcrypto
+ LINK	=	-Wl,-s
+ 
+ OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
