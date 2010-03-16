@@ -38,22 +38,26 @@ start() {
         if [ -d /etc/vsftpd ] ; then
                 CONFS=`ls /etc/vsftpd/*.conf 2>/dev/null`
                 [ -z "$CONFS" ] && exit 6
+                PROC_FAILED=0
                 for i in $CONFS; do
                         site=`basename $i .conf`
                         echo -n $"Starting $prog for $site: "
                         daemon /usr/sbin/vsftpd $i
                         RETVAL=$?
                         echo
-                        if [ $RETVAL -eq 0 ]; then
+                        if [ $RETVAL -eq 0 ] && [ ! -f /var/lock/subsys/$prog ]; then
                                 touch /var/lock/subsys/$prog
-                                break
-                        else
-                                if [ -f /var/lock/subsys/$prog ]; then
-                                        RETVAL=0
-                                        break
+                        elif [ $RETVAL -ne 0 ]; then
+                                ps -FC vsftpd | grep "$i" > /dev/null
+                                RETVAL=$?
+                                if [ $PROC_FAILED -eq 0 ] && [ $RETVAL -ne 0 ]; then
+                                        PROC_FAILED=1
                                 fi
                         fi
                 done
+                if [ $RETVAL -eq 0 ] && [ $PROC_FAILED -ne 0 ]; then
+                        RETVAL=1
+                fi
         else
                 RETVAL=1
         fi
