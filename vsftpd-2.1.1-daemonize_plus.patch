@@ -39,7 +39,7 @@ diff -up vsftpd-2.1.1/standalone.c.daemonize_plus vsftpd-2.1.1/standalone.c
      {
        die("could not bind listening IPv4 socket");
      }
-+    else
++    if (tunable_background) {
 +    {
 +      vsf_sysutil_kill(vsf_sysutil_getppid(), kVSFSysUtilSigUSR1);
 +    }
@@ -50,7 +50,7 @@ diff -up vsftpd-2.1.1/standalone.c.daemonize_plus vsftpd-2.1.1/standalone.c
      {
        die("could not bind listening IPv6 socket");
      }
-+    else
++    if (tunable_background) {
 +    {
 +      vsf_sysutil_kill(vsf_sysutil_getppid(), kVSFSysUtilSigUSR1);
 +    }
