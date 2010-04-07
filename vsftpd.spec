@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -142,6 +142,9 @@ fi
 
 
 %changelog
+* Wed Apr 07 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-5
+- corrected daemonize_plus patch - don't try kill parent when vsftpd isn't daemonized
+
 * Tue Mar 16 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-4
 - fixes #544251 - /etc/rc.d/init.d/vsftpd does not start more than one daemon
 
