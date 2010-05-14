@@ -144,7 +144,7 @@ fi
 
 
 %changelog
-* Wed May 14 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-6
+* Fri May 14 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-6
 - syscall(__NR_clone) replaced by clone() to fix incorrect order of params on s390 arch
 
 * Wed Apr 07 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-5
