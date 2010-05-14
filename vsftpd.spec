@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -52,6 +52,7 @@ Patch13: vsftpd-2.2.0-openssl.patch
 Patch14: vsftpd-2.2.0-wildchar.patch
 
 Patch15: vsftpd-2.2.2-dso.patch
+Patch16: vsftpd-2.2.2-clone.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -78,6 +79,7 @@ cp %{SOURCE1} .
 %patch13 -p1 -b .openssl
 %patch14 -p1 -b .wildchar
 %patch15 -p1 -b .dso
+%patch16 -p1 -b .clone
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -142,6 +144,9 @@ fi
 
 
 %changelog
+* Wed May 14 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-6
+- syscall(__NR_clone) replaced by clone() to fix incorrect order of params on s390 arch
+
 * Wed Apr 07 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-5
 - corrected daemonize_plus patch - don't try kill parent when vsftpd isn't daemonized
 
