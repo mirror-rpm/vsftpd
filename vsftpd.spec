@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -53,6 +53,7 @@ Patch14: vsftpd-2.2.0-wildchar.patch
 
 Patch15: vsftpd-2.2.2-dso.patch
 Patch16: vsftpd-2.2.2-clone.patch
+Patch17: vsftpd-2.2.2-v6only.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -80,6 +81,7 @@ cp %{SOURCE1} .
 %patch14 -p1 -b .wildchar
 %patch15 -p1 -b .dso
 %patch16 -p1 -b .clone
+%patch17 -p1 -b .v6only
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -144,6 +146,9 @@ fi
 
 
 %changelog
+* Mon May 17 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-7
+- when listen_ipv6=YES sets socket option to listen IPv6 only
+
 * Fri May 14 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-6
 - syscall(__NR_clone) replaced by clone() to fix incorrect order of params on s390 arch
 
