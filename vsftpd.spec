@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.2.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Fri Aug 06 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-8
+- fixes #472880 - Configuration can cause confusion because of selinux labels
+
 * Mon May 17 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-7
 - when listen_ipv6=YES sets socket option to listen IPv6 only
 

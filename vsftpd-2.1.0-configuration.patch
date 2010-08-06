@@ -378,20 +378,20 @@ diff -up vsftpd-2.2.0/vsftpd.conf.5.configuration vsftpd-2.2.0/vsftpd.conf.5
  .TP
  .B vsftpd_log_file
  This option is the name of the file to which we write the vsftpd style
-diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
---- vsftpd-2.2.0/vsftpd.conf.configuration	2009-06-17 22:05:28.000000000 +0200
-+++ vsftpd-2.2.0/vsftpd.conf	2009-08-04 07:53:13.000000000 +0200
+--- vsftpd-2.2.2/vsftpd.conf.configuration	2009-10-19 04:04:23.000000000 +0200
++++ vsftpd-2.2.2/vsftpd.conf	2010-08-06 09:28:44.891173995 +0200
 @@ -1,4 +1,4 @@
 -# Example config file /etc/vsftpd.conf
 +# Example config file /etc/vsftpd/vsftpd.conf
  #
  # The default compiled in settings are fairly paranoid. This sample file
  # loosens things up a bit, to make the ftp daemon more usable.
-@@ -12,14 +12,14 @@
+@@ -12,18 +12,20 @@
  anonymous_enable=YES
  #
  # Uncomment this to allow local users to log in.
 -#local_enable=YES
++# When SELinux is enforcing check for SE bool ftp_home_dir
 +local_enable=YES
  #
  # Uncomment this to enable any form of FTP write command.
@@ -405,7 +405,12 @@ diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
  #
  # Uncomment this to allow the anonymous FTP user to upload files. This only
  # has an effect if the above global write enable is activated. Also, you will
-@@ -52,7 +52,7 @@ connect_from_port_20=YES
+ # obviously need to create a directory writable by the FTP user.
++# When SELinux is enforcing check for SE bool allow_ftpd_anon_write, allow_ftpd_full_access
+ #anon_upload_enable=YES
+ #
+ # Uncomment this if you want the anonymous FTP user to be able to create
+@@ -52,7 +54,7 @@
  #
  # If you want, you can have your log file in standard ftpd xferlog format.
  # Note that the default log file location is /var/log/xferlog in this case.
@@ -414,7 +419,7 @@ diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
  #
  # You may change the default value for timing out an idle session.
  #idle_session_timeout=600
-@@ -87,7 +87,7 @@ connect_from_port_20=YES
+@@ -87,7 +89,7 @@
  # useful for combatting certain DoS attacks.
  #deny_email_enable=YES
  # (default follows)
@@ -423,7 +428,7 @@ diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
  #
  # You may specify an explicit list of local users to chroot() to their home
  # directory. If chroot_local_user is YES, then this list becomes a list of
-@@ -95,7 +95,7 @@ connect_from_port_20=YES
+@@ -95,7 +97,7 @@
  #chroot_local_user=YES
  #chroot_list_enable=YES
  # (default follows)
@@ -432,7 +437,7 @@ diff -up vsftpd-2.2.0/vsftpd.conf.configuration vsftpd-2.2.0/vsftpd.conf
  #
  # You may activate the "-R" option to the builtin ls. This is disabled by
  # default to avoid remote users being able to cause excessive I/O on large
-@@ -112,3 +112,7 @@ listen=YES
+@@ -112,3 +114,7 @@
  # sockets, you must run two copies of vsftpd with two configuration files.
  # Make sure, that one of the listen options is commented !!
  #listen_ipv6=YES
