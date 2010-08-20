@@ -1,8 +1,8 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 2.2.2
-Release: 8%{?dist}
+Version: 2.3.2
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -43,7 +43,6 @@ Patch4: vsftpd-2.1.0-configuration.patch
 Patch5: vsftpd-2.1.0-pam_hostname.patch
 Patch6: vsftpd-close-std-fds.patch
 Patch7: vsftpd-2.1.0-filter.patch
-Patch8: vsftpd-2.0.5-greedy.patch
 Patch9: vsftpd-2.1.0-userlist_log.patch
 
 Patch10: vsftpd-2.1.0-trim.patch
@@ -51,7 +50,6 @@ Patch12: vsftpd-2.1.1-daemonize_plus.patch
 Patch13: vsftpd-2.2.0-openssl.patch
 Patch14: vsftpd-2.2.0-wildchar.patch
 
-Patch15: vsftpd-2.2.2-dso.patch
 Patch16: vsftpd-2.2.2-clone.patch
 Patch17: vsftpd-2.2.2-v6only.patch
 
@@ -73,13 +71,11 @@ cp %{SOURCE1} .
 %patch5 -p1 -b .pam_hostname
 %patch6 -p1 -b .close_fds
 %patch7 -p1 -b .filter
-%patch8 -p1 -b .greedy
 %patch9 -p1 -b .userlist_log
 %patch10 -p1 -b .trim
 %patch12 -p1 -b .daemonize_plus
 %patch13 -p1 -b .openssl
 %patch14 -p1 -b .wildchar
-%patch15 -p1 -b .dso
 %patch16 -p1 -b .clone
 %patch17 -p1 -b .v6only
 
@@ -146,6 +142,10 @@ fi
 
 
 %changelog
+* Fri Aug 20 2010 Jiri Skala <jskala@redhat.com> - 2.3.2-1
+- fixes #625404 - vsftpd-2.3.1 is available
+- joined patches (libs+dso, wildchar+greedy)
+
 * Fri Aug 06 2010 Jiri Skala <jskala@redhat.com> - 2.2.2-8
 - fixes #472880 - Configuration can cause confusion because of selinux labels
 
