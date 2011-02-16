@@ -1,8 +1,8 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 2.3.2
-Release: 2%{?dist}
+Version: 2.3.4
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -142,6 +142,9 @@ fi
 
 
 %changelog
+* Wed Feb 16 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-1
+- updated to latest upstream 2.3.4
+
 * Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 

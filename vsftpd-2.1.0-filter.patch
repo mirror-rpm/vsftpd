@@ -32,7 +32,7 @@ diff -up vsftpd-2.1.0/ls.c.filter vsftpd-2.1.0/ls.c
 +  } else
 +    str_copy(&name_remain_str, p_filename_str);
 +  
-   while (!str_isempty(&filter_remain_str))
+   while (!str_isempty(&filter_remain_str) && *iters < VSFTP_MATCHITERS_MAX)
    {
      static struct mystr s_match_needed_str;
 diff -up vsftpd-2.1.0/str.c.filter vsftpd-2.1.0/str.c
