@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -52,6 +52,7 @@ Patch14: vsftpd-2.2.0-wildchar.patch
 
 Patch16: vsftpd-2.2.2-clone.patch
 Patch17: vsftpd-2.2.2-v6only.patch
+Patch18: vsftpd-2.3.4-tout.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -78,6 +79,7 @@ cp %{SOURCE1} .
 %patch14 -p1 -b .wildchar
 %patch16 -p1 -b .clone
 %patch17 -p1 -b .v6only
+%patch18 -p1 -b .tout
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -142,6 +144,9 @@ fi
 
 
 %changelog
+* Wed Feb 16 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-2
+- fixes #717412 - Connection failures - patched by Takayuki Nagata
+
 * Wed Feb 16 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-1
 - updated to latest upstream 2.3.4
 
