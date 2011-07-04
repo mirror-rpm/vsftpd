@@ -8,8 +8,8 @@ Summary: Very Secure Ftp Daemon
 Group: System Environment/Daemons
 # OpenSSL link exception
 License: GPLv2 with exceptions
-URL: http://vsftpd.beasts.org/
-Source0: ftp://vsftpd.beasts.org/users/cevans/%{name}-%{version}.tar.gz
+URL: https://security.appspot.com/vsftpd.html
+Source0: https://security.appspot.com/downloads/%{name}-%{version}.tar.gz
 Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
@@ -144,6 +144,9 @@ fi
 
 
 %changelog
+* Mon Jul 04 2011 Nils Philippsen <nils@redhat.com> - 2.3.4-3
+- update upstream and source URL
+
 * Wed Feb 16 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-2
 - fixes #717412 - Connection failures - patched by Takayuki Nagata
 
