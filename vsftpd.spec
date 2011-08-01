@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.4
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -144,6 +144,9 @@ fi
 
 
 %changelog
+* Mon Aug 01 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-4
+- rebuild for libcap
+
 * Mon Jul 04 2011 Nils Philippsen <nils@redhat.com> - 2.3.4-3
 - update upstream and source URL
 
