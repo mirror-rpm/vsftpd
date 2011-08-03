@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -16,6 +16,7 @@ Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
 Source5: vsftpd.init
 Source6: vsftpd_conf_migrate.sh
+Source7: vsftpd@.service
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -28,7 +29,6 @@ BuildRequires: tcp_wrappers-devel
 
 Requires: logrotate
 Requires (preun): /sbin/chkconfig
-Requires (preun): /sbin/service
 Requires (post): /sbin/chkconfig
 
 # Build patches
@@ -53,11 +53,21 @@ Patch14: vsftpd-2.2.0-wildchar.patch
 Patch16: vsftpd-2.2.2-clone.patch
 Patch17: vsftpd-2.2.2-v6only.patch
 Patch18: vsftpd-2.3.4-tout.patch
+Patch19: vsftpd-2.3.4-sd.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
 scratch.
 
+%package sysvinit
+Group: System Environment/Daemons
+Summary: SysV initscript for vsftpd daemon
+Requires: %{name} = %{version}-%{release}
+Requires(preun): /sbin/service
+Requires(postun): /sbin/service
+
+%description sysvinit
+The vsftpd-sysvinit contains SysV initscritps support.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -80,6 +90,7 @@ cp %{SOURCE1} .
 %patch16 -p1 -b .clone
 %patch17 -p1 -b .v6only
 %patch18 -p1 -b .tout
+%patch19 -p1 -b .sd
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -96,6 +107,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{5,8}
+mkdir -p $RPM_BUILD_ROOT/lib/systemd/system
 install -m 755 vsftpd  $RPM_BUILD_ROOT%{_sbindir}/vsftpd
 install -m 600 vsftpd.conf $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd.conf
 install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
@@ -106,29 +118,38 @@ install -m 600 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/ftpusers
 install -m 600 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/user_list
 install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/vsftpd
 install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
+install -m 644 %{SOURCE7} $RPM_BUILD_ROOT/lib/systemd/system/
+ln -s /lib/systemd/system/vsftpd@.service $RPM_BUILD_ROOT/lib/systemd/system/vsftpd@vsftpd.service
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-
 %post
-/sbin/chkconfig --add vsftpd
-
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
 
 %preun
 if [ $1 = 0 ]; then
- /sbin/service vsftpd stop > /dev/null 2>&1
- /sbin/chkconfig --del vsftpd
+	/bin/systemctl disable vsftpd@vsftpd.service > /dev/null 2>&1 || :
+	/bin/systemctl stop vsftpd@vsftpd.service > /dev/null 2>&1 || :
 fi
-  
+
+%postun
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+
+%triggerun --  %{name} < 2.3.4-5
+	/sbin/chkconfig --del vsftpd >/dev/null 2>&1 || :
+	/bin/systemctl try-restart vsftpd@vsftpd.service >/dev/null 2>&1 || :
+
+%triggerpostun -n %{name}-sysvinit -- %{name} < 2.3.4-5
+	/sbin/chkconfig --add vsftpd >/dev/null 2>&1 || :
 
 %files
 %defattr(-,root,root,-)
+/lib/systemd/system/vsftpd@.service
+/lib/systemd/system/vsftpd@vsftpd.service
 %{_sbindir}/vsftpd
-%{_sysconfdir}/rc.d/init.d/vsftpd
 %dir %{_sysconfdir}/vsftpd
 %{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
 %config(noreplace) %{_sysconfdir}/vsftpd/ftpusers
@@ -142,8 +163,14 @@ fi
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
 
+%files sysvinit
+%{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Wed Aug 03 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-5
+- fixes #719434 - Provide native systemd unit file
+- moving SysV initscript into subpackage
+
 * Mon Aug 01 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-4
 - rebuild for libcap
 
