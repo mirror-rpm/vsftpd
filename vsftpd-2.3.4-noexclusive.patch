@@ -1,0 +1,13 @@
+diff -up vsftpd-2.3.4/vsftpd.conf.5.noexclusive vsftpd-2.3.4/vsftpd.conf.5
+--- vsftpd-2.3.4/vsftpd.conf.5.noexclusive	2011-11-15 12:56:01.777161200 +0100
++++ vsftpd-2.3.4/vsftpd.conf.5	2011-11-15 12:59:22.037565778 +0100
+@@ -284,8 +284,7 @@ Default: NO
+ .TP
+ .B listen_ipv6
+ Like the listen parameter, except vsftpd will listen on an IPv6 socket instead
+-of an IPv4 one. This parameter and the listen parameter are mutually
+-exclusive.
++of an IPv4 one.
+ 
+ Default: NO
+ .TP

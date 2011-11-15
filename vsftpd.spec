@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -16,7 +16,7 @@ Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
 Source5: vsftpd.init
 Source6: vsftpd_conf_migrate.sh
-Source7: vsftpd@.service
+Source7: vsftpd.service
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -51,9 +51,10 @@ Patch13: vsftpd-2.2.0-openssl.patch
 Patch14: vsftpd-2.2.0-wildchar.patch
 
 Patch16: vsftpd-2.2.2-clone.patch
-Patch17: vsftpd-2.2.2-v6only.patch
 Patch18: vsftpd-2.3.4-tout.patch
 Patch19: vsftpd-2.3.4-sd.patch
+Patch20: vsftpd-2.3.4-sqb.patch
+Patch21: vsftpd-2.3.4-noexclusive.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -88,9 +89,10 @@ cp %{SOURCE1} .
 %patch13 -p1 -b .openssl
 %patch14 -p1 -b .wildchar
 %patch16 -p1 -b .clone
-%patch17 -p1 -b .v6only
 %patch18 -p1 -b .tout
 %patch19 -p1 -b .sd
+%patch20 -p1 -b .sqb
+%patch21 -p1 -b .noexclusive
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -119,7 +121,6 @@ install -m 600 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/user_list
 install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/vsftpd
 install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
 install -m 644 %{SOURCE7} $RPM_BUILD_ROOT/lib/systemd/system/
-ln -s /lib/systemd/system/vsftpd@.service $RPM_BUILD_ROOT/lib/systemd/system/vsftpd@vsftpd.service
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
@@ -131,8 +132,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 if [ $1 = 0 ]; then
-	/bin/systemctl disable vsftpd@vsftpd.service > /dev/null 2>&1 || :
-	/bin/systemctl stop vsftpd@vsftpd.service > /dev/null 2>&1 || :
+	/bin/systemctl disable vsftpd.service > /dev/null 2>&1 || :
+	/bin/systemctl stop vsftpd.service > /dev/null 2>&1 || :
 fi
 
 %postun
@@ -140,15 +141,14 @@ fi
 
 %triggerun --  %{name} < 2.3.4-5
 	/sbin/chkconfig --del vsftpd >/dev/null 2>&1 || :
-	/bin/systemctl try-restart vsftpd@vsftpd.service >/dev/null 2>&1 || :
+	/bin/systemctl try-restart vsftpd.service >/dev/null 2>&1 || :
 
 %triggerpostun -n %{name}-sysvinit -- %{name} < 2.3.4-5
 	/sbin/chkconfig --add vsftpd >/dev/null 2>&1 || :
 
 %files
 %defattr(-,root,root,-)
-/lib/systemd/system/vsftpd@.service
-/lib/systemd/system/vsftpd@vsftpd.service
+/lib/systemd/system/vsftpd.service
 %{_sbindir}/vsftpd
 %dir %{_sysconfdir}/vsftpd
 %{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
@@ -167,6 +167,11 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Tue Nov 15 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-6
+- fixes #753365 - multiple issues with vsftpd's systemd unit
+- removes exclusivity between listen and listen_ipv6 BZ#450853
+- ls wildchars supports square brackets
+
 * Wed Aug 03 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-5
 - fixes #719434 - Provide native systemd unit file
 - moving SysV initscript into subpackage
