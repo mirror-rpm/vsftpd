@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -54,7 +54,7 @@ Patch16: vsftpd-2.2.2-clone.patch
 Patch18: vsftpd-2.3.4-tout.patch
 Patch19: vsftpd-2.3.4-sd.patch
 Patch20: vsftpd-2.3.4-sqb.patch
-Patch21: vsftpd-2.3.4-noexclusive.patch
+Patch21: vsftpd-2.3.4-listen_ipv6.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -92,7 +92,7 @@ cp %{SOURCE1} .
 %patch18 -p1 -b .tout
 %patch19 -p1 -b .sd
 %patch20 -p1 -b .sqb
-%patch21 -p1 -b .noexclusive
+%patch21 -p1 -b .listen_ipv6
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -167,6 +167,9 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Mon Nov 28 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-7
+- added patch from BZ#450853#c23
+
 * Tue Nov 15 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-6
 - fixes #753365 - multiple issues with vsftpd's systemd unit
 - removes exclusivity between listen and listen_ipv6 BZ#450853
