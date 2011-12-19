@@ -1,8 +1,8 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 2.3.4
-Release: 7%{?dist}
+Version: 2.3.5
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -51,7 +51,6 @@ Patch13: vsftpd-2.2.0-openssl.patch
 Patch14: vsftpd-2.2.0-wildchar.patch
 
 Patch16: vsftpd-2.2.2-clone.patch
-Patch18: vsftpd-2.3.4-tout.patch
 Patch19: vsftpd-2.3.4-sd.patch
 Patch20: vsftpd-2.3.4-sqb.patch
 Patch21: vsftpd-2.3.4-listen_ipv6.patch
@@ -89,7 +88,6 @@ cp %{SOURCE1} .
 %patch13 -p1 -b .openssl
 %patch14 -p1 -b .wildchar
 %patch16 -p1 -b .clone
-%patch18 -p1 -b .tout
 %patch19 -p1 -b .sd
 %patch20 -p1 -b .sqb
 %patch21 -p1 -b .listen_ipv6
@@ -167,6 +165,9 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Mon Dec 19 2011 Jiri Skala <jskala@redhat.com> - 2.3.5-1
+- updated to latest upstream 2.3.5
+
 * Mon Nov 28 2011 Jiri Skala <jskala@redhat.com> - 2.3.4-7
 - added patch from BZ#450853#c23
 
