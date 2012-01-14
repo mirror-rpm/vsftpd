@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -165,6 +165,9 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Mon Dec 19 2011 Jiri Skala <jskala@redhat.com> - 2.3.5-1
 - updated to latest upstream 2.3.5
 
