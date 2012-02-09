@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 2.3.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -54,6 +54,7 @@ Patch16: vsftpd-2.2.2-clone.patch
 Patch19: vsftpd-2.3.4-sd.patch
 Patch20: vsftpd-2.3.4-sqb.patch
 Patch21: vsftpd-2.3.4-listen_ipv6.patch
+Patch22: vsftpd-2.3.5-aslim.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -91,6 +92,7 @@ cp %{SOURCE1} .
 %patch19 -p1 -b .sd
 %patch20 -p1 -b .sqb
 %patch21 -p1 -b .listen_ipv6
+%patch22 -p1 -b .aslim
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -165,6 +167,9 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Thu Feb 09 2012 Jiri Skala <jskala@redhat.com> - 2.3.5-3
+- fixes #788812 - authentication failure on x86_64 when using nss_pgsql
+
 * Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
