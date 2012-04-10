@@ -1,8 +1,8 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 2.3.5
-Release: 3%{?dist}
+Version: 3.0.0
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -47,7 +47,6 @@ Patch9: vsftpd-2.1.0-userlist_log.patch
 
 Patch10: vsftpd-2.1.0-trim.patch
 Patch12: vsftpd-2.1.1-daemonize_plus.patch
-Patch13: vsftpd-2.2.0-openssl.patch
 Patch14: vsftpd-2.2.0-wildchar.patch
 
 Patch16: vsftpd-2.2.2-clone.patch
@@ -86,7 +85,6 @@ cp %{SOURCE1} .
 %patch9 -p1 -b .userlist_log
 %patch10 -p1 -b .trim
 %patch12 -p1 -b .daemonize_plus
-%patch13 -p1 -b .openssl
 %patch14 -p1 -b .wildchar
 %patch16 -p1 -b .clone
 %patch19 -p1 -b .sd
@@ -167,6 +165,9 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Tue Apr 10 2012 Jiri Skala <jskala@redhat.com> - 3.0.0-1
+- updated to latest upstream 3.0.0
+
 * Thu Feb 09 2012 Jiri Skala <jskala@redhat.com> - 2.3.5-3
 - fixes #788812 - authentication failure on x86_64 when using nss_pgsql
 
