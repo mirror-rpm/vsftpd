@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 3.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -54,6 +54,7 @@ Patch19: vsftpd-2.3.4-sd.patch
 Patch20: vsftpd-2.3.4-sqb.patch
 Patch21: vsftpd-2.3.4-listen_ipv6.patch
 Patch22: vsftpd-2.3.5-aslim.patch
+Patch23: vsftpd-3.0.0-tz.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -91,6 +92,7 @@ cp %{SOURCE1} .
 %patch20 -p1 -b .sqb
 %patch21 -p1 -b .listen_ipv6
 %patch22 -p1 -b .aslim
+%patch23 -p1 -b .tz
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -165,6 +167,10 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Thu Apr 26 2012 Jiri Skala <jskala@redhat.com> - 3.0.0-2
+- corrected time zone handling - especially DST flag
+- fixed default value of option 'listen'
+
 * Tue Apr 10 2012 Jiri Skala <jskala@redhat.com> - 3.0.0-1
 - updated to latest upstream 3.0.0
 
