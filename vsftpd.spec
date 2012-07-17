@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 3.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -55,6 +55,8 @@ Patch20: vsftpd-2.3.4-sqb.patch
 Patch21: vsftpd-2.3.4-listen_ipv6.patch
 Patch22: vsftpd-2.3.5-aslim.patch
 Patch23: vsftpd-3.0.0-tz.patch
+Patch24: vsftpd-3.0.0-xferlog.patch
+Patch25: vsftpd-3.0.0-logrotate.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -93,6 +95,8 @@ cp %{SOURCE1} .
 %patch21 -p1 -b .listen_ipv6
 %patch22 -p1 -b .aslim
 %patch23 -p1 -b .tz
+%patch24 -p1 -b .xferlog
+%patch25 -p1 -b .logrotate
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -167,6 +171,10 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Tue Jul 17 2012 Jiri Skala <jskala@redhat.com> - 3.0.0-3
+- changed default value of xferlog_file to /var/log/xferlog
+- added rotating xferlog
+
 * Thu Apr 26 2012 Jiri Skala <jskala@redhat.com> - 3.0.0-2
 - corrected time zone handling - especially DST flag
 - fixed default value of option 'listen'
