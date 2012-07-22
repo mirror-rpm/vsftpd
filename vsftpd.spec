@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 3.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -171,6 +171,9 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Sun Jul 22 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Tue Jul 17 2012 Jiri Skala <jskala@redhat.com> - 3.0.0-3
 - changed default value of xferlog_file to /var/log/xferlog
 - added rotating xferlog
