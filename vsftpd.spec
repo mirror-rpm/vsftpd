@@ -1,8 +1,8 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 3.0.0
-Release: 4%{?dist}
+Version: 3.0.1
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -28,8 +28,9 @@ BuildRequires: tcp_wrappers-devel
 %endif
 
 Requires: logrotate
-Requires (preun): /sbin/chkconfig
-Requires (post): /sbin/chkconfig
+Requires (post): systemd-units
+Requires (preun): systemd-units
+Requires (postun): systemd-units
 
 # Build patches
 Patch1: vsftpd-2.1.0-libs.patch
@@ -132,23 +133,13 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+%systemd_post vsftpd.service
 
 %preun
-if [ $1 = 0 ]; then
-	/bin/systemctl disable vsftpd.service > /dev/null 2>&1 || :
-	/bin/systemctl stop vsftpd.service > /dev/null 2>&1 || :
-fi
+%systemd_preun vsftpd.service
 
 %postun
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-
-%triggerun --  %{name} < 2.3.4-5
-	/sbin/chkconfig --del vsftpd >/dev/null 2>&1 || :
-	/bin/systemctl try-restart vsftpd.service >/dev/null 2>&1 || :
-
-%triggerpostun -n %{name}-sysvinit -- %{name} < 2.3.4-5
-	/sbin/chkconfig --add vsftpd >/dev/null 2>&1 || :
+%systemd_postun_with_restart vsftpd.service 
 
 %files
 %defattr(-,root,root,-)
@@ -171,6 +162,11 @@ fi
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Mon Sep 17 2012 Jiri Skala <jskala@redhat.com> - 3.0.1-1
+- update to latest upstream 3.0.1
+- fixes #851441 - Introduce new systemd-rpm macros in vsftpd spec file
+- fixes #845980 - vsftpd seccomp filter is too strict
+
 * Sun Jul 22 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
