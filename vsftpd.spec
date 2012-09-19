@@ -1,7 +1,7 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
 
 Name: vsftpd
-Version: 3.0.1
+Version: 3.0.2
 Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
@@ -162,6 +162,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Wed Sep 19 2012 Jiri Skala <jskala@redhat.com> - 3.0.1-2
+- update to latest upstream 3.0.2
+
 * Mon Sep 17 2012 Jiri Skala <jskala@redhat.com> - 3.0.1-1
 - update to latest upstream 3.0.1
 - fixes #851441 - Introduce new systemd-rpm macros in vsftpd spec file
