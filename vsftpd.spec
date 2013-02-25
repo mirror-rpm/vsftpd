@@ -2,7 +2,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -162,6 +162,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Mon Feb 25 2013 Jiri Skala <jskala@redhat.com> - 3.0.1-3
+- fixes #913519 - login fails (increased AS_LIMIT)
+
 * Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
