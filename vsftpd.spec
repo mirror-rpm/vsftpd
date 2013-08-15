@@ -1,8 +1,9 @@
 %{!?tcp_wrappers:%define tcp_wrappers 1}
+%define _generatorsdir %{_prefix}/lib/systemd/system-generators
 
 Name: vsftpd
 Version: 3.0.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -17,20 +18,21 @@ Source4: vsftpd.user_list
 Source5: vsftpd.init
 Source6: vsftpd_conf_migrate.sh
 Source7: vsftpd.service
+Source8: vsftpd@.service
+Source9: vsftpd.target
+Source10: vsftpd-generator
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: pam-devel
 BuildRequires: libcap-devel
 BuildRequires: openssl-devel
+BuildRequires: systemd
 %if %{tcp_wrappers}
 BuildRequires: tcp_wrappers-devel
 %endif
 
 Requires: logrotate
-Requires (post): systemd-units
-Requires (preun): systemd-units
-Requires (postun): systemd-units
 
 # Build patches
 Patch1: vsftpd-2.1.0-libs.patch
@@ -114,7 +116,8 @@ mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{5,8}
-mkdir -p $RPM_BUILD_ROOT/lib/systemd/system
+mkdir -p $RPM_BUILD_ROOT%{_unitdir}
+mkdir -p $RPM_BUILD_ROOT%{_generatorsdir}
 install -m 755 vsftpd  $RPM_BUILD_ROOT%{_sbindir}/vsftpd
 install -m 600 vsftpd.conf $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd.conf
 install -m 644 vsftpd.conf.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
@@ -125,7 +128,10 @@ install -m 600 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/ftpusers
 install -m 600 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/user_list
 install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/vsftpd
 install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
-install -m 644 %{SOURCE7} $RPM_BUILD_ROOT/lib/systemd/system/
+install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}
+install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_unitdir}
+install -m 644 %{SOURCE9} $RPM_BUILD_ROOT%{_unitdir}
+install -m 755 %{SOURCE10} $RPM_BUILD_ROOT%{_generatorsdir}
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
@@ -137,13 +143,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 %systemd_preun vsftpd.service
+%systemd_preun vsftpd.target
 
 %postun
 %systemd_postun_with_restart vsftpd.service 
 
 %files
 %defattr(-,root,root,-)
-/lib/systemd/system/vsftpd.service
+%{_unitdir}/*
+%{_generatorsdir}/*
 %{_sbindir}/vsftpd
 %dir %{_sysconfdir}/vsftpd
 %{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
@@ -162,13 +170,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
-* Mon Feb 25 2013 Jiri Skala <jskala@redhat.com> - 3.0.1-3
+* Thu Aug 15 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-4
+- replaced systemd path by _unitdir macro
+- fixes #7194344 - multiple instances (target, generator)
+
+* Mon Feb 25 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-3
 - fixes #913519 - login fails (increased AS_LIMIT)
 
 * Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-* Wed Sep 19 2012 Jiri Skala <jskala@redhat.com> - 3.0.1-2
+* Wed Sep 19 2012 Jiri Skala <jskala@redhat.com> - 3.0.2-2
 - update to latest upstream 3.0.2
 
 * Mon Sep 17 2012 Jiri Skala <jskala@redhat.com> - 3.0.1-1
