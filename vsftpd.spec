@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -60,6 +60,7 @@ Patch22: vsftpd-2.3.5-aslim.patch
 Patch23: vsftpd-3.0.0-tz.patch
 Patch24: vsftpd-3.0.0-xferlog.patch
 Patch25: vsftpd-3.0.0-logrotate.patch
+Patch26: vsftpd-3.0.2-pasv-addr.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -100,6 +101,7 @@ cp %{SOURCE1} .
 %patch23 -p1 -b .tz
 %patch24 -p1 -b .xferlog
 %patch25 -p1 -b .logrotate
+%patch26 -p1 -b .pasv-addr
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -170,6 +172,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Wed Sep 04 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-6
+- fixes usage pasv_address option in combination with external IP
+- updated man pages - multile instances using vsftpd.target
+
 * Thu Aug 15 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-5
 - replaced systemd path by _unitdir macro
 - fixes #7194344 - multiple instances (target, generator)
