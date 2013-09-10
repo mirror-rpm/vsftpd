@@ -1,3 +1,6 @@
 [Unit]
 Description=FTP daemon
-Documentation=man:vsftpd
+After=network.target
+
+[Install]
+WantedBy=multi-user.target

@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -172,6 +172,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/rc.d/init.d/vsftpd
 
 %changelog
+* Tue Sep 10 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-7
+- fixed #1005549 - vsftpd startup broken
+
 * Wed Sep 04 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-6
 - fixes usage pasv_address option in combination with external IP
 - updated man pages - multile instances using vsftpd.target
