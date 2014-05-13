@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -15,7 +15,6 @@ Source1: vsftpd.xinetd
 Source2: vsftpd.pam
 Source3: vsftpd.ftpusers
 Source4: vsftpd.user_list
-Source5: vsftpd.init
 Source6: vsftpd_conf_migrate.sh
 Source7: vsftpd.service
 Source8: vsftpd@.service
@@ -60,21 +59,13 @@ Patch22: vsftpd-2.3.5-aslim.patch
 Patch23: vsftpd-3.0.0-tz.patch
 Patch24: vsftpd-3.0.0-xferlog.patch
 Patch25: vsftpd-3.0.0-logrotate.patch
-Patch26: vsftpd-3.0.2-pasv-addr.patch
+Patch26: vsftpd-3.0.2-lookup.patch
+Patch27: vsftpd-3.0.2-uint-uidgid.patch
+Patch28: vsftpd-3.0.2-dh.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
 scratch.
-
-%package sysvinit
-Group: System Environment/Daemons
-Summary: SysV initscript for vsftpd daemon
-Requires: %{name} = %{version}-%{release}
-Requires(preun): /sbin/service
-Requires(postun): /sbin/service
-
-%description sysvinit
-The vsftpd-sysvinit contains SysV initscritps support.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -101,7 +92,9 @@ cp %{SOURCE1} .
 %patch23 -p1 -b .tz
 %patch24 -p1 -b .xferlog
 %patch25 -p1 -b .logrotate
-%patch26 -p1 -b .pasv-addr
+%patch26 -p1 -b .lookup
+%patch27 -p1 -b .uint-uidgid
+%patch28 -p1 -b .dh
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -116,7 +109,7 @@ make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d,rc.d/init.d}
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{5,8}
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{_generatorsdir}
@@ -128,7 +121,6 @@ install -m 644 RedHat/vsftpd.log $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/vsftp
 install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/vsftpd
 install -m 600 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/ftpusers
 install -m 600 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/user_list
-install -m 755 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/vsftpd
 install -m 744 %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/vsftpd/vsftpd_conf_migrate.sh
 install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_unitdir}
@@ -168,10 +160,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
 
-%files sysvinit
-%{_sysconfdir}/rc.d/init.d/vsftpd
-
 %changelog
+* Tue May 13 2014 Jiri Skala <jskala@redhat.com> - 3.0.2-8
+- adds reverse lookup option to vsftpd.conf
+- changes types of uid and gid to uint
+- removes spare patch pasv-addr
+- implements DH cipher
+- gets rid init scirpt subpackage
+
 * Tue Sep 10 2013 Jiri Skala <jskala@redhat.com> - 3.0.2-7
 - fixed #1005549 - vsftpd startup broken
 

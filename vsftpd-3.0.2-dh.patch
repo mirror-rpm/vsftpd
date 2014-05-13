@@ -1,0 +1,117 @@
+diff -up vsftpd-3.0.2/ssl.c.dh vsftpd-3.0.2/ssl.c
+--- vsftpd-3.0.2/ssl.c.dh	2012-04-03 02:23:42.000000000 +0200
++++ vsftpd-3.0.2/ssl.c	2014-05-13 12:36:26.790953361 +0200
+@@ -28,6 +28,8 @@
+ #include <openssl/err.h>
+ #include <openssl/rand.h>
+ #include <openssl/bio.h>
++#include <openssl/dh.h>
++#include <openssl/bn.h>
+ #include <errno.h>
+ #include <limits.h>
+ 
+@@ -38,6 +40,7 @@ static void setup_bio_callbacks();
+ static long bio_callback(
+   BIO* p_bio, int oper, const char* p_arg, int argi, long argl, long retval);
+ static int ssl_verify_callback(int verify_ok, X509_STORE_CTX* p_ctx);
++static DH *ssl_tmp_dh_callback(SSL *ssl, int is_export, int keylength);
+ static int ssl_cert_digest(
+   SSL* p_ssl, struct vsf_session* p_sess, struct mystr* p_str);
+ static void maybe_log_shutdown_state(struct vsf_session* p_sess);
+@@ -51,6 +54,36 @@ static int ssl_read_common(struct vsf_se
+ static int ssl_inited;
+ static struct mystr debug_str;
+ 
++
++// Grab DH parameters from OpenSSL; <openssl/bn.h>
++// (get_rfc*) for all available primes.
++#define make_get_dh(rfc,size) \
++static DH *get_dh##size(void) \
++{ \
++  DH *dh = DH_new(); \
++  if (!dh) { \
++    return NULL; \
++  } \
++  dh->p = get_##rfc##_prime_##size(NULL); \
++  BN_dec2bn(&dh->g, "2"); \
++  if (!dh->p || !dh->g) { \
++    DH_free(dh); \
++    return NULL; \
++  } \
++  return dh; \
++}
++
++// Prepare DH parameters from 768 to 8192 bits
++make_get_dh(rfc2409, 768)
++make_get_dh(rfc2409, 1024)
++make_get_dh(rfc3526, 1536)
++make_get_dh(rfc3526, 2048)
++make_get_dh(rfc3526, 3072)
++make_get_dh(rfc3526, 4096)
++make_get_dh(rfc3526, 6144)
++make_get_dh(rfc3526, 8192)
++
++
+ void
+ ssl_init(struct vsf_session* p_sess)
+ {
+@@ -156,6 +189,9 @@ ssl_init(struct vsf_session* p_sess)
+       /* Ensure cached session doesn't expire */
+       SSL_CTX_set_timeout(p_ctx, INT_MAX);
+     }
++    
++    SSL_CTX_set_tmp_dh_callback(p_ctx, ssl_tmp_dh_callback);
++
+     p_sess->p_ssl_ctx = p_ctx;
+     ssl_inited = 1;
+   }
+@@ -675,6 +711,49 @@ ssl_verify_callback(int verify_ok, X509_
+   return 1;
+ }
+ 
++#define UNUSED(x) ( (void)(x) )
++
++static DH *
++ssl_tmp_dh_callback(SSL *ssl, int is_export, int keylength)
++{
++  DH *dh_tmp=NULL;
++
++  // strict compiler bypassing
++  UNUSED(ssl);
++  UNUSED(is_export);
++
++  switch (keylength) {
++    case 768:
++      dh_tmp = get_dh768();
++      break;
++    case 1024:
++      dh_tmp = get_dh1024();
++      break;
++    case 1536:
++      dh_tmp = get_dh1536();
++      break;
++    case 2048:
++      dh_tmp = get_dh2048();
++      break;
++    case 3072:
++      dh_tmp = get_dh3072();
++      break;
++    case 4096:
++      dh_tmp = get_dh4096();
++      break;
++    case 6144:
++      dh_tmp = get_dh6144();
++      break;
++    case 8192:
++      dh_tmp = get_dh8192();
++      break;
++    default:
++      dh_tmp = get_dh1024();
++      break;
++  }
++  return dh_tmp;
++}
++
+ void
+ ssl_add_entropy(struct vsf_session* p_sess)
+ {
