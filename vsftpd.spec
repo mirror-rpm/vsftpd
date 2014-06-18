@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -62,6 +62,9 @@ Patch25: vsftpd-3.0.0-logrotate.patch
 Patch26: vsftpd-3.0.2-lookup.patch
 Patch27: vsftpd-3.0.2-uint-uidgid.patch
 Patch28: vsftpd-3.0.2-dh.patch
+Patch29: vsftpd-3.0.2-ecdh.patch
+Patch30: vsftpd-3.0.2-docupd.patch
+Patch31: vsftpd-3.0.2-rc450.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -95,6 +98,9 @@ cp %{SOURCE1} .
 %patch26 -p1 -b .lookup
 %patch27 -p1 -b .uint-uidgid
 %patch28 -p1 -b .dh
+%patch29 -p1 -b .ecdh
+%patch30 -p1 -b .docupd
+%patch31 -p1 -b .rc450
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -161,6 +167,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/ftp
 
 %changelog
+* Wed Jun 18 2014 Jiri Skala <jskala@redhat.com> - 3.0.2-10
+- improves DH cipher
+- implements ECDH cipher
+- adds isolate* options to man vsftpd.conf
+- corrects max_clients, max_per_ip default values in man vsftd.conf
+- adds return code 450 when a file is temporarily unavailable
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
