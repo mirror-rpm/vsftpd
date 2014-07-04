@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -167,6 +167,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/ftp
 
 %changelog
+* Fri Jul 04 2014 Jiri Skala <jskala@redhat.com> - 3.0.2-11
+- fixed deny_file, hide_file options - updated sqb patch
+
 * Wed Jun 18 2014 Jiri Skala <jskala@redhat.com> - 3.0.2-10
 - improves DH cipher
 - implements ECDH cipher
