@@ -1,6 +1,6 @@
 diff -up vsftpd-3.0.2/parseconf.c.dh vsftpd-3.0.2/parseconf.c
---- vsftpd-3.0.2/parseconf.c.dh	2014-06-04 09:54:43.364747051 +0200
-+++ vsftpd-3.0.2/parseconf.c	2014-06-04 09:54:43.368747052 +0200
+--- vsftpd-3.0.2/parseconf.c.dh	2014-09-15 15:07:43.719909056 +0200
++++ vsftpd-3.0.2/parseconf.c	2014-09-15 15:07:43.724909061 +0200
 @@ -176,6 +176,7 @@ parseconf_str_array[] =
    { "email_password_file", &tunable_email_password_file },
    { "rsa_cert_file", &tunable_rsa_cert_file },
@@ -11,7 +11,7 @@ diff -up vsftpd-3.0.2/parseconf.c.dh vsftpd-3.0.2/parseconf.c
    { "dsa_private_key_file", &tunable_dsa_private_key_file },
 diff -up vsftpd-3.0.2/ssl.c.dh vsftpd-3.0.2/ssl.c
 --- vsftpd-3.0.2/ssl.c.dh	2012-04-03 02:23:42.000000000 +0200
-+++ vsftpd-3.0.2/ssl.c	2014-06-04 09:55:59.443770325 +0200
++++ vsftpd-3.0.2/ssl.c	2014-09-15 15:07:43.725909062 +0200
 @@ -28,6 +28,8 @@
  #include <openssl/err.h>
  #include <openssl/rand.h>
@@ -155,8 +155,8 @@ diff -up vsftpd-3.0.2/ssl.c.dh vsftpd-3.0.2/ssl.c
  ssl_add_entropy(struct vsf_session* p_sess)
  {
 diff -up vsftpd-3.0.2/tunables.c.dh vsftpd-3.0.2/tunables.c
---- vsftpd-3.0.2/tunables.c.dh	2014-06-04 09:54:43.364747051 +0200
-+++ vsftpd-3.0.2/tunables.c	2014-06-04 09:54:43.369747052 +0200
+--- vsftpd-3.0.2/tunables.c.dh	2014-09-15 15:07:43.720909057 +0200
++++ vsftpd-3.0.2/tunables.c	2014-09-15 15:12:46.516209941 +0200
 @@ -140,6 +140,7 @@ const char* tunable_user_sub_token;
  const char* tunable_email_password_file;
  const char* tunable_rsa_cert_file;
@@ -165,17 +165,20 @@ diff -up vsftpd-3.0.2/tunables.c.dh vsftpd-3.0.2/tunables.c
  const char* tunable_ssl_ciphers;
  const char* tunable_rsa_private_key_file;
  const char* tunable_dsa_private_key_file;
-@@ -288,6 +289,7 @@ tunables_load_defaults()
+@@ -288,7 +289,9 @@ tunables_load_defaults()
    install_str_setting("/usr/share/ssl/certs/vsftpd.pem",
                        &tunable_rsa_cert_file);
    install_str_setting(0, &tunable_dsa_cert_file);
+-  install_str_setting("AES128-SHA:DES-CBC3-SHA", &tunable_ssl_ciphers);
 +  install_str_setting(0, &tunable_dh_param_file);
-   install_str_setting("AES128-SHA:DES-CBC3-SHA", &tunable_ssl_ciphers);
++  install_str_setting("AES128-SHA:DES-CBC3-SHA:DHE-RSA-AES256-SHA",
++                      &tunable_ssl_ciphers);
    install_str_setting(0, &tunable_rsa_private_key_file);
    install_str_setting(0, &tunable_dsa_private_key_file);
+   install_str_setting(0, &tunable_ca_certs_file);
 diff -up vsftpd-3.0.2/tunables.h.dh vsftpd-3.0.2/tunables.h
---- vsftpd-3.0.2/tunables.h.dh	2014-06-04 09:54:43.364747051 +0200
-+++ vsftpd-3.0.2/tunables.h	2014-06-04 09:54:43.369747052 +0200
+--- vsftpd-3.0.2/tunables.h.dh	2014-09-15 15:07:43.720909057 +0200
++++ vsftpd-3.0.2/tunables.h	2014-09-15 15:07:43.725909062 +0200
 @@ -142,6 +142,7 @@ extern const char* tunable_user_sub_toke
  extern const char* tunable_email_password_file;
  extern const char* tunable_rsa_cert_file;
@@ -185,8 +188,8 @@ diff -up vsftpd-3.0.2/tunables.h.dh vsftpd-3.0.2/tunables.h
  extern const char* tunable_rsa_private_key_file;
  extern const char* tunable_dsa_private_key_file;
 diff -up vsftpd-3.0.2/vsftpd.conf.5.dh vsftpd-3.0.2/vsftpd.conf.5
---- vsftpd-3.0.2/vsftpd.conf.5.dh	2014-06-04 09:54:43.364747051 +0200
-+++ vsftpd-3.0.2/vsftpd.conf.5	2014-06-04 09:54:43.369747052 +0200
+--- vsftpd-3.0.2/vsftpd.conf.5.dh	2014-09-15 15:07:43.720909057 +0200
++++ vsftpd-3.0.2/vsftpd.conf.5	2014-09-15 15:07:43.725909062 +0200
 @@ -893,6 +893,12 @@ to be in the same file as the certificat
  
  Default: (none)

@@ -1,6 +1,6 @@
 diff -up vsftpd-3.0.2/parseconf.c.ecdh vsftpd-3.0.2/parseconf.c
---- vsftpd-3.0.2/parseconf.c.ecdh	2014-06-04 09:56:56.358788746 +0200
-+++ vsftpd-3.0.2/parseconf.c	2014-06-04 09:56:56.360788747 +0200
+--- vsftpd-3.0.2/parseconf.c.ecdh	2014-09-15 15:49:48.801315298 +0200
++++ vsftpd-3.0.2/parseconf.c	2014-09-15 15:49:48.804315301 +0200
 @@ -177,6 +177,7 @@ parseconf_str_array[] =
    { "rsa_cert_file", &tunable_rsa_cert_file },
    { "dsa_cert_file", &tunable_dsa_cert_file },
@@ -10,8 +10,8 @@ diff -up vsftpd-3.0.2/parseconf.c.ecdh vsftpd-3.0.2/parseconf.c
    { "rsa_private_key_file", &tunable_rsa_private_key_file },
    { "dsa_private_key_file", &tunable_dsa_private_key_file },
 diff -up vsftpd-3.0.2/ssl.c.ecdh vsftpd-3.0.2/ssl.c
---- vsftpd-3.0.2/ssl.c.ecdh	2014-06-04 09:56:56.358788746 +0200
-+++ vsftpd-3.0.2/ssl.c	2014-06-04 09:56:56.360788747 +0200
+--- vsftpd-3.0.2/ssl.c.ecdh	2014-09-15 15:49:48.802315299 +0200
++++ vsftpd-3.0.2/ssl.c	2014-09-15 15:49:48.804315301 +0200
 @@ -122,7 +122,7 @@ ssl_init(struct vsf_session* p_sess)
      {
        die("SSL: could not allocate SSL context");
@@ -64,8 +64,8 @@ diff -up vsftpd-3.0.2/ssl.c.ecdh vsftpd-3.0.2/ssl.c
      ssl_inited = 1;
    }
 diff -up vsftpd-3.0.2/tunables.c.ecdh vsftpd-3.0.2/tunables.c
---- vsftpd-3.0.2/tunables.c.ecdh	2014-06-04 09:56:56.358788746 +0200
-+++ vsftpd-3.0.2/tunables.c	2014-06-04 09:56:56.361788747 +0200
+--- vsftpd-3.0.2/tunables.c.ecdh	2014-09-15 15:49:48.802315299 +0200
++++ vsftpd-3.0.2/tunables.c	2014-09-15 15:51:13.176386035 +0200
 @@ -141,6 +141,7 @@ const char* tunable_email_password_file;
  const char* tunable_rsa_cert_file;
  const char* tunable_dsa_cert_file;
@@ -74,17 +74,19 @@ diff -up vsftpd-3.0.2/tunables.c.ecdh vsftpd-3.0.2/tunables.c
  const char* tunable_ssl_ciphers;
  const char* tunable_rsa_private_key_file;
  const char* tunable_dsa_private_key_file;
-@@ -290,6 +291,7 @@ tunables_load_defaults()
+@@ -290,7 +291,8 @@ tunables_load_defaults()
                        &tunable_rsa_cert_file);
    install_str_setting(0, &tunable_dsa_cert_file);
    install_str_setting(0, &tunable_dh_param_file);
+-  install_str_setting("AES128-SHA:DES-CBC3-SHA:DHE-RSA-AES256-SHA",
 +  install_str_setting(0, &tunable_ecdh_param_file);
-   install_str_setting("AES128-SHA:DES-CBC3-SHA", &tunable_ssl_ciphers);
++  install_str_setting("AES128-SHA:DES-CBC3-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA",
+                       &tunable_ssl_ciphers);
    install_str_setting(0, &tunable_rsa_private_key_file);
    install_str_setting(0, &tunable_dsa_private_key_file);
 diff -up vsftpd-3.0.2/tunables.h.ecdh vsftpd-3.0.2/tunables.h
---- vsftpd-3.0.2/tunables.h.ecdh	2014-06-04 09:56:56.359788746 +0200
-+++ vsftpd-3.0.2/tunables.h	2014-06-04 09:56:56.361788747 +0200
+--- vsftpd-3.0.2/tunables.h.ecdh	2014-09-15 15:49:48.802315299 +0200
++++ vsftpd-3.0.2/tunables.h	2014-09-15 15:49:48.804315301 +0200
 @@ -143,6 +143,7 @@ extern const char* tunable_email_passwor
  extern const char* tunable_rsa_cert_file;
  extern const char* tunable_dsa_cert_file;
@@ -94,9 +96,9 @@ diff -up vsftpd-3.0.2/tunables.h.ecdh vsftpd-3.0.2/tunables.h
  extern const char* tunable_rsa_private_key_file;
  extern const char* tunable_dsa_private_key_file;
 diff -up vsftpd-3.0.2/vsftpd.conf.5.ecdh vsftpd-3.0.2/vsftpd.conf.5
---- vsftpd-3.0.2/vsftpd.conf.5.ecdh	2014-06-04 09:56:56.359788746 +0200
-+++ vsftpd-3.0.2/vsftpd.conf.5	2014-06-04 09:56:56.361788747 +0200
-@@ -899,6 +899,14 @@ ephemeral Diffie-Hellman key exchange in
+--- vsftpd-3.0.2/vsftpd.conf.5.ecdh	2014-09-15 15:49:48.802315299 +0200
++++ vsftpd-3.0.2/vsftpd.conf.5	2014-09-15 15:49:48.806315302 +0200
+@@ -899,6 +915,14 @@ ephemeral Diffie-Hellman key exchange in
  
  Default: (none - use built in parameters appropriate for certificate key size)
  .TP

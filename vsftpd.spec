@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -167,6 +167,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/ftp
 
 %changelog
+* Tue Sep 16 2014 Jiri Skala <jskala@redhat.com> - 3.0.2-13
+- added appropriate values to ssl_ciphers (dh and ecdh patches)
+
 * Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
