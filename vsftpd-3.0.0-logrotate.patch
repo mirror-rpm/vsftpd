@@ -1,6 +1,16 @@
-diff -up vsftpd-3.0.0/RedHat/vsftpd.log.logrotate vsftpd-3.0.0/RedHat/vsftpd.log
---- vsftpd-3.0.0/RedHat/vsftpd.log.logrotate	2012-07-17 11:08:28.484061640 +0200
-+++ vsftpd-3.0.0/RedHat/vsftpd.log	2012-07-17 11:09:08.000020510 +0200
+From 5a4adb1078552f3f17f21dab9cacadbcacf593ec Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 18/26] Applied vsftpd-3.0.0-logrotate.patch
+
+---
+ RedHat/vsftpd.log | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/RedHat/vsftpd.log b/RedHat/vsftpd.log
+index d338de8..14731c1 100644
+--- a/RedHat/vsftpd.log
++++ b/RedHat/vsftpd.log
 @@ -3,3 +3,9 @@
      nocompress
      missingok
@@ -11,3 +21,6 @@ diff -up vsftpd-3.0.0/RedHat/vsftpd.log.logrotate vsftpd-3.0.0/RedHat/vsftpd.log
 +    nocompress
 +    missingok
 +}
+-- 
+2.5.0
+

@@ -1,7 +1,21 @@
-diff -up vsftpd-2.2.0/parseconf.c.trim vsftpd-2.2.0/parseconf.c
---- vsftpd-2.2.0/parseconf.c.trim	2009-08-04 08:01:10.000000000 +0200
-+++ vsftpd-2.2.0/parseconf.c	2009-08-04 08:10:49.000000000 +0200
-@@ -275,7 +275,7 @@ vsf_parseconf_load_setting(const char* p
+From aea6f1b484d06c56f636ae5ed7df232d6a94f57a Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 09/26] Applied vsftpd-2.1.0-trim.patch
+
+---
+ parseconf.c |  2 +-
+ str.c       | 12 ++++++++++++
+ str.h       |  1 +
+ sysutil.c   | 12 ++++++++++++
+ sysutil.h   |  1 +
+ 5 files changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/parseconf.c b/parseconf.c
+index 385afd2..30df598 100644
+--- a/parseconf.c
++++ b/parseconf.c
+@@ -280,7 +280,7 @@ vsf_parseconf_load_setting(const char* p_setting, int errs_fatal)
          }
          else
          {
@@ -10,10 +24,11 @@ diff -up vsftpd-2.2.0/parseconf.c.trim vsftpd-2.2.0/parseconf.c
          }
          return;
        }
-diff -up vsftpd-2.2.0/str.c.trim vsftpd-2.2.0/str.c
---- vsftpd-2.2.0/str.c.trim	2009-08-04 08:01:10.000000000 +0200
-+++ vsftpd-2.2.0/str.c	2009-08-04 08:01:10.000000000 +0200
-@@ -89,6 +89,18 @@ str_strdup(const struct mystr* p_str)
+diff --git a/str.c b/str.c
+index ba4b92a..41b27db 100644
+--- a/str.c
++++ b/str.c
+@@ -104,6 +104,18 @@ str_strdup(const struct mystr* p_str)
    return vsf_sysutil_strdup(str_getbuf(p_str));
  }
  
@@ -32,10 +47,11 @@ diff -up vsftpd-2.2.0/str.c.trim vsftpd-2.2.0/str.c
  void
  str_alloc_alt_term(struct mystr* p_str, const char* p_src, char term)
  {
-diff -up vsftpd-2.2.0/str.h.trim vsftpd-2.2.0/str.h
---- vsftpd-2.2.0/str.h.trim	2009-08-04 08:01:10.000000000 +0200
-+++ vsftpd-2.2.0/str.h	2009-08-04 08:01:10.000000000 +0200
-@@ -31,6 +31,7 @@ void str_alloc_ulong(struct mystr* p_str
+diff --git a/str.h b/str.h
+index 3a21b50..44270da 100644
+--- a/str.h
++++ b/str.h
+@@ -31,6 +31,7 @@ void str_alloc_ulong(struct mystr* p_str, unsigned long the_ulong);
  void str_alloc_filesize_t(struct mystr* p_str, filesize_t the_filesize);
  void str_copy(struct mystr* p_dest, const struct mystr* p_src);
  const char* str_strdup(const struct mystr* p_str);
@@ -43,10 +59,11 @@ diff -up vsftpd-2.2.0/str.h.trim vsftpd-2.2.0/str.h
  void str_empty(struct mystr* p_str);
  void str_free(struct mystr* p_str);
  void str_trunc(struct mystr* p_str, unsigned int trunc_len);
-diff -up vsftpd-2.2.0/sysutil.c.trim vsftpd-2.2.0/sysutil.c
---- vsftpd-2.2.0/sysutil.c.trim	2009-07-16 05:32:21.000000000 +0200
-+++ vsftpd-2.2.0/sysutil.c	2009-08-04 08:01:10.000000000 +0200
-@@ -1032,6 +1032,18 @@ vsf_sysutil_strdup(const char* p_str)
+diff --git a/sysutil.c b/sysutil.c
+index 5cdb6ef..428a34a 100644
+--- a/sysutil.c
++++ b/sysutil.c
+@@ -1035,6 +1035,18 @@ vsf_sysutil_strdup(const char* p_str)
    return strdup(p_str);
  }
  
@@ -65,9 +82,10 @@ diff -up vsftpd-2.2.0/sysutil.c.trim vsftpd-2.2.0/sysutil.c
  void
  vsf_sysutil_memclr(void* p_dest, unsigned int size)
  {
-diff -up vsftpd-2.2.0/sysutil.h.trim vsftpd-2.2.0/sysutil.h
---- vsftpd-2.2.0/sysutil.h.trim	2009-07-16 05:31:53.000000000 +0200
-+++ vsftpd-2.2.0/sysutil.h	2009-08-04 08:01:10.000000000 +0200
+diff --git a/sysutil.h b/sysutil.h
+index c34778c..c2ddd15 100644
+--- a/sysutil.h
++++ b/sysutil.h
 @@ -186,6 +186,7 @@ int vsf_sysutil_wait_get_exitcode(
  /* Various string functions */
  unsigned int vsf_sysutil_strlen(const char* p_text);
@@ -76,3 +94,6 @@ diff -up vsftpd-2.2.0/sysutil.h.trim vsftpd-2.2.0/sysutil.h
  void vsf_sysutil_memclr(void* p_dest, unsigned int size);
  void vsf_sysutil_memcpy(void* p_dest, const void* p_src,
                          const unsigned int size);
+-- 
+2.5.0
+

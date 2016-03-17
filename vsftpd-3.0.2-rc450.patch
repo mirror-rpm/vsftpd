@@ -1,6 +1,19 @@
-diff -up vsftpd-3.0.2/ftpcodes.h.rc450 vsftpd-3.0.2/ftpcodes.h
---- vsftpd-3.0.2/ftpcodes.h.rc450	2008-02-12 01:30:46.000000000 +0100
-+++ vsftpd-3.0.2/ftpcodes.h	2014-06-18 13:41:02.238821708 +0200
+From e8c21dbd87c5e46c246c2d08c1abc84bb649fc02 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:46 +0100
+Subject: [PATCH 24/26] Applied vsftpd-3.0.2-rc450.patch
+
+---
+ ftpcodes.h  | 1 +
+ postlogin.c | 9 ++++++++-
+ sysutil.c   | 3 +++
+ sysutil.h   | 3 ++-
+ 4 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/ftpcodes.h b/ftpcodes.h
+index 93290c0..81e25c5 100644
+--- a/ftpcodes.h
++++ b/ftpcodes.h
 @@ -52,6 +52,7 @@
  #define FTP_TLS_FAIL          421
  #define FTP_BADSENDCONN       425
@@ -9,10 +22,11 @@ diff -up vsftpd-3.0.2/ftpcodes.h.rc450 vsftpd-3.0.2/ftpcodes.h
  #define FTP_BADSENDFILE       451
  
  #define FTP_BADCMD            500
-diff -up vsftpd-3.0.2/postlogin.c.rc450 vsftpd-3.0.2/postlogin.c
---- vsftpd-3.0.2/postlogin.c.rc450	2012-09-18 11:59:37.000000000 +0200
-+++ vsftpd-3.0.2/postlogin.c	2014-06-18 13:41:02.238821708 +0200
-@@ -670,7 +670,14 @@ handle_retr(struct vsf_session* p_sess,
+diff --git a/postlogin.c b/postlogin.c
+index bf12970..29958c0 100644
+--- a/postlogin.c
++++ b/postlogin.c
+@@ -679,7 +679,14 @@ handle_retr(struct vsf_session* p_sess, int is_http)
    opened_file = str_open(&p_sess->ftp_arg_str, kVSFSysStrOpenReadOnly);
    if (vsf_sysutil_retval_is_error(opened_file))
    {
@@ -28,9 +42,10 @@ diff -up vsftpd-3.0.2/postlogin.c.rc450 vsftpd-3.0.2/postlogin.c
      return;
    }
    /* Lock file if required */
-diff -up vsftpd-3.0.2/sysutil.c.rc450 vsftpd-3.0.2/sysutil.c
---- vsftpd-3.0.2/sysutil.c.rc450	2014-06-18 13:41:02.231821807 +0200
-+++ vsftpd-3.0.2/sysutil.c	2014-06-18 13:41:02.238821708 +0200
+diff --git a/sysutil.c b/sysutil.c
+index 62d833d..a924edf 100644
+--- a/sysutil.c
++++ b/sysutil.c
 @@ -1632,6 +1632,9 @@ vsf_sysutil_get_error(void)
      case ENOENT:
        retval = kVSFSysUtilErrNOENT;
@@ -41,9 +56,10 @@ diff -up vsftpd-3.0.2/sysutil.c.rc450 vsftpd-3.0.2/sysutil.c
      default:
        break;
    }
-diff -up vsftpd-3.0.2/sysutil.h.rc450 vsftpd-3.0.2/sysutil.h
---- vsftpd-3.0.2/sysutil.h.rc450	2014-06-18 13:41:02.231821807 +0200
-+++ vsftpd-3.0.2/sysutil.h	2014-06-18 13:41:02.239821694 +0200
+diff --git a/sysutil.h b/sysutil.h
+index 79b5514..c145bdf 100644
+--- a/sysutil.h
++++ b/sysutil.h
 @@ -18,7 +18,8 @@ enum EVSFSysUtilError
    kVSFSysUtilErrINVAL,
    kVSFSysUtilErrOPNOTSUPP,
@@ -54,3 +70,6 @@ diff -up vsftpd-3.0.2/sysutil.h.rc450 vsftpd-3.0.2/sysutil.h
  };
  enum EVSFSysUtilError vsf_sysutil_get_error(void);
  
+-- 
+2.5.0
+

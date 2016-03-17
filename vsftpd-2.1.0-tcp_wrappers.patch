@@ -1,6 +1,16 @@
-diff -up vsftpd-2.1.0/builddefs.h.tcp_wrappers vsftpd-2.1.0/builddefs.h
---- vsftpd-2.1.0/builddefs.h.tcp_wrappers	2009-01-08 18:52:46.000000000 +0100
-+++ vsftpd-2.1.0/builddefs.h	2009-01-08 18:52:56.000000000 +0100
+From 3e01cb1388681f8a956c954570db4fe8ac61d1bc Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 03/26] Applied vsftpd-2.1.0-tcp_wrappers.patch
+
+---
+ builddefs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/builddefs.h b/builddefs.h
+index 63cc62b..83de674 100644
+--- a/builddefs.h
++++ b/builddefs.h
 @@ -1,7 +1,7 @@
  #ifndef VSF_BUILDDEFS_H
  #define VSF_BUILDDEFS_H
@@ -10,3 +20,6 @@ diff -up vsftpd-2.1.0/builddefs.h.tcp_wrappers vsftpd-2.1.0/builddefs.h
  #define VSF_BUILD_PAM
  #define VSF_BUILD_SSL
  
+-- 
+2.5.0
+

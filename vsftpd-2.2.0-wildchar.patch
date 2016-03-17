@@ -1,7 +1,17 @@
-diff -up vsftpd-2.3.2/ls.c.tmp vsftpd-2.3.2/ls.c
---- vsftpd-2.3.2/ls.c.tmp	2010-08-20 13:18:54.397583558 +0200
-+++ vsftpd-2.3.2/ls.c	2010-08-20 13:14:59.047831385 +0200
-@@ -305,6 +305,20 @@ vsf_filename_passes_filter(const struct 
+From 46b1cacac22d4c5f0b7695579860f7ecc28d3efb Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 11/26] Applied vsftpd-2.2.0-wildchar.patch
+
+---
+ ls.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/ls.c b/ls.c
+index e9302dd..92be544 100644
+--- a/ls.c
++++ b/ls.c
+@@ -311,6 +311,20 @@ vsf_filename_passes_filter(const struct mystr* p_filename_str,
        {
          goto out;
        }
@@ -22,3 +32,6 @@ diff -up vsftpd-2.3.2/ls.c.tmp vsftpd-2.3.2/ls.c
        /* Chop matched string out of remainder */
        str_mid_to_end(&name_remain_str, &temp_str,
                       indexx + str_getlen(&s_match_needed_str));
+-- 
+2.5.0
+

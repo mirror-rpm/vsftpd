@@ -2,8 +2,8 @@
 %define _generatorsdir %{_prefix}/lib/systemd/system-generators
 
 Name: vsftpd
-Version: 3.0.2
-Release: 15%{?dist}
+Version: 3.0.3
+Release: 1%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -167,6 +167,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/ftp
 
 %changelog
+* Thu Mar 17 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-1
+- Update to 3.0.3 version
+
 * Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
@@ -320,7 +323,7 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Aug 27 2009 Tomas Mraz <tmraz@redhat.com> - 2.2.0-2
 - rebuilt with new openssl
 
-* Tue Aug 24 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-1
+* Mon Aug 24 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-1
 - update to latest upstream release 2.2.0
 
 * Tue Aug 04 2009 Martin Nagy <mnagy@redhat.com> - 2.2.0-0.1.pre4
@@ -484,7 +487,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Aug 08 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-5
 - option to change listening to IPv6 protocol
 
-* Thu Aug 01 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-4
+* Tue Aug 01 2006 Maros Barabas <mbarabas@redhat.com> - 2.0.5-4
 - listen to IPv4 connections in default conf file
 
 * Mon Jul 17 2006 Radek Vokal <rvokal@redhat.com> - 2.0.5-3
@@ -569,7 +572,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Dec 14 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-7
 - fixing directory in vsftpd.pam file (#142805)
 
-* Mon Nov 11 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-6
+* Thu Nov 11 2004 Radek Vokal <rvokal@redhat.com> 2.0.1-6
 - vsftpd. files moved to /etc/vsftpd
 - added vsftpd_conf_migrate.sh script for moving conf files
 
@@ -709,10 +712,10 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Feb 7 2001 Seth Vidal <skvidal@phy.duke.edu>
 - updated to 0.0.11
 
-* Fri Feb 1 2001 Seth Vidal <skvidal@phy.duke.edu>
+* Thu Feb 1 2001 Seth Vidal <skvidal@phy.duke.edu>
 - Update to 0.0.10
 
-* Fri Feb 1 2001 Seth Vidal <skvidal@phy.duke.edu>
+* Thu Feb 1 2001 Seth Vidal <skvidal@phy.duke.edu>
 - First RPM packaging
 - Stolen items from wu-ftpd's pam setup
 - Separated rh 7 and rh 6.X's packages

@@ -1,6 +1,16 @@
-diff -up vsftpd-2.1.0/builddefs.h.build_ssl vsftpd-2.1.0/builddefs.h
---- vsftpd-2.1.0/builddefs.h.build_ssl	2009-01-08 18:49:33.000000000 +0100
-+++ vsftpd-2.1.0/builddefs.h	2009-01-08 18:49:41.000000000 +0100
+From 2ee718251d602abf6f4c5bb2fc6d829e32d3f3e1 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 02/26] Applied vsftpd-2.1.0-build_ssl.patch
+
+---
+ builddefs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/builddefs.h b/builddefs.h
+index e908352..63cc62b 100644
+--- a/builddefs.h
++++ b/builddefs.h
 @@ -3,7 +3,7 @@
  
  #undef VSF_BUILD_TCPWRAPPERS
@@ -10,3 +20,6 @@ diff -up vsftpd-2.1.0/builddefs.h.build_ssl vsftpd-2.1.0/builddefs.h
  
  #endif /* VSF_BUILDDEFS_H */
  
+-- 
+2.5.0
+

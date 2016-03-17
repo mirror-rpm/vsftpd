@@ -1,7 +1,23 @@
-diff -up vsftpd-2.1.0/logging.c.userlist_log vsftpd-2.1.0/logging.c
---- vsftpd-2.1.0/logging.c.userlist_log	2008-12-17 20:56:45.000000000 +0100
-+++ vsftpd-2.1.0/logging.c	2009-02-24 09:12:42.000000000 +0100
-@@ -95,6 +95,13 @@ vsf_log_line(struct vsf_session* p_sess,
+From 2f563a92cf4c12d8a37e413ffdc14a7eb4637c03 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 08/26] Applied vsftpd-2.1.0-userlist_log.patch
+
+---
+ logging.c     |  7 +++++++
+ logging.h     | 11 +++++++++++
+ parseconf.c   |  1 +
+ prelogin.c    | 14 ++++++++++++++
+ tunables.c    |  2 ++
+ tunables.h    |  1 +
+ vsftpd.conf.5 |  8 ++++++++
+ 7 files changed, 44 insertions(+)
+
+diff --git a/logging.c b/logging.c
+index ad531d6..99671b4 100644
+--- a/logging.c
++++ b/logging.c
+@@ -103,6 +103,13 @@ vsf_log_line(struct vsf_session* p_sess, enum EVSFLogEntryType what,
    vsf_log_common(p_sess, 1, what, p_str);
  }
  
@@ -15,10 +31,11 @@ diff -up vsftpd-2.1.0/logging.c.userlist_log vsftpd-2.1.0/logging.c
  int
  vsf_log_entry_pending(struct vsf_session* p_sess)
  {
-diff -up vsftpd-2.1.0/logging.h.userlist_log vsftpd-2.1.0/logging.h
---- vsftpd-2.1.0/logging.h.userlist_log	2008-07-30 03:29:21.000000000 +0200
-+++ vsftpd-2.1.0/logging.h	2009-02-24 09:12:42.000000000 +0100
-@@ -80,5 +80,16 @@ void vsf_log_do_log(struct vsf_session* 
+diff --git a/logging.h b/logging.h
+index 48f88ec..1ff57d1 100644
+--- a/logging.h
++++ b/logging.h
+@@ -80,5 +80,16 @@ void vsf_log_do_log(struct vsf_session* p_sess, int succeeded);
  void vsf_log_line(struct vsf_session* p_sess, enum EVSFLogEntryType what,
                    struct mystr* p_str);
  
@@ -35,10 +52,11 @@ diff -up vsftpd-2.1.0/logging.h.userlist_log vsftpd-2.1.0/logging.h
 +
  #endif /* VSF_LOGGING_H */
  
-diff -up vsftpd-2.1.0/parseconf.c.userlist_log vsftpd-2.1.0/parseconf.c
---- vsftpd-2.1.0/parseconf.c.userlist_log	2008-12-18 07:21:41.000000000 +0100
-+++ vsftpd-2.1.0/parseconf.c	2009-02-24 09:12:42.000000000 +0100
-@@ -96,6 +96,7 @@ parseconf_bool_array[] =
+diff --git a/parseconf.c b/parseconf.c
+index ea2242b..385afd2 100644
+--- a/parseconf.c
++++ b/parseconf.c
+@@ -91,6 +91,7 @@ parseconf_bool_array[] =
    { "mdtm_write", &tunable_mdtm_write },
    { "lock_upload_files", &tunable_lock_upload_files },
    { "pasv_addr_resolve", &tunable_pasv_addr_resolve },
@@ -46,10 +64,11 @@ diff -up vsftpd-2.1.0/parseconf.c.userlist_log vsftpd-2.1.0/parseconf.c
    { "debug_ssl", &tunable_debug_ssl },
    { "require_cert", &tunable_require_cert },
    { "validate_cert", &tunable_validate_cert },
-diff -up vsftpd-2.1.0/prelogin.c.userlist_log vsftpd-2.1.0/prelogin.c
---- vsftpd-2.1.0/prelogin.c.userlist_log	2009-02-18 23:23:53.000000000 +0100
-+++ vsftpd-2.1.0/prelogin.c	2009-02-24 09:17:41.000000000 +0100
-@@ -220,6 +220,20 @@ handle_user_command(struct vsf_session* 
+diff --git a/prelogin.c b/prelogin.c
+index df4aade..1588bc1 100644
+--- a/prelogin.c
++++ b/prelogin.c
+@@ -246,6 +246,20 @@ handle_user_command(struct vsf_session* p_sess)
        check_login_delay();
        vsf_cmdio_write(p_sess, FTP_LOGINERR, "Permission denied.");
        check_login_fails(p_sess);
@@ -70,9 +89,10 @@ diff -up vsftpd-2.1.0/prelogin.c.userlist_log vsftpd-2.1.0/prelogin.c
        str_empty(&p_sess->user_str);
        return;
      }
-diff -up vsftpd-2.1.0/tunables.c.userlist_log vsftpd-2.1.0/tunables.c
---- vsftpd-2.1.0/tunables.c.userlist_log	2009-02-24 09:12:42.000000000 +0100
-+++ vsftpd-2.1.0/tunables.c	2009-02-24 09:12:42.000000000 +0100
+diff --git a/tunables.c b/tunables.c
+index 0ac4c34..b30fca1 100644
+--- a/tunables.c
++++ b/tunables.c
 @@ -72,6 +72,7 @@ int tunable_force_anon_data_ssl;
  int tunable_mdtm_write;
  int tunable_lock_upload_files;
@@ -81,7 +101,7 @@ diff -up vsftpd-2.1.0/tunables.c.userlist_log vsftpd-2.1.0/tunables.c
  int tunable_debug_ssl;
  int tunable_require_cert;
  int tunable_validate_cert;
-@@ -206,6 +207,7 @@ tunables_load_defaults()
+@@ -212,6 +213,7 @@ tunables_load_defaults()
    tunable_mdtm_write = 1;
    tunable_lock_upload_files = 1;
    tunable_pasv_addr_resolve = 0;
@@ -89,10 +109,11 @@ diff -up vsftpd-2.1.0/tunables.c.userlist_log vsftpd-2.1.0/tunables.c
    tunable_debug_ssl = 0;
    tunable_require_cert = 0;
    tunable_validate_cert = 0;
-diff -up vsftpd-2.1.0/tunables.h.userlist_log vsftpd-2.1.0/tunables.h
---- vsftpd-2.1.0/tunables.h.userlist_log	2008-12-17 06:47:11.000000000 +0100
-+++ vsftpd-2.1.0/tunables.h	2009-02-24 09:12:42.000000000 +0100
-@@ -73,6 +73,7 @@ extern int tunable_force_anon_data_ssl; 
+diff --git a/tunables.h b/tunables.h
+index 05d2456..e44d64c 100644
+--- a/tunables.h
++++ b/tunables.h
+@@ -73,6 +73,7 @@ extern int tunable_force_anon_data_ssl;       /* Require anon data uses SSL */
  extern int tunable_mdtm_write;                /* Allow MDTM to set timestamps */
  extern int tunable_lock_upload_files;         /* Lock uploading files */
  extern int tunable_pasv_addr_resolve;         /* DNS resolve pasv_addr */
@@ -100,10 +121,11 @@ diff -up vsftpd-2.1.0/tunables.h.userlist_log vsftpd-2.1.0/tunables.h
  extern int tunable_debug_ssl;                 /* Verbose SSL logging */
  extern int tunable_require_cert;              /* SSL client cert required */
  extern int tunable_validate_cert;             /* SSL certs must be valid */
-diff -up vsftpd-2.1.0/vsftpd.conf.5.userlist_log vsftpd-2.1.0/vsftpd.conf.5
---- vsftpd-2.1.0/vsftpd.conf.5.userlist_log	2009-02-24 09:12:42.000000000 +0100
-+++ vsftpd-2.1.0/vsftpd.conf.5	2009-02-24 09:12:42.000000000 +0100
-@@ -585,6 +585,14 @@ Self-signed certs do not constitute OK v
+diff --git a/vsftpd.conf.5 b/vsftpd.conf.5
+index 5e46a2f..9d767b1 100644
+--- a/vsftpd.conf.5
++++ b/vsftpd.conf.5
+@@ -588,6 +588,14 @@ Self-signed certs do not constitute OK validation. (New in v2.0.6).
  
  Default: NO
  .TP
@@ -118,3 +140,6 @@ diff -up vsftpd-2.1.0/vsftpd.conf.5.userlist_log vsftpd-2.1.0/vsftpd.conf.5
  .B virtual_use_local_privs
  If enabled, virtual users will use the same privileges as local users. By
  default, virtual users will use the same privileges as anonymous users, which
+-- 
+2.5.0
+

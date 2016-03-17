@@ -1,6 +1,16 @@
-diff -up vsftpd-3.0.2/vsftpd.conf.5.docupd vsftpd-3.0.2/vsftpd.conf.5
---- vsftpd-3.0.2/vsftpd.conf.5.docupd	2014-06-05 09:47:27.987876849 +0200
-+++ vsftpd-3.0.2/vsftpd.conf.5	2014-06-05 09:47:27.989876848 +0200
+From f7fb4f5c91ab132982c78f1b34f7fe1493fd1372 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:46 +0100
+Subject: [PATCH 23/26] Applied vsftpd-3.0.2-docupd.patch
+
+---
+ vsftpd.conf.5 | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/vsftpd.conf.5 b/vsftpd.conf.5
+index e242873..7a8f130 100644
+--- a/vsftpd.conf.5
++++ b/vsftpd.conf.5
 @@ -652,6 +652,21 @@ change it with the setting
  .BR xferlog_file .
  
@@ -46,3 +56,6 @@ diff -up vsftpd-3.0.2/vsftpd.conf.5.docupd vsftpd-3.0.2/vsftpd.conf.5
  .TP
  .B pasv_max_port
  The maximum port to allocate for PASV style data connections. Can be used to
+-- 
+2.5.0
+

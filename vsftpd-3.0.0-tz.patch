@@ -1,6 +1,16 @@
-diff -up vsftpd-2.2.2/sysutil.c.tz vsftpd-2.2.2/sysutil.c
---- vsftpd-2.2.2/sysutil.c.tz	2012-04-26 12:45:21.095145878 +0200
-+++ vsftpd-2.2.2/sysutil.c	2012-04-26 12:48:08.729618686 +0200
+From cc7c4ed98d69230f24a4437db2ba6bee20f4e494 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 16/26] Applied vsftpd-3.0.0-tz.patch
+
+---
+ sysutil.c | 104 ++++++++++++++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 77 insertions(+), 27 deletions(-)
+
+diff --git a/sysutil.c b/sysutil.c
+index c848356..497d670 100644
+--- a/sysutil.c
++++ b/sysutil.c
 @@ -26,8 +26,10 @@
  /* For Linux, this adds nothing :-) */
  #include "port/porting_junk.h"
@@ -25,7 +35,7 @@ diff -up vsftpd-2.2.2/sysutil.c.tz vsftpd-2.2.2/sysutil.c
  
  /* Private variables to this file */
  /* Current umask() */
-@@ -2558,49 +2565,92 @@ error:
+@@ -2574,49 +2581,92 @@ error:
    die("reopening standard file descriptors to /dev/null failed");
  }
  
@@ -144,3 +154,6 @@ diff -up vsftpd-2.2.2/sysutil.c.tz vsftpd-2.2.2/sysutil.c
      {
        s_timezone *= -1;
      }
+-- 
+2.5.0
+

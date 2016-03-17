@@ -1,7 +1,17 @@
-diff -up vsftpd-3.0.2/ls.c.sqb vsftpd-3.0.2/ls.c
---- vsftpd-3.0.2/ls.c.sqb	2014-07-04 09:55:57.899506894 +0200
-+++ vsftpd-3.0.2/ls.c	2014-07-04 09:58:02.187569017 +0200
-@@ -246,7 +246,7 @@ vsf_filename_passes_filter(const struct
+From 9db0f2142b7d456af0a147a53c7555996e90dfd6 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 14/26] Applied vsftpd-2.3.4-sqb.patch
+
+---
+ ls.c | 222 +++++++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 150 insertions(+), 72 deletions(-)
+
+diff --git a/ls.c b/ls.c
+index 92be544..0ad7f54 100644
+--- a/ls.c
++++ b/ls.c
+@@ -246,7 +246,7 @@ vsf_filename_passes_filter(const struct mystr* p_filename_str,
    int ret = 0;
    char last_token = 0;
    int must_match_at_current_pos = 1;
@@ -10,7 +20,7 @@ diff -up vsftpd-3.0.2/ls.c.sqb vsftpd-3.0.2/ls.c
    
    str_copy(&filter_remain_str, p_filter_str);
    
-@@ -276,7 +276,7 @@ vsf_filename_passes_filter(const struct
+@@ -276,7 +276,7 @@ vsf_filename_passes_filter(const struct mystr* p_filename_str,
      static struct mystr s_match_needed_str;
      /* Locate next special token */
      struct str_locate_result locate_result =
@@ -19,7 +29,7 @@ diff -up vsftpd-3.0.2/ls.c.sqb vsftpd-3.0.2/ls.c
      (*iters)++;
      /* Isolate text leading up to token (if any) - needs to be matched */
      if (locate_result.found)
-@@ -294,94 +294,172 @@ vsf_filename_passes_filter(const struct
+@@ -294,94 +294,172 @@ vsf_filename_passes_filter(const struct mystr* p_filename_str,
        str_empty(&filter_remain_str);
        last_token = 0;
      }
@@ -171,16 +181,15 @@ diff -up vsftpd-3.0.2/ls.c.sqb vsftpd-3.0.2/ls.c
 -        str_copy(&filter_remain_str, &temp_str);
 -        str_split_char(&brace_list_str, &temp_str, ',');
 -        while (!str_isempty(&brace_list_str))
--        {
--          str_copy(&new_filter_str, &brace_list_str);
--          str_append_str(&new_filter_str, &filter_remain_str);
--          if (vsf_filename_passes_filter(&name_remain_str, &new_filter_str,
--                                         iters))
 +        struct str_locate_result end_sqb =
 +          str_locate_char(&filter_remain_str, ']');
 +        must_match_at_current_pos = 1;
 +        if (end_sqb.found)
-+        {
+         {
+-          str_copy(&new_filter_str, &brace_list_str);
+-          str_append_str(&new_filter_str, &filter_remain_str);
+-          if (vsf_filename_passes_filter(&name_remain_str, &new_filter_str,
+-                                         iters))
 +          unsigned int cur_pos;
 +          char stch, ench;
 +          const char *p_brace;
@@ -263,3 +272,6 @@ diff -up vsftpd-3.0.2/ls.c.sqb vsftpd-3.0.2/ls.c
    }
    /* Any incoming string left means no match unless we ended on the correct
     * type of wildcard.
+-- 
+2.5.0
+

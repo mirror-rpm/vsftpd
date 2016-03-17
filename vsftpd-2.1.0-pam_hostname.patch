@@ -1,6 +1,16 @@
-diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
---- vsftpd-2.2.0/sysdeputil.c.pam_hostname	2009-08-08 03:51:10.000000000 +0200
-+++ vsftpd-2.2.0/sysdeputil.c	2009-08-24 12:24:07.220623773 +0200
+From fb9754bb10105b6c23d355fd448f55ab94c704b8 Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 05/26] Applied vsftpd-2.1.0-pam_hostname.patch
+
+---
+ sysdeputil.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/sysdeputil.c b/sysdeputil.c
+index 06f01f4..b2782da 100644
+--- a/sysdeputil.c
++++ b/sysdeputil.c
 @@ -16,6 +16,10 @@
  #include "tunables.h"
  #include "builddefs.h"
@@ -12,7 +22,7 @@ diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
  /* For Linux, this adds nothing :-) */
  #include "port/porting_junk.h"
  
-@@ -325,6 +329,10 @@ vsf_sysdep_check_auth(struct mystr* p_us
+@@ -323,6 +327,10 @@ vsf_sysdep_check_auth(struct mystr* p_user_str,
                        const struct mystr* p_remote_host)
  {
    int retval = -1;
@@ -23,7 +33,7 @@ diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
    pam_item_t item;
    const char* pam_user_name = 0;
    struct pam_conv the_conv =
-@@ -345,7 +353,12 @@ vsf_sysdep_check_auth(struct mystr* p_us
+@@ -346,7 +354,12 @@ vsf_sysdep_check_auth(struct mystr* p_user_str,
      return 0;
    }
  #ifdef PAM_RHOST
@@ -37,7 +47,7 @@ diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
    if (retval != PAM_SUCCESS)
    {
      (void) pam_end(s_pamh, retval);
-@@ -558,7 +571,7 @@ vsf_sysdep_has_capabilities(void)
+@@ -559,7 +572,7 @@ vsf_sysdep_has_capabilities(void)
    }
    return s_runtime_has_caps;
  }
@@ -46,7 +56,7 @@ diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
    #ifndef VSF_SYSDEP_HAVE_LIBCAP
  static int
  do_checkcap(void)
-@@ -1080,7 +1093,7 @@ vsf_sysutil_recv_fd(const int sock_fd)
+@@ -1081,7 +1094,7 @@ vsf_sysutil_recv_fd(const int sock_fd)
    msg.msg_flags = 0;
    /* In case something goes wrong, set the fd to -1 before the syscall */
    p_fd = (int*)CMSG_DATA(CMSG_FIRSTHDR(&msg));
@@ -55,3 +65,6 @@ diff -up vsftpd-2.2.0/sysdeputil.c.pam_hostname vsftpd-2.2.0/sysdeputil.c
    retval = recvmsg(sock_fd, &msg, 0);
    if (retval != 1)
    {
+-- 
+2.5.0
+

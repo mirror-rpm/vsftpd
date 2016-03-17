@@ -1,6 +1,17 @@
-diff -up vsftpd-3.0.2/vsftpd.8.sd vsftpd-3.0.2/vsftpd.8
---- vsftpd-3.0.2/vsftpd.8.sd	2013-09-04 13:04:40.383348837 +0200
-+++ vsftpd-3.0.2/vsftpd.8	2013-09-04 13:45:00.370277842 +0200
+From 4b7a6eecf79ee63c21fa27e5f5c22f248824991c Mon Sep 17 00:00:00 2001
+From: Martin Sehnoutka <msehnout@redhat.com>
+Date: Thu, 17 Mar 2016 11:44:45 +0100
+Subject: [PATCH 13/26] Applied vsftpd-2.3.4-sd.patch
+
+---
+ vsftpd.8      | 24 ++++++++++++++++++++++++
+ vsftpd.conf.5 | 18 +++++++++++++++++-
+ 2 files changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/vsftpd.8 b/vsftpd.8
+index c920e7d..fbeb1a2 100644
+--- a/vsftpd.8
++++ b/vsftpd.8
 @@ -25,6 +25,23 @@ in
  Direct execution of the
  .Nm vsftpd
@@ -25,7 +36,7 @@ diff -up vsftpd-3.0.2/vsftpd.8.sd vsftpd-3.0.2/vsftpd.8
  .Sh OPTIONS
  An optional
  configuration file or files
-@@ -55,6 +72,13 @@ the "ftpd_banner" setting is set to "bla
+@@ -55,6 +72,13 @@ the "ftpd_banner" setting is set to "blah", which overrides any default vsftpd
  setting and any identical setting that was in the config file.
  .Sh FILES
  .Pa /etc/vsftpd/vsftpd.conf
@@ -39,9 +50,10 @@ diff -up vsftpd-3.0.2/vsftpd.8.sd vsftpd-3.0.2/vsftpd.8
  .Xr vsftpd.conf 5
 +.Xr systemd.unit 5
  .end
-diff -up vsftpd-3.0.2/vsftpd.conf.5.sd vsftpd-3.0.2/vsftpd.conf.5
---- vsftpd-3.0.2/vsftpd.conf.5.sd	2013-09-04 13:04:40.391348915 +0200
-+++ vsftpd-3.0.2/vsftpd.conf.5	2013-09-04 13:44:57.573250302 +0200
+diff --git a/vsftpd.conf.5 b/vsftpd.conf.5
+index 9d767b1..0744f85 100644
+--- a/vsftpd.conf.5
++++ b/vsftpd.conf.5
 @@ -12,7 +12,23 @@ inetd such as
  .BR xinetd
  to launch vsftpd with different configuration files on a per virtual host
@@ -67,3 +79,6 @@ diff -up vsftpd-3.0.2/vsftpd.conf.5.sd vsftpd-3.0.2/vsftpd.conf.5
  .SH FORMAT
  The format of vsftpd.conf is very simple. Each line is either a comment or
  a directive. Comment lines start with a # and are ignored. A directive line
+-- 
+2.5.0
+
