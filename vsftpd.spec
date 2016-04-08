@@ -3,7 +3,7 @@
 
 Name: vsftpd
 Version: 3.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group: System Environment/Daemons
@@ -65,6 +65,13 @@ Patch28: vsftpd-3.0.2-dh.patch
 Patch29: vsftpd-3.0.2-ecdh.patch
 Patch30: vsftpd-3.0.2-docupd.patch
 Patch31: vsftpd-3.0.2-rc450.patch
+Patch32: vsftpd-3.0.2-seccomp.patch
+Patch33: vsftpd-3.0.2-mrate.patch
+Patch34: vsftpd-3.0.2-wnohang.patch
+Patch35: vsftpd-3.0.2-del-upl.patch
+Patch36: vsftpd-2.2.2-man-pages.patch
+Patch37: vsftpd-2.2.2-blank-chars-overflow.patch
+Patch38: vsftpd-2.2.2-syslog.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -101,6 +108,15 @@ cp %{SOURCE1} .
 %patch29 -p1 -b .ecdh
 %patch30 -p1 -b .docupd
 %patch31 -p1 -b .rc450
+%patch32 -p1 -b .seccomp
+%patch33 -p1 -b .mrate
+%patch34 -p1 -b .wnohang
+%patch35 -p1 -b .del-upl
+%patch36 -p1 -b .man_pages
+%patch37 -p1 -b .blank-char-overflow
+%patch38 -p1 -b .syslog
+
+
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -167,6 +183,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/ftp
 
 %changelog
+* Fri Apr 08 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-2
+- Applied patches:
+- Readd seccomp disabled by default
+- vsftpd local_max_rate option doesn't work as expected
+- The vsftpd hangs in a SIGCHLD handler when the pam_exec.so is used in pam.d 
+- configuration
+- The vsftpd doesn't remove failed upload when the delete_failed_uploads is 
+- enabled and the network cable is unplagged
+- man pages bug
+- vsftpd segfaults in vsf_sysutil_strndup
+- Fix logging when syslog is used
+
 * Thu Mar 17 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-1
 - Update to 3.0.3 version
 
