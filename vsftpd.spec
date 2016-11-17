@@ -1,122 +1,76 @@
-%{!?tcp_wrappers:%define tcp_wrappers 1}
-%define _generatorsdir %{_prefix}/lib/systemd/system-generators
+%global _generatorsdir %{_prefix}/lib/systemd/system-generators
 
-Name: vsftpd
+Name:    vsftpd
 Version: 3.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
-Group: System Environment/Daemons
+Group:    System Environment/Daemons
 # OpenSSL link exception
-License: GPLv2 with exceptions
-URL: https://security.appspot.com/vsftpd.html
-Source0: https://security.appspot.com/downloads/%{name}-%{version}.tar.gz
-Source1: vsftpd.xinetd
-Source2: vsftpd.pam
-Source3: vsftpd.ftpusers
-Source4: vsftpd.user_list
-Source6: vsftpd_conf_migrate.sh
-Source7: vsftpd.service
-Source8: vsftpd@.service
-Source9: vsftpd.target
+License:  GPLv2 with exceptions
+URL:      https://security.appspot.com/vsftpd.html
+Source0:  https://security.appspot.com/downloads/%{name}-%{version}.tar.gz
+Source1:  vsftpd.xinetd
+Source2:  vsftpd.pam
+Source3:  vsftpd.ftpusers
+Source4:  vsftpd.user_list
+Source6:  vsftpd_conf_migrate.sh
+Source7:  vsftpd.service
+Source8:  vsftpd@.service
+Source9:  vsftpd.target
 Source10: vsftpd-generator
-
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: pam-devel
 BuildRequires: libcap-devel
 BuildRequires: openssl-devel
 BuildRequires: systemd
-%if %{tcp_wrappers}
 BuildRequires: tcp_wrappers-devel
-%endif
+BuildRequires: git
 
 Requires: logrotate
 
-# Build patches
-Patch1: vsftpd-2.1.0-libs.patch
-Patch2: vsftpd-2.1.0-build_ssl.patch
-Patch3: vsftpd-2.1.0-tcp_wrappers.patch
-
-# Use /etc/vsftpd/ instead of /etc/
-Patch4: vsftpd-2.1.0-configuration.patch
-
-# These need review
-Patch5: vsftpd-2.1.0-pam_hostname.patch
-Patch6: vsftpd-close-std-fds.patch
-Patch7: vsftpd-2.1.0-filter.patch
-Patch9: vsftpd-2.1.0-userlist_log.patch
-
-Patch10: vsftpd-2.1.0-trim.patch
-Patch12: vsftpd-2.1.1-daemonize_plus.patch
-Patch14: vsftpd-2.2.0-wildchar.patch
-
-Patch16: vsftpd-2.2.2-clone.patch
-Patch19: vsftpd-2.3.4-sd.patch
-Patch20: vsftpd-2.3.4-sqb.patch
-Patch21: vsftpd-2.3.4-listen_ipv6.patch
-Patch22: vsftpd-2.3.5-aslim.patch
-Patch23: vsftpd-3.0.0-tz.patch
-Patch24: vsftpd-3.0.0-xferlog.patch
-Patch25: vsftpd-3.0.0-logrotate.patch
-Patch26: vsftpd-3.0.2-lookup.patch
-Patch27: vsftpd-3.0.2-uint-uidgid.patch
-Patch28: vsftpd-3.0.2-dh.patch
-Patch29: vsftpd-3.0.2-ecdh.patch
-Patch30: vsftpd-3.0.2-docupd.patch
-Patch31: vsftpd-3.0.2-rc450.patch
-Patch32: vsftpd-3.0.2-seccomp.patch
-Patch33: vsftpd-3.0.2-mrate.patch
-Patch34: vsftpd-3.0.2-wnohang.patch
-Patch35: vsftpd-3.0.2-del-upl.patch
-Patch36: vsftpd-2.2.2-man-pages.patch
-Patch37: vsftpd-2.2.2-blank-chars-overflow.patch
-Patch38: vsftpd-2.2.2-syslog.patch
+Patch1:  0001-Don-t-use-the-provided-script-to-locate-libraries.patch
+Patch2:  0002-Enable-build-with-SSL.patch
+Patch3:  0003-Enable-build-with-TCP-Wrapper.patch
+Patch4:  0004-Use-etc-vsftpd-dir-for-config-files-instead-of-etc.patch
+Patch5:  0005-Use-hostname-when-calling-PAM-authentication-module.patch
+Patch6:  0006-Close-stdin-out-err-before-listening-for-incoming-co.patch
+Patch7:  0007-Make-filename-filters-smarter.patch
+Patch8:  0008-Write-denied-logins-into-the-log.patch
+Patch9:  0009-Trim-whitespaces-when-reading-configuration.patch
+Patch10: 0010-Improve-daemonizing.patch
+Patch11: 0011-Fix-listing-with-more-than-one-star.patch
+Patch12: 0012-Replace-syscall-__NR_clone-.-with-clone.patch
+Patch13: 0013-Extend-man-pages-with-systemd-info.patch
+Patch14: 0014-Add-support-for-square-brackets-in-ls.patch
+Patch15: 0015-Listen-on-IPv6-by-default.patch
+Patch16: 0016-Increase-VSFTP_AS_LIMIT-from-200UL-to-400UL.patch
+Patch17: 0017-Fix-an-issue-with-timestamps-during-DST.patch
+Patch18: 0018-Change-the-default-log-file-in-configuration.patch
+Patch19: 0019-Introduce-reverse_lookup_enable-option.patch
+Patch20: 0020-Use-unsigned-int-for-uid-and-gid-representation.patch
+Patch21: 0021-Introduce-support-for-DHE-based-cipher-suites.patch
+Patch22: 0022-Introduce-support-for-EDDHE-based-cipher-suites.patch
+Patch23: 0023-Add-documentation-for-isolate_-options.-Correct-defa.patch
+Patch24: 0024-Introduce-new-return-value-450.patch
+Patch25: 0025-Improve-local_max_rate-option.patch
+Patch26: 0026-Prevent-hanging-in-SIGCHLD-handler.patch
+Patch27: 0027-Delete-files-when-upload-fails.patch
+Patch28: 0028-Fix-man-page-rendering.patch
+Patch29: 0029-Fix-segfault-in-config-file-parser.patch
+Patch30: 0030-Fix-logging-into-syslog-when-enabled-in-config.patch
+Patch31: 0031-Fix-question-mark-wildcard-withing-a-file-name.patch
+Patch32: 0032-Propagate-errors-from-nfs-with-quota-to-client.patch
+Patch33: 0033-Introduce-TLSv1.1-and-TLSv1.2-options.patch
+Patch34: 0034-Turn-off-seccomp-sandbox-because-it-is-too-strict.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
 scratch.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -S git
 cp %{SOURCE1} .
-
-%patch1 -p1 -b .libs
-%patch2 -p1 -b .build_ssl
-%if %{tcp_wrappers}
-%patch3 -p1 -b .tcp_wrappers
-%endif
-%patch4 -p1 -b .configuration
-%patch5 -p1 -b .pam_hostname
-%patch6 -p1 -b .close_fds
-%patch7 -p1 -b .filter
-%patch9 -p1 -b .userlist_log
-%patch10 -p1 -b .trim
-%patch12 -p1 -b .daemonize_plus
-%patch14 -p1 -b .wildchar
-%patch16 -p1 -b .clone
-%patch19 -p1 -b .sd
-%patch20 -p1 -b .sqb
-%patch21 -p1 -b .listen_ipv6
-%patch22 -p1 -b .aslim
-%patch23 -p1 -b .tz
-%patch24 -p1 -b .xferlog
-%patch25 -p1 -b .logrotate
-%patch26 -p1 -b .lookup
-%patch27 -p1 -b .uint-uidgid
-%patch28 -p1 -b .dh
-%patch29 -p1 -b .ecdh
-%patch30 -p1 -b .docupd
-%patch31 -p1 -b .rc450
-%patch32 -p1 -b .seccomp
-%patch33 -p1 -b .mrate
-%patch34 -p1 -b .wnohang
-%patch35 -p1 -b .del-upl
-%patch36 -p1 -b .man_pages
-%patch37 -p1 -b .blank-char-overflow
-%patch38 -p1 -b .syslog
-
-
 
 %build
 %ifarch s390x sparcv9 sparc64
@@ -126,9 +80,7 @@ make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 %endif
         LINK="-pie -lssl" %{?_smp_mflags}
 
-
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/{vsftpd,pam.d,logrotate.d}
@@ -150,9 +102,6 @@ install -m 644 %{SOURCE9} $RPM_BUILD_ROOT%{_unitdir}
 install -m 755 %{SOURCE10} $RPM_BUILD_ROOT%{_generatorsdir}
                             
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 %systemd_post vsftpd.service
@@ -183,6 +132,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/ftp
 
 %changelog
+* Thu Nov 17 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-3
+- Review patches
+- Add TLSv1.{1,2} options
+- Fix question mark wildcard within a file name
+- Seccomp patch removed
+
 * Fri Apr 08 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-2
 - Applied patches:
 - Readd seccomp disabled by default
