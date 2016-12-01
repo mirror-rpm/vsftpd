@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -22,7 +22,7 @@ Source10: vsftpd-generator
 
 BuildRequires: pam-devel
 BuildRequires: libcap-devel
-BuildRequires: openssl-devel
+BuildRequires: compat-openssl10-devel
 BuildRequires: systemd
 BuildRequires: tcp_wrappers-devel
 BuildRequires: git
@@ -132,6 +132,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Dec 01 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-4
+- Use OpenSSL compat library on rawhide
+
 * Thu Nov 17 2016 Martin Sehnoutka <msehnout@redhat.com> - 3.0.3-3
 - Review patches
 - Add TLSv1.{1,2} options
