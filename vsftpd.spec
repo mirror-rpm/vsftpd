@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -66,6 +66,7 @@ Patch34: 0034-Turn-off-seccomp-sandbox-because-it-is-too-strict.patch
 Patch35: 0035-Modify-DH-enablement-patch-to-build-with-OpenSSL-1.1.patch
 Patch36: 0036-Redefine-VSFTP_COMMAND_FD-to-1.patch
 Patch37: 0037-Document-the-relationship-of-text_userdb_names-and-c.patch
+Patch38: 0038-Document-allow_writeable_chroot-in-the-man-page.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -135,6 +136,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Oct 31 2017 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-10
+- Document allow_writeable_chroot in the man page
+- Resolves: rhbz#1507143
+
 * Thu Oct 26 2017 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-9
 - Document the relationship of text_userdb_names and chroot_local_user
 - Resolves: rhbz#1439724
