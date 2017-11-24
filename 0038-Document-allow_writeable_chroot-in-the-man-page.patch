@@ -1,6 +1,6 @@
-From a565aa70aafd5c955680e43bb396c8a371fee6a9 Mon Sep 17 00:00:00 2001
-From: rpm-build <rpm-build>
-Date: Tue, 31 Oct 2017 16:13:46 +0100
+From 35ec3be5427a54facd5f6299fda2da4c146d4846 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
+Date: Fri, 24 Nov 2017 11:22:43 +0100
 Subject: [PATCH 38/38] Document allow_writeable_chroot in the man page
 
 ---
