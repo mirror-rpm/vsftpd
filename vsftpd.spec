@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -69,6 +69,9 @@ Patch37: 0037-Document-the-relationship-of-text_userdb_names-and-c.patch
 Patch38: 0038-Document-allow_writeable_chroot-in-the-man-page.patch
 Patch39: 0039-Improve-documentation-of-ASCII-mode-in-the-man-page.patch
 Patch40: 0040-Use-system-wide-crypto-policy.patch
+Patch41: 0041-Document-the-new-default-for-ssl_ciphers-in-the-man-.patch
+Patch42: 0042-When-handling-FEAT-command-check-ssl_tlsv1_1-and-ssl.patch
+Patch43: 0043-Enable-only-TLSv1.2-by-default.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -138,6 +141,14 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Dec 21 2017 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-13
+- Document the new default for ssl_ciphers in the man page
+- Related: rhbz#1483970
+- When handling FEAT command, check ssl_tlsv1_1 and ssl_tlsv1_2
+- Patch was written by Martin Sehnoutka
+- Resolves: rhbz#1432054
+- Disable TLSv1 and TLSv1.1 - enable only TLSv1.2 by default
+
 * Thu Dec 21 2017 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-12
 - Use system wide crypto policy
 - Resolves: rhbz#1483970
