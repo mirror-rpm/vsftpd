@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -73,6 +73,8 @@ Patch41: 0041-Document-the-new-default-for-ssl_ciphers-in-the-man-.patch
 Patch42: 0042-When-handling-FEAT-command-check-ssl_tlsv1_1-and-ssl.patch
 Patch43: 0043-Enable-only-TLSv1.2-by-default.patch
 Patch44: 0044-Disable-anonymous_enable-in-default-config-file.patch
+Patch45: 0045-Expand-explanation-of-ascii_-options-behaviour-in-ma.patch
+Patch46: 0046-vsftpd.conf-Refer-to-the-man-page-regarding-the-asci.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -142,6 +144,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Jan 02 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-15
+- Expand the explanation of the ascii_* options behaviour
+
 * Tue Jan 02 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-14
 - Disable anonymous_enable in default config file
 - Resolves: rhbz#1338637
