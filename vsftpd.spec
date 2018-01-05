@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -24,7 +24,6 @@ BuildRequires: pam-devel
 BuildRequires: libcap-devel
 BuildRequires: openssl-devel
 BuildRequires: systemd
-BuildRequires: tcp_wrappers-devel
 BuildRequires: git
 
 Requires: logrotate
@@ -75,6 +74,8 @@ Patch43: 0043-Enable-only-TLSv1.2-by-default.patch
 Patch44: 0044-Disable-anonymous_enable-in-default-config-file.patch
 Patch45: 0045-Expand-explanation-of-ascii_-options-behaviour-in-ma.patch
 Patch46: 0046-vsftpd.conf-Refer-to-the-man-page-regarding-the-asci.patch
+Patch47: 0047-Disable-tcp_wrappers-support.patch
+Patch48: 0048-Fix-default-value-of-strict_ssl_read_eof-in-man-page.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -144,6 +145,11 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Jan 05 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-16
+- Disable tcp_wrappers support
+- Resolves: rhbz#1518796
+- Fix default value of strict_ssl_read_eof in man page
+
 * Tue Jan 02 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-15
 - Expand the explanation of the ascii_* options behaviour
 
