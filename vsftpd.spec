@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -25,6 +25,7 @@ BuildRequires: libcap-devel
 BuildRequires: openssl-devel
 BuildRequires: systemd
 BuildRequires: git
+BuildRequires: libnsl2-devel
 
 Requires: logrotate
 
@@ -145,6 +146,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Jan 10 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-17
+- Add BuildRequires: libnsl2-devel
+- https://fedoraproject.org/wiki/Changes/NISIPv6
+
 * Fri Jan 05 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-16
 - Disable tcp_wrappers support
 - Resolves: rhbz#1518796
