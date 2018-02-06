@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -77,6 +77,7 @@ Patch45: 0045-Expand-explanation-of-ascii_-options-behaviour-in-ma.patch
 Patch46: 0046-vsftpd.conf-Refer-to-the-man-page-regarding-the-asci.patch
 Patch47: 0047-Disable-tcp_wrappers-support.patch
 Patch48: 0048-Fix-default-value-of-strict_ssl_read_eof-in-man-page.patch
+Patch49: 0049-Add-new-filename-generation-algorithm-for-STOU-comma.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -146,6 +147,11 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Feb 06 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-18
+- Add a new config option 'better_stou', which can be used to enable
+  a better algorithm for generating unique filenames for the STOU command.
+- Resolves: rhbz#1479237
+
 * Wed Jan 10 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-17
 - Add BuildRequires: libnsl2-devel
 - https://fedoraproject.org/wiki/Changes/NISIPv6
