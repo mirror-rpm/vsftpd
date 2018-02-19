@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -25,6 +25,7 @@ BuildRequires: libcap-devel
 BuildRequires: openssl-devel
 BuildRequires: systemd
 BuildRequires: git
+BuildRequires: gcc
 
 Requires: logrotate
 
@@ -147,6 +148,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Mon Feb 19 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-20
+- Add gcc to BuildRequires
+
 * Tue Feb 06 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-19
 - Don't link with libnsl
 
