@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -79,6 +79,7 @@ Patch47: 0047-Disable-tcp_wrappers-support.patch
 Patch48: 0048-Fix-default-value-of-strict_ssl_read_eof-in-man-page.patch
 Patch49: 0049-Add-new-filename-generation-algorithm-for-STOU-comma.patch
 Patch50: 0050-Don-t-link-with-libnsl.patch
+Patch51: 0001-Improve-documentation-of-better_stou-in-the-man-page.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -148,6 +149,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Apr 05 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-21
+- Improve documentation of better_stou in the man page
+
 * Mon Feb 19 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-20
 - Add gcc to BuildRequires
 
