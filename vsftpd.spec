@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -149,6 +149,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Apr 27 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-22
+- Fix filename expansion in vsftpd_conf_migrate.sh
+
 * Thu Apr 05 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-21
 - Improve documentation of better_stou in the man page
 
