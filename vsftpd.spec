@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -80,6 +80,10 @@ Patch48: 0048-Fix-default-value-of-strict_ssl_read_eof-in-man-page.patch
 Patch49: 0049-Add-new-filename-generation-algorithm-for-STOU-comma.patch
 Patch50: 0050-Don-t-link-with-libnsl.patch
 Patch51: 0001-Improve-documentation-of-better_stou-in-the-man-page.patch
+Patch52: 0001-Fix-rDNS-with-IPv6.patch
+Patch53: 0002-Always-do-chdir-after-chroot.patch
+Patch54: 0003-vsf_sysutil_rcvtimeo-Check-return-value-of-setsockop.patch
+Patch55: 0004-vsf_sysutil_get_tz-Check-the-return-value-of-syscall.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -149,6 +153,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu May 10 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-23
+- Fix issues found by Coverity Scan
+
 * Fri Apr 27 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-22
 - Fix filename expansion in vsftpd_conf_migrate.sh
 
