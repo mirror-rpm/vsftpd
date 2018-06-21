@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -84,6 +84,9 @@ Patch52: 0001-Fix-rDNS-with-IPv6.patch
 Patch53: 0002-Always-do-chdir-after-chroot.patch
 Patch54: 0003-vsf_sysutil_rcvtimeo-Check-return-value-of-setsockop.patch
 Patch55: 0004-vsf_sysutil_get_tz-Check-the-return-value-of-syscall.patch
+Patch56: 0001-Log-die-calls-to-syslog.patch
+Patch57: 0002-Improve-error-message-when-max-number-of-bind-attemp.patch
+Patch58: 0003-Make-the-max-number-of-bind-retries-tunable.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -153,6 +156,12 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Jun 19 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-25
+- Add config option log_die allowing to pass error messages to syslog
+- Add config option bind_retries allowing to change the max number
+- of attempts to find a listening port for the PASV/EPSV command
+- Resolves: rhbz#1318198
+
 * Fri Jun 01 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-24
 - Fix filename expansion in vsftpd_conf_migrate.sh ... again
 
