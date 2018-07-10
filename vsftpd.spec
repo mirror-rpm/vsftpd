@@ -138,7 +138,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %systemd_postun_with_restart vsftpd.service 
 
 %files
-%defattr(-,root,root,-)
 %{_unitdir}/*
 %{_generatorsdir}/*
 %{_sbindir}/vsftpd
