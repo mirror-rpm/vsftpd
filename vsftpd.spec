@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -156,6 +156,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Jul 25 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-28
+- Rebuilt, switched to SHA512 source tarball hash
+
 * Wed Jul 25 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-27
 - Fix a segfault when running as PID 1
 
