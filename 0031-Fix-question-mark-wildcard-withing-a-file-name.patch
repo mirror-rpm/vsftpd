@@ -1,7 +1,7 @@
 From 0da42468ac9518a544aad57d22d7697d6bdfa969 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 13:25:12 +0100
-Subject: [PATCH 31/33] Fix question mark wildcard withing a file name.
+Subject: [PATCH 31/59] Fix question mark wildcard withing a file name.
 
 Previously '?' worked only at the end of a file name, now it can
 be used anywhere.
@@ -24,5 +24,5 @@ index 3c0988c..35c15c7 100644
    /* Any incoming string left means no match unless we ended on the correct
     * type of wildcard.
 -- 
-2.7.4
+2.14.4
 

@@ -1,7 +1,7 @@
 From 1c280a0b04e58ec63ce9ab5eb8d0ffe5ebbae115 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Thu, 21 Dec 2017 14:29:25 +0100
-Subject: [PATCH 42/42] When handling FEAT command, check ssl_tlsv1_1 and
+Subject: [PATCH 42/59] When handling FEAT command, check ssl_tlsv1_1 and
  ssl_tlsv1_2
 
 Send 'AUTH SSL' in reply to the FEAT command when the ssl_tlsv1_1
@@ -28,5 +28,5 @@ index 1212980..d024366 100644
        vsf_cmdio_write_raw(p_sess, " AUTH TLS\r\n");
      }
 -- 
-2.14.3
+2.14.4
 

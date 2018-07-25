@@ -1,7 +1,7 @@
 From c5daaedf1efe23b397a5950f5503f5cbfac871c8 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 14:25:28 +0200
-Subject: [PATCH 15/33] Listen on IPv6 by default.
+Subject: [PATCH 15/59] Listen on IPv6 by default.
 
 ---
  vsftpd.conf   | 14 +++++++++-----
@@ -51,5 +51,5 @@ index 0744f85..72bb86f 100644
  Default: NO
  .TP
 -- 
-2.7.4
+2.14.4
 

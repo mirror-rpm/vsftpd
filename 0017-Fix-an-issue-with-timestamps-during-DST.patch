@@ -1,7 +1,7 @@
 From 5ec0b86e5c1ff060720b5a6cd1af9d93ec993650 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 29 Sep 2016 11:14:03 +0200
-Subject: [PATCH 17/33] Fix an issue with timestamps during DST.
+Subject: [PATCH 17/59] Fix an issue with timestamps during DST.
 
 vsftpd now checks whether a file was uploaded during DST and
 adjust the timestamp accordingly.
@@ -157,5 +157,5 @@ index c848356..2abdd13 100644
        s_timezone *= -1;
      }
 -- 
-2.7.4
+2.14.4
 

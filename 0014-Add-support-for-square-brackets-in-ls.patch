@@ -1,7 +1,7 @@
 From ba0520650ae7f9f63e48ba9fb3a94297aebe2d0c Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 14:22:21 +0200
-Subject: [PATCH 14/33] Add support for square brackets in ls.
+Subject: [PATCH 14/59] Add support for square brackets in ls.
 
 ---
  ls.c | 222 +++++++++++++++++++++++++++++++++++++++++++++----------------------
@@ -273,5 +273,5 @@ index 616b2d9..b840136 100644
    /* Any incoming string left means no match unless we ended on the correct
     * type of wildcard.
 -- 
-2.7.4
+2.14.4
 

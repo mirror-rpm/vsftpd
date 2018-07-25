@@ -1,7 +1,7 @@
 From 08c49b78942d40c99fae8c40e7668aa73e1bd695 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Tue, 6 Sep 2016 15:01:23 +0200
-Subject: [PATCH 05/33] Use hostname when calling PAM authentication module.
+Subject: [PATCH 05/59] Use hostname when calling PAM authentication module.
 
 Currently the vsftpd passes all logins as IP addresses
 into PAM. This prevents administrators from setting up
@@ -71,5 +71,5 @@ index 06f01f4..b2782da 100644
    if (retval != 1)
    {
 -- 
-2.7.4
+2.14.4
 

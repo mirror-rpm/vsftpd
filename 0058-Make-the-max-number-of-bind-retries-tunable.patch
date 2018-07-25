@@ -1,7 +1,7 @@
 From be7c2d639127dd8af0139caf94f8c29f431d3753 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Mon, 18 Jun 2018 10:13:48 +0200
-Subject: [PATCH 3/3] Make the max number of bind retries tunable
+Subject: [PATCH 58/59] Make the max number of bind retries tunable
 
 Resolves: rhbz#1318198
 ---

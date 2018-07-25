@@ -1,7 +1,7 @@
 From 61dac172bdb14c5a37713078828ea8c8f78c7eb6 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 29 Sep 2016 13:53:16 +0200
-Subject: [PATCH 18/33] Change the default log file in configuration.
+Subject: [PATCH 18/59] Change the default log file in configuration.
 
 Previous "default" value was wrong.
 tunables.c:262 => install_str_setting("/var/log/xferlog",
@@ -39,5 +39,5 @@ index ae6c6c9..39d1955 100644
  # If you want, you can have your log file in standard ftpd xferlog format.
  # Note that the default log file location is /var/log/xferlog in this case.
 -- 
-2.7.4
+2.14.4
 

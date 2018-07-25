@@ -1,7 +1,7 @@
 From 721de88621100f6ed33f1602415bc249f3ed3219 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 10:22:32 +0100
-Subject: [PATCH 19/33] Introduce reverse_lookup_enable option.
+Subject: [PATCH 19/59] Introduce reverse_lookup_enable option.
 
 vsftpd can transform IP address into hostname before
 PAM authentication. You can disable it to prevent
@@ -88,10 +88,12 @@ diff --git a/vsftpd.conf.5 b/vsftpd.conf.5
 index 72bb86f..fb6324e 100644
 --- a/vsftpd.conf.5
 +++ b/vsftpd.conf.5
-@@ -425,6 +425,15 @@ http://scarybeastsecurity.blogspot.com/2009/02/vsftpd-210-released.html
+@@ -423,6 +423,15 @@ so you may want to disable it. For a discussion of the consequences, see
+ http://scarybeastsecurity.blogspot.com/2009/02/vsftpd-210-released.html
+ (Added in v2.1.0).
  
- Default: YES
- .TP
++Default: YES
++.TP
 +.B reverse_lookup_enable
 +Set to YES if you want vsftpd to transform the ip address into the hostname,
 +before pam authentication. This is useful if you use pam_access including the
@@ -99,11 +101,9 @@ index 72bb86f..fb6324e 100644
 +for some hostname is available and the name server doesn't respond for a while,
 +you should set this to NO to avoid a performance issue.
 +
-+Default: YES
-+.TP
+ Default: YES
+ .TP
  .B run_as_launching_user
- Set to YES if you want vsftpd to run as the user which launched vsftpd. This is
- useful where root access is not available. MASSIVE WARNING! Do NOT enable this
 -- 
-2.7.4
+2.14.4
 

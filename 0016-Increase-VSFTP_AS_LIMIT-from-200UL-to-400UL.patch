@@ -1,7 +1,7 @@
 From 048208a4db5d7164d89ba5d7545e281d0a3472d3 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 15:35:59 +0200
-Subject: [PATCH 16/33] Increase VSFTP_AS_LIMIT from 200UL to 400UL.
+Subject: [PATCH 16/59] Increase VSFTP_AS_LIMIT from 200UL to 400UL.
 
 When using a PAM module to get users from LDAP or database the old
 limit was insufficient.
@@ -23,5 +23,5 @@ index ca11eac..bde3232 100644
  #endif /* VSF_DEFS_H */
  
 -- 
-2.7.4
+2.14.4
 

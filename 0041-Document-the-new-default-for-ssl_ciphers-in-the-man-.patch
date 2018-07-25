@@ -1,7 +1,7 @@
 From 2369d1ea5144d525d315aba90da528e7d9bfd1cc Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Thu, 21 Dec 2017 14:19:18 +0100
-Subject: [PATCH 41/41] Document the new default for ssl_ciphers in the man
+Subject: [PATCH 41/59] Document the new default for ssl_ciphers in the man
  page
 
 Related: rhbz#1483970
@@ -27,5 +27,5 @@ index 3ca55e4..2a7662e 100644
  .B user_config_dir
  This powerful option allows the override of any config option specified in
 -- 
-2.14.3
+2.14.4
 

@@ -1,7 +1,7 @@
 From 1203b943b369651d96d057f8190f14f015e6ff0b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Tue, 6 Feb 2018 13:30:44 +0100
-Subject: [PATCH 49/49] Add new filename generation algorithm for STOU command
+Subject: [PATCH 49/59] Add new filename generation algorithm for STOU command
 
 A new configuration option 'better_stou' can be used to enable
 a better algorithm for generating unique filenames.
@@ -318,5 +318,5 @@ index 43b0435..6911a73 100644
  .TP
  .B anon_mkdir_write_enable
 -- 
-2.14.3
+2.14.4
 

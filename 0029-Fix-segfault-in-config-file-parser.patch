@@ -1,7 +1,7 @@
 From 34b9e1d10c6be736f1b20be8795c655446f38c5e Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 13:14:55 +0100
-Subject: [PATCH 29/33] Fix segfault in config file parser.
+Subject: [PATCH 29/59] Fix segfault in config file parser.
 
 ---
  str.c | 2 +-
@@ -21,5 +21,5 @@ index 41b27db..82b8ae4 100644
  
  void
 -- 
-2.7.4
+2.14.4
 

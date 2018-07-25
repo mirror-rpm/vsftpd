@@ -1,7 +1,7 @@
 From 75c172596aa9e7a9f32062579f7f98783341c924 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 10:17:17 +0200
-Subject: [PATCH 08/33] Write denied logins into the log.
+Subject: [PATCH 08/59] Write denied logins into the log.
 
 This patch adds a new option 'userlist_log'. If enabled,
 every login denial based on the user list will be logged.
@@ -127,21 +127,21 @@ diff --git a/vsftpd.conf.5 b/vsftpd.conf.5
 index 5e46a2f..9d767b1 100644
 --- a/vsftpd.conf.5
 +++ b/vsftpd.conf.5
-@@ -588,6 +588,14 @@ Self-signed certs do not constitute OK validation. (New in v2.0.6).
+@@ -586,6 +586,14 @@ Default: NO
+ If set to yes, all SSL client certificates received must validate OK.
+ Self-signed certs do not constitute OK validation. (New in v2.0.6).
  
- Default: NO
- .TP
++Default: NO
++.TP
 +.B userlist_log
 +This option is examined if
 +.BR userlist_enable
 +is activated. If enabled, every login denial based on the user list will be
 +logged.
 +
-+Default: NO
-+.TP
+ Default: NO
+ .TP
  .B virtual_use_local_privs
- If enabled, virtual users will use the same privileges as local users. By
- default, virtual users will use the same privileges as anonymous users, which
 -- 
-2.7.4
+2.14.4
 

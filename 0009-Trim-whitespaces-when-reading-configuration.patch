@@ -1,7 +1,7 @@
 From d024bc27cee40f21e6a3841266062408c44e56fb Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 10:35:54 +0200
-Subject: [PATCH 09/33] Trim whitespaces when reading configuration.
+Subject: [PATCH 09/59] Trim whitespaces when reading configuration.
 
 ---
  parseconf.c |  2 +-
@@ -95,5 +95,5 @@ index c34778c..c2ddd15 100644
  void vsf_sysutil_memcpy(void* p_dest, const void* p_src,
                          const unsigned int size);
 -- 
-2.7.4
+2.14.4
 

@@ -1,7 +1,7 @@
 From 7d4b76abb437184fa692533cb5537318026a30e8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Fri, 24 Nov 2017 11:26:37 +0100
-Subject: [PATCH 39/39] Improve documentation of ASCII mode in the man page
+Subject: [PATCH 39/59] Improve documentation of ASCII mode in the man page
 
 ---
  vsftpd.conf.5 | 6 ++++++
@@ -30,5 +30,5 @@ index d1f0db5..3ca55e4 100644
  Default: NO
  .TP
 -- 
-2.14.3
+2.14.4
 

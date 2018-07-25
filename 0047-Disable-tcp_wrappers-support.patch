@@ -1,7 +1,7 @@
 From b383ec42bb750419fea102fccf36af5216145eb2 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Fri, 5 Jan 2018 09:17:13 +0100
-Subject: [PATCH 47/48] Disable tcp_wrappers support
+Subject: [PATCH 47/59] Disable tcp_wrappers support
 
 Resolves: rhbz#1518796
 ---
@@ -45,5 +45,5 @@ index e70bc6d..6b8eebb 100644
  userlist_enable=YES
 -tcp_wrappers=YES
 -- 
-2.14.3
+2.14.4
 

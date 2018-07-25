@@ -1,7 +1,7 @@
 From fff93602a4b252be8d674e27083dde68a7acf038 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Tue, 6 Sep 2016 13:46:03 +0200
-Subject: [PATCH 04/33] Use /etc/vsftpd/ dir for config files instead of /etc.
+Subject: [PATCH 04/59] Use /etc/vsftpd/ dir for config files instead of /etc.
 
 ---
  EXAMPLE/INTERNET_SITE/README         |  6 +++---
@@ -479,5 +479,5 @@ index fcc6022..5e46a2f 100644
  .B vsftpd_log_file
  This option is the name of the file to which we write the vsftpd style
 -- 
-2.7.4
+2.14.4
 

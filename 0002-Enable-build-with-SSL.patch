@@ -1,7 +1,7 @@
 From 6fe24bc56694808ac7f8038855883a971967f0fb Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Tue, 6 Sep 2016 13:40:53 +0200
-Subject: [PATCH 02/33] Enable build with SSL.
+Subject: [PATCH 02/59] Enable build with SSL.
 
 ---
  builddefs.h | 2 +-
@@ -21,5 +21,5 @@ index e908352..63cc62b 100644
  #endif /* VSF_BUILDDEFS_H */
  
 -- 
-2.7.4
+2.14.4
 

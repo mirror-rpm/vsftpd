@@ -1,7 +1,7 @@
 From b83be8b4f86bf1a8a6de4802a9486d084c4a46cd Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Tue, 29 Aug 2017 10:32:16 +0200
-Subject: [PATCH 40/40] Use system wide crypto policy
+Subject: [PATCH 40/59] Use system wide crypto policy
 
 Resolves: rhbz#1483970
 ---
@@ -23,5 +23,5 @@ index 5440c00..354251c 100644
    install_str_setting(0, &tunable_dsa_private_key_file);
    install_str_setting(0, &tunable_ca_certs_file);
 -- 
-2.14.3
+2.14.4
 

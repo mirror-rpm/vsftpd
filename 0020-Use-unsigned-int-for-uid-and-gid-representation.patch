@@ -1,7 +1,7 @@
 From dcaaf1e0dd3985e229a87de18b83f301d30b6ce9 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 10:31:39 +0100
-Subject: [PATCH 20/33] Use unsigned int for uid and gid representation.
+Subject: [PATCH 20/59] Use unsigned int for uid and gid representation.
 
 ---
  ls.c      |  4 ++--
@@ -246,5 +246,5 @@ index bfc92cb..79b5514 100644
  void vsf_sysutil_setegid(const struct vsf_sysutil_user* p_user);
  void vsf_sysutil_seteuid_numeric(int uid);
 -- 
-2.7.4
+2.14.4
 

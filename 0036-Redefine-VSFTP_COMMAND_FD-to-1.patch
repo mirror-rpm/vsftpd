@@ -1,7 +1,7 @@
 From 18e0ab25a0d66088728b506cf64f5545637eda26 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Tue, 5 Sep 2017 14:26:08 +0200
-Subject: [PATCH 36/36] Redefine VSFTP_COMMAND_FD to 1
+Subject: [PATCH 36/59] Redefine VSFTP_COMMAND_FD to 1
 
 Redefine VSFTP_COMMAND_FD to 1 (stdout) so that error messages generated
 during startup are picked up by systemd.
@@ -25,5 +25,5 @@ index bde3232..315f0f0 100644
  #define VSFTP_PASSWORD_MAX      128
  #define VSFTP_USERNAME_MAX      128
 -- 
-2.9.5
+2.14.4
 

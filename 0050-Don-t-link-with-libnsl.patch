@@ -1,7 +1,7 @@
 From f8663f35d5d150f0533bb052e48306b9a5111d87 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Tue, 6 Feb 2018 18:04:53 +0100
-Subject: [PATCH 50/50] Don't link with libnsl
+Subject: [PATCH 50/59] Don't link with libnsl
 
 Don't link with libnsl. It builds just fine without it and
 vsf_findlibs.sh enables it only when tcp_wrappers is enabled.
@@ -23,5 +23,5 @@ index 612994e..0f7411c 100644
  LDFLAGS	=	-fPIE -pie -Wl,-z,relro -Wl,-z,now
  
 -- 
-2.14.3
+2.14.4
 

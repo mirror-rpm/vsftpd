@@ -1,7 +1,7 @@
 From 01b646d2af0ed885d01d31a6479898a3c423a630 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Thu, 26 Apr 2018 10:00:19 +0200
-Subject: [PATCH 1/4] Fix rDNS with IPv6
+Subject: [PATCH 52/59] Fix rDNS with IPv6
 
 Previously IPv6 addresses were not translated to hostnames for PAM to use.
 ---
@@ -191,5 +191,5 @@ index 7a59f13..2df14ed 100644
  void vsf_sysutil_activate_keepalive(int fd);
  void vsf_sysutil_rcvtimeo(int fd);
 -- 
-2.14.3
+2.14.4
 

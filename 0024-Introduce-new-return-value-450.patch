@@ -1,7 +1,7 @@
 From 1d5cdf309387ff92988ab17d746f015d833a4b92 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 11:08:52 +0100
-Subject: [PATCH 24/33] Introduce new return value 450:
+Subject: [PATCH 24/59] Introduce new return value 450:
 
  *450 Requested file action not taken.
       File unavailable (e.g., file busy).
@@ -73,5 +73,5 @@ index 79b5514..c145bdf 100644
  enum EVSFSysUtilError vsf_sysutil_get_error(void);
  
 -- 
-2.7.4
+2.14.4
 

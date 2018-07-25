@@ -1,7 +1,7 @@
 From 423cbf4ddca6578b87e0f8a3fc425688cd1ca89c Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Tue, 6 Sep 2016 16:18:39 +0200
-Subject: [PATCH 06/33] Close stdin/out/err before listening for incoming
+Subject: [PATCH 06/59] Close stdin/out/err before listening for incoming
  connections.
 
 When running vsftpd as a stand-alone FTP daemon, vsftpd
@@ -31,5 +31,5 @@ index ba01ab1..e0f2d5b 100644
    if (vsf_sysutil_retval_is_error(retval))
    {
 -- 
-2.7.4
+2.14.4
 

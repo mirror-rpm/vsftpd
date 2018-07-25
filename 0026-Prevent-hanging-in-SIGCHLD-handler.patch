@@ -1,7 +1,7 @@
 From 1e65a0a15f819b8bf1b551bd84f71d0da1f5a00c Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 13:02:27 +0100
-Subject: [PATCH 26/33] Prevent hanging in SIGCHLD handler.
+Subject: [PATCH 26/59] Prevent hanging in SIGCHLD handler.
 
 vsftpd can now handle pam_exec.so in pam.d config without hanging
 in SIGCHLD handler.
@@ -77,5 +77,5 @@ index 33d84dc..b1891e7 100644
    else
    {
 -- 
-2.7.4
+2.14.4
 

@@ -1,7 +1,7 @@
 From 221f35f302d53f5a89f8e79592492e7cb322e81a Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Thu, 26 Oct 2017 13:08:32 +0200
-Subject: [PATCH 37/37] Document the relationship of text_userdb_names and
+Subject: [PATCH 37/59] Document the relationship of text_userdb_names and
  chroot_local_user
 
 Note in vsftpd.conf(5) that text_userdb_names may not work when
@@ -25,5 +25,5 @@ index a3d569e..45b3f9c 100644
  Default: NO
  .TP
 -- 
-2.14.3
+2.14.4
 

@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Very Secure Ftp Daemon
 
 Group:    System Environment/Daemons
@@ -79,14 +79,15 @@ Patch47: 0047-Disable-tcp_wrappers-support.patch
 Patch48: 0048-Fix-default-value-of-strict_ssl_read_eof-in-man-page.patch
 Patch49: 0049-Add-new-filename-generation-algorithm-for-STOU-comma.patch
 Patch50: 0050-Don-t-link-with-libnsl.patch
-Patch51: 0001-Improve-documentation-of-better_stou-in-the-man-page.patch
-Patch52: 0001-Fix-rDNS-with-IPv6.patch
-Patch53: 0002-Always-do-chdir-after-chroot.patch
-Patch54: 0003-vsf_sysutil_rcvtimeo-Check-return-value-of-setsockop.patch
-Patch55: 0004-vsf_sysutil_get_tz-Check-the-return-value-of-syscall.patch
-Patch56: 0001-Log-die-calls-to-syslog.patch
-Patch57: 0002-Improve-error-message-when-max-number-of-bind-attemp.patch
-Patch58: 0003-Make-the-max-number-of-bind-retries-tunable.patch
+Patch51: 0051-Improve-documentation-of-better_stou-in-the-man-page.patch
+Patch52: 0052-Fix-rDNS-with-IPv6.patch
+Patch53: 0053-Always-do-chdir-after-chroot.patch
+Patch54: 0054-vsf_sysutil_rcvtimeo-Check-return-value-of-setsockop.patch
+Patch55: 0055-vsf_sysutil_get_tz-Check-the-return-value-of-syscall.patch
+Patch56: 0056-Log-die-calls-to-syslog.patch
+Patch57: 0057-Improve-error-message-when-max-number-of-bind-attemp.patch
+Patch58: 0058-Make-the-max-number-of-bind-retries-tunable.patch
+Patch59: 0059-Fix-SEGFAULT-when-running-in-a-container-as-PID-1.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -155,6 +156,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Jul 25 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-27
+- Fix a segfault when running as PID 1
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 

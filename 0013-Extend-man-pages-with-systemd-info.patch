@@ -1,7 +1,7 @@
 From 813a4bc45d45f4af94c699893cb2d2ba998d5d31 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 11:53:07 +0200
-Subject: [PATCH 13/33] Extend man pages with systemd info.
+Subject: [PATCH 13/59] Extend man pages with systemd info.
 
 Man pages now reflect how is vsftpd used as
 systemd service.
@@ -82,5 +82,5 @@ index 9d767b1..0744f85 100644
  The format of vsftpd.conf is very simple. Each line is either a comment or
  a directive. Comment lines start with a # and are ignored. A directive line
 -- 
-2.7.4
+2.14.4
 

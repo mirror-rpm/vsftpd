@@ -1,7 +1,7 @@
 From 75c942c77aa575143c5b75637e64a925ad12641a Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Thu, 21 Dec 2017 16:38:40 +0100
-Subject: [PATCH 43/43] Enable only TLSv1.2 by default
+Subject: [PATCH 43/59] Enable only TLSv1.2 by default
 
 Disable TLSv1 and TLSv1.1 - enable only TLSv1.2 by default.
 ---
@@ -49,5 +49,5 @@ index 2a7662e..df14027 100644
  .B ssl_tlsv1_2
  Only applies if
 -- 
-2.14.3
+2.14.4
 

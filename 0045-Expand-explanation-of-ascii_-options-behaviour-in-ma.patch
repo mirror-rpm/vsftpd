@@ -1,7 +1,7 @@
 From 61327320b54a59e319c522151f7a61c74ec94f2f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Tue, 2 Jan 2018 16:25:55 +0100
-Subject: [PATCH 45/46] Expand explanation of ascii_* options behaviour in man
+Subject: [PATCH 45/59] Expand explanation of ascii_* options behaviour in man
  page
 
 ---
@@ -48,5 +48,5 @@ index df14027..a5abeb2 100644
  Default: NO
  .TP
 -- 
-2.14.3
+2.14.4
 

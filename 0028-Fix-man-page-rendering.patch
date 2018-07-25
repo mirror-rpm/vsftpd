@@ -1,7 +1,7 @@
 From ea99be1a7a5973bbe8ed798b65abe5ce3b92f5df Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 13:12:52 +0100
-Subject: [PATCH 28/33] Fix man page rendering.
+Subject: [PATCH 28/59] Fix man page rendering.
 
 ---
  vsftpd.conf.5 | 3 ++-
@@ -22,5 +22,5 @@ index 31d317f..cf1ae34 100644
  (New in v2.0.7).
  
 -- 
-2.7.4
+2.14.4
 

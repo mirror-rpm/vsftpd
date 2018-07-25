@@ -1,7 +1,7 @@
 From 4922e60589326540b2ee4f0bdfd6cb95f645f3d5 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Fri, 18 Nov 2016 10:23:29 +0100
-Subject: [PATCH] Turn off seccomp sandbox, because it is too strict.
+Subject: [PATCH 34/59] Turn off seccomp sandbox, because it is too strict.
 
 ---
  tunables.c | 2 +-
@@ -21,5 +21,5 @@ index 78f2bcd..5440c00 100644
  
    tunable_accept_timeout = 60;
 -- 
-2.7.4
+2.14.4
 

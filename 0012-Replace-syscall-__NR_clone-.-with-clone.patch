@@ -1,7 +1,7 @@
 From 0c3a1123c391995ab46cfde603fa025ff180a819 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 11:43:54 +0200
-Subject: [PATCH 12/33] Replace syscall(__NR_clone ..) with clone ()
+Subject: [PATCH 12/59] Replace syscall(__NR_clone ..) with clone ()
 
 in order to fix incorrect order of params on s390 arch
 ---
@@ -31,5 +31,5 @@ index b2782da..3bbabaa 100644
      {
        if (ret == 0)
 -- 
-2.7.4
+2.14.4
 

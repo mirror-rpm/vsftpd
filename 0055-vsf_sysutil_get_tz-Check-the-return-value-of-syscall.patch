@@ -1,7 +1,7 @@
 From c7ac05fdf2a7b53d901bfc3afeb9a61916aaaaf1 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Wed, 9 May 2018 20:26:37 +0200
-Subject: [PATCH 4/4] vsf_sysutil_get_tz: Check the return value of syscalls
+Subject: [PATCH 55/59] vsf_sysutil_get_tz: Check the return value of syscalls
 
 Check the return value of syscalls. There's always the possibility that
 they'll fail. (Failure of close() is not handled though, apart from EINTR.
@@ -104,5 +104,5 @@ index de5f876..fd07d99 100644
  
    return ret_tz;
 -- 
-2.14.3
+2.14.4
 

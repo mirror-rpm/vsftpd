@@ -1,7 +1,7 @@
 From 6224ecc5ac209323baa775880c0602c3fde3590a Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 13:10:41 +0100
-Subject: [PATCH 27/33] Delete files when upload fails.
+Subject: [PATCH 27/59] Delete files when upload fails.
 
 Previously the uploaded file wasn't removed when the network was
 disconnected. Now it is successfully deleted.
@@ -104,10 +104,11 @@ diff --git a/sysutil.c b/sysutil.c
 index 099748f..42bcdf8 100644
 --- a/sysutil.c
 +++ b/sysutil.c
-@@ -681,6 +681,16 @@ vsf_sysutil_activate_keepalive(int fd)
+@@ -680,6 +680,16 @@ vsf_sysutil_activate_keepalive(int fd)
+   }
  }
  
- void
++void
 +vsf_sysutil_rcvtimeo(int fd)
 +{
 +  struct timeval tv;
@@ -117,10 +118,9 @@ index 099748f..42bcdf8 100644
 +  setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(struct timeval));
 +}
 +
-+void
+ void
  vsf_sysutil_activate_reuseaddr(int fd)
  {
-   int reuseaddr = 1;
 diff --git a/sysutil.h b/sysutil.h
 index 13153cd..2886bbc 100644
 --- a/sysutil.h
@@ -134,5 +134,5 @@ index 13153cd..2886bbc 100644
  void vsf_sysutil_activate_reuseaddr(int fd);
  void vsf_sysutil_set_nodelay(int fd);
 -- 
-2.7.4
+2.14.4
 

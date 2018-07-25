@@ -1,7 +1,7 @@
 From 548375b2122f83771dc0b8571f16e5b5adabba98 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Wed, 7 Sep 2016 10:04:31 +0200
-Subject: [PATCH 07/33] Make filename filters smarter.
+Subject: [PATCH 07/59] Make filename filters smarter.
 
 In the original version vsftpd was not able to prevent
 users from downloading for instance /etc/passwd by
@@ -98,5 +98,5 @@ index ab0a9a4..3a21b50 100644
  /* PURPOSE: Extract a line of text (delimited by \n or EOF) from a string
   * buffer, starting at character position 'p_pos'. The extracted line will
 -- 
-2.7.4
+2.14.4
 

@@ -1,7 +1,7 @@
 From ffaeebcfdb56ba75392af21c68c0bac78a226b55 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Tue, 2 Jan 2018 09:54:43 +0100
-Subject: [PATCH 44/44] Disable anonymous_enable in default config file
+Subject: [PATCH 44/59] Disable anonymous_enable in default config file
 
 Resolves: rhbz#1338637
 ---
@@ -22,5 +22,5 @@ index 39d1955..4626c1b 100644
  # Uncomment this to allow local users to log in.
  # When SELinux is enforcing check for SE bool ftp_home_dir
 -- 
-2.14.3
+2.14.4
 

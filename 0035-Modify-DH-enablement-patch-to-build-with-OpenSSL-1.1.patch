@@ -1,7 +1,7 @@
 From 6c8dd87f311e411bcb1c72c1c780497881a5621c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Mon, 4 Sep 2017 11:32:03 +0200
-Subject: [PATCH 35/35] Modify DH enablement patch to build with OpenSSL 1.1
+Subject: [PATCH 35/59] Modify DH enablement patch to build with OpenSSL 1.1
 
 ---
  ssl.c | 41 ++++++++++++++++++++++++++++++++++++++---
@@ -70,5 +70,5 @@ index ba8a613..09ec96a 100644
        return NULL;
      }
 -- 
-2.9.5
+2.14.4
 

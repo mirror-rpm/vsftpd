@@ -1,7 +1,7 @@
 From ca27e6e34d89fc247a164ed7330735644f97d7d8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
 Date: Wed, 9 May 2018 20:15:29 +0200
-Subject: [PATCH 3/4] vsf_sysutil_rcvtimeo: Check return value of setsockopt
+Subject: [PATCH 54/59] vsf_sysutil_rcvtimeo: Check return value of setsockopt
 
 ---
  sysutil.c | 7 ++++++-
@@ -29,5 +29,5 @@ index 3014c05..de5f876 100644
  
  void
 -- 
-2.14.3
+2.14.4
 

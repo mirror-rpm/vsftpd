@@ -1,7 +1,7 @@
 From 7bd573d76e9c1996ad5a96f0289731a253a24301 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Tue, 6 Sep 2016 13:35:51 +0200
-Subject: [PATCH 01/33] Don't use the provided script to locate libraries.
+Subject: [PATCH 01/59] Don't use the provided script to locate libraries.
 
 This branch is Fedora (RHEL) specific, so we know what
 libraries we have and want to use.
@@ -23,5 +23,5 @@ index c63ed1b..98118dc 100644
  LDFLAGS	=	-fPIE -pie -Wl,-z,relro -Wl,-z,now
  
 -- 
-2.7.4
+2.14.4
 

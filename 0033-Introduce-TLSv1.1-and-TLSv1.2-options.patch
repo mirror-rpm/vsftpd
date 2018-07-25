@@ -1,7 +1,7 @@
 From 01bef55a1987700af3d43cdc5f5be88d3843ab85 Mon Sep 17 00:00:00 2001
 From: Martin Sehnoutka <msehnout@redhat.com>
 Date: Thu, 17 Nov 2016 13:36:17 +0100
-Subject: [PATCH 33/33] Introduce TLSv1.1 and TLSv1.2 options.
+Subject: [PATCH 33/59] Introduce TLSv1.1 and TLSv1.2 options.
 
 Users can now enable a specific version of TLS protocol.
 ---
@@ -149,5 +149,5 @@ index cf1ae34..a3d569e 100644
  .B user_config_dir
  This powerful option allows the override of any config option specified in
 -- 
-2.7.4
+2.14.4
 
