@@ -5,7 +5,6 @@ Version: 3.0.3
 Release: 28%{?dist}
 Summary: Very Secure Ftp Daemon
 
-Group:    System Environment/Daemons
 # OpenSSL link exception
 License:  GPLv2 with exceptions
 URL:      https://security.appspot.com/vsftpd.html
