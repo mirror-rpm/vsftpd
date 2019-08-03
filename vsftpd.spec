@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -87,6 +87,8 @@ Patch56: 0056-Log-die-calls-to-syslog.patch
 Patch57: 0057-Improve-error-message-when-max-number-of-bind-attemp.patch
 Patch58: 0058-Make-the-max-number-of-bind-retries-tunable.patch
 Patch59: 0059-Fix-SEGFAULT-when-running-in-a-container-as-PID-1.patch
+Patch61: 0001-Move-closing-standard-FDs-after-listen.patch
+Patch62: 0002-Prevent-recursion-in-bug.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -155,6 +157,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Sat Aug 03 2019 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-31
+- Fix segfault when listen() returns an error
+- Resolves: rhbz#1666380
+
 * Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
