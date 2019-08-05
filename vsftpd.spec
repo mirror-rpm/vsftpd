@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -89,6 +89,8 @@ Patch58: 0058-Make-the-max-number-of-bind-retries-tunable.patch
 Patch59: 0059-Fix-SEGFAULT-when-running-in-a-container-as-PID-1.patch
 Patch61: 0001-Move-closing-standard-FDs-after-listen.patch
 Patch62: 0002-Prevent-recursion-in-bug.patch
+Patch63: 0001-Set-s_uwtmp_inserted-only-after-record-insertion-rem.patch
+Patch64: 0002-Repeat-pututxline-if-it-fails-with-EINTR.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -157,6 +159,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Mon Aug 05 2019 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-32
+- Partially fix problem with bad utmp entries when pututxline() fails
+- Resolves: rhbz#1688848
+
 * Sat Aug 03 2019 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-31
 - Fix segfault when listen() returns an error
 - Resolves: rhbz#1666380
