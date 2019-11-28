@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -91,6 +91,7 @@ Patch61: 0001-Move-closing-standard-FDs-after-listen.patch
 Patch62: 0002-Prevent-recursion-in-bug.patch
 Patch63: 0001-Set-s_uwtmp_inserted-only-after-record-insertion-rem.patch
 Patch64: 0002-Repeat-pututxline-if-it-fails-with-EINTR.patch
+Patch65: 0001-Repeat-pututxline-until-it-succeeds-if-it-fails-with.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -159,6 +160,11 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Thu Nov 28 2019 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-33
+- Finish up the fix to the problem with bad utmp entries when pututxline() fails
+- Resolves: rhbz#1688852
+- Resolves: rhbz#1737433
+
 * Mon Aug 05 2019 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-32
 - Partially fix problem with bad utmp entries when pututxline() fails
 - Resolves: rhbz#1688848
