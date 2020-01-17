@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -103,9 +103,9 @@ cp %{SOURCE1} .
 
 %build
 %ifarch s390x sparcv9 sparc64
-make CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror" \
 %else
-make CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 %endif
         LINK="-pie -lssl" %{?_smp_mflags}
 
@@ -160,6 +160,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Jan 17 2020 Tom Stellard <tstellar@redhat.com> - 3.0.3-34
+- Use make_build macro
+
 * Thu Nov 28 2019 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-33
 - Finish up the fix to the problem with bad utmp entries when pututxline() fails
 - Resolves: rhbz#1688852
