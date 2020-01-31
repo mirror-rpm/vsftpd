@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -160,6 +160,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Fri Jan 17 2020 Tom Stellard <tstellar@redhat.com> - 3.0.3-34
 - Use make_build macro
 
