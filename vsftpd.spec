@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -92,6 +92,7 @@ Patch62: 0002-Prevent-recursion-in-bug.patch
 Patch63: 0001-Set-s_uwtmp_inserted-only-after-record-insertion-rem.patch
 Patch64: 0002-Repeat-pututxline-if-it-fails-with-EINTR.patch
 Patch65: 0001-Repeat-pututxline-until-it-succeeds-if-it-fails-with.patch
+Patch66: 0001-Fix-assignment-of-an-enumerator-of-a-different-type.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -160,6 +161,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Feb 07 2020 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-36
+- Fix build with gcc 10
+- Resolves: rhbz#1800239
+
 * Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 

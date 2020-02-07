@@ -1,0 +1,33 @@
+From 8882c5f7788fc2ea7cae824a7fa09b82782fc81e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ond=C5=99ej=20Lyson=C4=9Bk?= <olysonek@redhat.com>
+Date: Fri, 7 Feb 2020 11:51:46 +0100
+Subject: [PATCH] Fix assignment of an enumerator of a different type
+
+The kVSFSysStrOpenUnknown enumerator is not part of the
+EVSFSysUtilOpenMode enum. The assignment causes a build failure with
+gcc 10.
+
+The open_mode variable need not be initialized, because the switch
+statement either sets the variable or causes us to exit.
+
+Resolves: rhbz#1800239
+---
+ sysstr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sysstr.c b/sysstr.c
+index d86cdf1..ff2671b 100644
+--- a/sysstr.c
++++ b/sysstr.c
+@@ -74,7 +74,7 @@ str_chdir(const struct mystr* p_str)
+ int
+ str_open(const struct mystr* p_str, const enum EVSFSysStrOpenMode mode)
+ {
+-  enum EVSFSysUtilOpenMode open_mode = kVSFSysStrOpenUnknown;
++  enum EVSFSysUtilOpenMode open_mode;
+   switch (mode)
+   {
+     case kVSFSysStrOpenReadOnly:
+-- 
+2.24.1
+
