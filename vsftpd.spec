@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -95,6 +95,7 @@ Patch65: 0001-Repeat-pututxline-until-it-succeeds-if-it-fails-with.patch
 Patch66: 0001-Fix-assignment-of-an-enumerator-of-a-different-type.patch
 Patch67: 0001-Fix-timestamp-handling-in-MDTM.patch
 Patch68: 0002-Drop-an-unused-global-variable.patch
+Patch69: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -163,6 +164,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Tue Mar 17 2020 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-38
+- Removed a hint about the ftp_home_dir SELinux boolean from the config file
+- Resolves: rhbz#1623424
+
 * Thu Feb 13 2020 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-37
 - Fix timestamp handling in MDTM
 - Resolves: rhbz#1567855
