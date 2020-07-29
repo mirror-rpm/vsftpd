@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 38%{?dist}
+Release: 39%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -164,6 +164,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Tue Mar 17 2020 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-38
 - Removed a hint about the ftp_home_dir SELinux boolean from the config file
 - Resolves: rhbz#1623424
