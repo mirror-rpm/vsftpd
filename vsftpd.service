@@ -1,6 +1,6 @@
 [Unit]
 Description=Vsftpd ftp daemon
-After=network.target
+After=network-online.target
 
 [Service]
 Type=forking
