@@ -92,10 +92,10 @@ Patch62: 0002-Prevent-recursion-in-bug.patch
 Patch63: 0001-Set-s_uwtmp_inserted-only-after-record-insertion-rem.patch
 Patch64: 0002-Repeat-pututxline-if-it-fails-with-EINTR.patch
 Patch65: 0001-Repeat-pututxline-until-it-succeeds-if-it-fails-with.patch
-Patch66: 0001-Fix-assignment-of-an-enumerator-of-a-different-type.patch
 Patch67: 0001-Fix-timestamp-handling-in-MDTM.patch
 Patch68: 0002-Drop-an-unused-global-variable.patch
 Patch69: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
+Patch70: fix-str_open.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
