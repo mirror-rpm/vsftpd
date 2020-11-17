@@ -111,7 +111,7 @@ cp %{SOURCE1} .
 %else
 %make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 %endif
-        LINK="-pie -lssl" %{?_smp_mflags}
+        LINK="-pie -lssl $RPM_LD_FLAGS" %{?_smp_mflags}
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_sbindir}
