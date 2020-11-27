@@ -164,6 +164,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Nov 27 2020 Timm Bäder<tbaeder@redhat.com> - 3.0.3-41
+- Fix str_open() so it doesn't warn when compiled with clang
+- Pass $RPM_LD_FLAGS when linking
+
 * Mon Nov 02 2020 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-40
 - Unit files fixed "After=network-online.target"
 
