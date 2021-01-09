@@ -19,6 +19,7 @@ Source8:  vsftpd@.service
 Source9:  vsftpd.target
 Source10: vsftpd-generator
 
+BuildRequires: make
 BuildRequires: pam-devel
 BuildRequires: libcap-devel
 BuildRequires: openssl-devel
