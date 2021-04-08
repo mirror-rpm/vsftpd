@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 43%{?dist}
+Release: 44%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -97,6 +97,8 @@ Patch67: 0001-Fix-timestamp-handling-in-MDTM.patch
 Patch68: 0002-Drop-an-unused-global-variable.patch
 Patch69: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
 Patch70: fix-str_open.patch
+# upstream commits 56402c0, 8b82e73
+Patch71: vsftpd-3.0.3-enable_wc_logs-replace_unprintable_with_hex.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -165,6 +167,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Apr 8 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-44
+- Enable support for wide-character strings in logs
+- Replace unprintables with HEX code, not question marks
+
 * Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.3-43
 - Rebuilt for updated systemd-rpm-macros
   See https://pagure.io/fesco/issue/2583.
