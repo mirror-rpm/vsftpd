@@ -167,7 +167,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
-* Wed Apr 8 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-44
+* Thu Apr 8 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-44
 - Enable support for wide-character strings in logs
 - Replace unprintables with HEX code, not question marks
 

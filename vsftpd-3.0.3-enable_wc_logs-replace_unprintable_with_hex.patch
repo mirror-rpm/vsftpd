@@ -31,7 +31,7 @@ index 3cfe7da..3729818 100644
  };
  
 diff --git a/str.c b/str.c
-index 82b8ae4..a4e81d6 100644
+index 82b8ae4..c03e7d8 100644
 --- a/str.c
 +++ b/str.c
 @@ -20,6 +20,11 @@
@@ -94,7 +94,7 @@ index 82b8ae4..a4e81d6 100644
 +  {
 +    if (!iswprint(pwc))
 +    {
-+      for (unsigned int i = 0; i < len; i++)
++      for (int i = 0; i < len; i++)
 +      {
 +        ups[up_count++] = current++;
 +      }
