@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 44%{?dist}
+Release: 45%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -167,6 +167,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Thu Apr 8 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-44
 - Enable support for wide-character strings in logs
 - Replace unprintables with HEX code, not question marks
