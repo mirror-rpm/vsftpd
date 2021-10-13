@@ -109,10 +109,13 @@ scratch.
 cp %{SOURCE1} .
 
 %build
+# temporary ignore deprecated warnings to be able to build against OpenSSL 3.0
+%define ignore_deprecated -Wno-deprecated-declarations
+
 %ifarch s390x sparcv9 sparc64
-%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror %ignore_deprecated" \
 %else
-%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror %ignore_deprecated" \
 %endif
         LINK="-pie -lssl $RPM_LD_FLAGS" %{?_smp_mflags}
 
