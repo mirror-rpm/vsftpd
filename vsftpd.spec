@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 47%{?dist}
+Release: 48%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -99,6 +99,7 @@ Patch69: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
 Patch70: fix-str_open.patch
 # upstream commits 56402c0, 8b82e73
 Patch71: vsftpd-3.0.3-enable_wc_logs-replace_unprintable_with_hex.patch
+Patch72: vsftpd-3.0.3-ALPACA.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -170,6 +171,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Oct 13 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-48
+- ALPACA fix backported from upstram 3.0.5 version
+- Resolves: rhbz#1975648
+
 * Wed Oct 13 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-47
 - Temporary pass -Wno-deprecated-declarations to gcc to ignore
   deprecated warnings to be able to build against OpenSSL-3.0
