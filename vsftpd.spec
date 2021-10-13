@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 46%{?dist}
+Release: 47%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -170,6 +170,11 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Oct 13 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-47
+- Temporary pass -Wno-deprecated-declarations to gcc to ignore
+  deprecated warnings to be able to build against OpenSSL-3.0
+- Resolves: rhbz#1962603
+
 * Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 3.0.3-46
 - Rebuilt with OpenSSL 3.0.0
 
