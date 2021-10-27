@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.3
-Release: 48%{?dist}
+Release: 49%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -100,6 +100,7 @@ Patch70: fix-str_open.patch
 # upstream commits 56402c0, 8b82e73
 Patch71: vsftpd-3.0.3-enable_wc_logs-replace_unprintable_with_hex.patch
 Patch72: vsftpd-3.0.3-ALPACA.patch
+Patch73: vsftpd-3.0.3-option_to_disable_TLSv1_3.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -171,6 +172,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Wed Oct 27 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-49
+- add option to disable TLSv1.3
+- Resolves: rhbz#2017705
+
 * Wed Oct 13 2021 Artem Egorenkov <aegorenk@redhat.com> - 3.0.3-48
 - ALPACA fix backported from upstram 3.0.5 version
 - Resolves: rhbz#1975648
